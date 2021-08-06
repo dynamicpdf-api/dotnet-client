@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  
+
+  <ItemGroup>
+    <Compile Remove="CloudDlexInput.cs" />
+    <Compile Remove="CloudImageInput.cs" />
+    <Compile Remove="CloudPdfInput.cs" />
+    <Compile Remove="GlobalSetttings.cs" />
+    <Compile Remove="InputResourceType.cs" />
+    <Compile Remove="PdfDlexEndPoint.cs" />
+    <Compile Remove="PdfEndpointSchema.cs" />
+    <Compile Remove="PdfImageEndPoint.cs" />
+    <Compile Remove="PdfMergeEndPoint.cs" />
+    <Compile Remove="ResponseStatus.cs" />
+    <Compile Remove="UploadDlexInput.cs" />
+    <Compile Remove="UploadImageInput.cs" />
+    <Compile Remove="UploadPdfInput.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RestSharp" Version="106.12.0" />
+  </ItemGroup>
+
+</Project>
