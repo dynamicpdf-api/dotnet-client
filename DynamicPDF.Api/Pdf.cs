@@ -176,7 +176,7 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
-        /// Returns a <see cref="ImageInput"/> object containing the input pdf.
+        /// Returns an <see cref="ImageInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="resource">The resource of type <see cref="ImageResource"/>.</param>
         public ImageInput AddImage(ImageResource resource)
@@ -187,7 +187,7 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
-        /// Returns a <see cref="ImageInput"/> object containing the input pdf.
+        /// Returns an <see cref="ImageInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="cloudResourcePath">The resource path in cloud resource manager.</param>
         public ImageInput AddImage(string cloudResourcePath)

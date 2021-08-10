@@ -33,9 +33,9 @@ namespace DynamicPDF.Api.Elements
         public float? Height { get; set; }
 
         /// <summary>
-        /// Gets or sets if the barcode is a UCC / EAN Code 128 barcode.
+        /// Gets or sets a boolean representing if the barcode is a UCC / EAN Code 128 barcode.
         /// </summary>
-        /// <remarks>If <b>true</b> a FNC1 code will be the first character in the barcode.</remarks>
+        /// <remarks>If <b>true</b> an FNC1 code will be the first character in the barcode.</remarks>
         public bool? UccEan128 { get; set; }
 
         /// <summary>

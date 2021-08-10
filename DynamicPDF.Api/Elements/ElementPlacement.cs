@@ -4,38 +4,38 @@ using Newtonsoft.Json.Converters;
 namespace DynamicPDF.Api.Elements
 {
     /// <summary>
-    /// Represents a page element's placement.
+    /// Represents the placement of a page element.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum ElementPlacement
     {
         /// <summary>
-        /// Represents a top left.
+        /// Represents top left placement.
         /// </summary>
         TopLeft,
 
         /// <summary>
-        /// Represents a top center.
+        /// Represents top center placement.
         /// </summary>
         TopCenter,
 
         /// <summary>
-        /// Represents a top right.
+        /// Represents top right placement.
         /// </summary>
         TopRight,
 
         /// <summary>
-        /// Represents a bottom left.
+        /// Represents bottom left placement.
         /// </summary>
         BottomLeft,
 
         /// <summary>
-        /// Represents a bottom center.
+        /// Represents bottom center placement.
         /// </summary>
         BottomCenter,
 
         /// <summary>
-        /// Represents a bottom right.
+        /// Represents bottom right placement.
         /// </summary>
         BottomRight
     }

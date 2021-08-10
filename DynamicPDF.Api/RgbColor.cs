@@ -456,6 +456,7 @@
 
         /// <summary>Gets the color turquoise.</summary>
         public static RgbColor Turquoise { get { return new RgbColor("Turquoise"); } }
+
         /// <summary>Gets the color violet.</summary>
         public static RgbColor Violet { get { return new RgbColor("Violet"); } }
 

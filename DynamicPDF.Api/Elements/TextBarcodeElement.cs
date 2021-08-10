@@ -23,7 +23,7 @@ namespace DynamicPDF.Api.Elements
         internal string TextColorName { get; set; }
 
         /// <summary>
-        /// Gets or set the color of the text.
+        /// Gets or sets the color of the text.
         /// </summary>
         [JsonIgnore]
         public Color TextColor

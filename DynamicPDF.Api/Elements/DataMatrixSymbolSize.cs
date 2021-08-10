@@ -1,7 +1,7 @@
 ﻿namespace DynamicPDF.Api.Elements
 {
     /// <summary>
-    /// Specifies the symbol size.
+    /// Specifies the symbol size of a Datamatrix barcode.
     /// </summary>
     public enum DataMatrixSymbolSize
     {

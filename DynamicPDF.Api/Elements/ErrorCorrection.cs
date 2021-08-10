@@ -1,7 +1,7 @@
 ﻿namespace DynamicPDF.Api.Elements
 {
     /// <summary>
-    /// The level of error correction to use.
+    /// The level of error correction to use in a barcode.
     /// </summary>
     public enum ErrorCorrection
     {

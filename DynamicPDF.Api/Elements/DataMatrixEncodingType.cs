@@ -1,7 +1,7 @@
 ﻿namespace DynamicPDF.Api.Elements
 {
     /// <summary>
-    /// Specifies EncodingType.
+    /// Specifies EncodingType for Datamatrix barcodes.
     /// </summary>
     public enum DataMatrixEncodingType
     {

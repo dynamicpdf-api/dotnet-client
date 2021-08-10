@@ -1,7 +1,7 @@
 ﻿namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Represents an page information.
+    /// Represents a page information.
     /// </summary>
     public class PageInformation
     {

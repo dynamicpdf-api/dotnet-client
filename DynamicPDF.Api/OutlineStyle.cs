@@ -11,7 +11,7 @@
         Bold,
 
         /// <summary>
-        /// BoldItalic.
+        /// Bold Italic.
         /// </summary>
         BoldItalic,
 

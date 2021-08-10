@@ -11,6 +11,7 @@ namespace DynamicPDF.Api.Elements
     public abstract class Element
     {
         internal Element() { }
+
         internal Element(string value, ElementPlacement placement, float xOffset, float yOfset)
         {
             InputValue = value;
