@@ -22,6 +22,7 @@ namespace DynamicPDF.Api.Elements
         /// Example value: "~BHello ~AWORLD 1~C2345", where ~A, ~B and ~C representing code sets A, B and C respectively.
         /// However if any inline code set has invalid characters it will be shifted to an appropriate code set.</remarks>
         public Code128BarcodeElement(string value, ElementPlacement placement, float height, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { Height = height; }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.Code128Barcode;
@@ -45,6 +46,5 @@ namespace DynamicPDF.Api.Elements
         /// However if any inline code set has invalid characters it will be shifted to an appropriate code set.
         /// "\" is used as an escape character to add ~.</remarks>
         public bool? ProcessTilde { get; set; }
-
     }
 }

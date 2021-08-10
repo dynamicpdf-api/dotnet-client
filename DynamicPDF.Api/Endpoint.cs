@@ -1,10 +1,10 @@
 ﻿using RestSharp;
-using System.Collections.Generic;
 
 namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Represents base class for endpoint.
+    /// Represents the base class for endpoint and has settings for base url, 
+    /// api key and creates a rest request object.
     /// </summary>
     public abstract class Endpoint
     {
@@ -43,6 +43,5 @@ namespace DynamicPDF.Api
             restRequest.AddHeader("Authorization", "Bearer " + ApiKey);
             return restRequest;
         }
-
     }
 }

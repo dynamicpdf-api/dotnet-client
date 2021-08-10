@@ -1,5 +1,4 @@
-﻿
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
     /// Represents a CMYK color.
@@ -38,7 +37,7 @@ namespace DynamicPDF.Api
 
         /// <summary>Gets the color white.</summary>
         public static CmykColor White { get { return new CmykColor(0, 0, 0, 0); } }
-        
+
         internal override string ColorString
         {
             get
@@ -53,6 +52,5 @@ namespace DynamicPDF.Api
                 colorString = value;
             }
         }
-
     }
 }

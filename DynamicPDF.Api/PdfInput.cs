@@ -14,7 +14,7 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="resource">The resource of type <see cref="PdfResource"/>.</param>
         /// <param name="options">The merge options for the pdf.</param>
-        public PdfInput(PdfResource resource, MergeOptions options = null) : base(resource) 
+        public PdfInput(PdfResource resource, MergeOptions options = null) : base(resource)
         {
             MergeOptions = options;
         }
@@ -28,6 +28,7 @@ namespace DynamicPDF.Api
         {
             MergeOptions = options;
         }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override InputType Type { get { return InputType.Pdf; } }
@@ -52,6 +53,5 @@ namespace DynamicPDF.Api
         /// Gets or sets the page count.
         /// </summary>
         public int? PageCount { get; set; }
-
     }
 }

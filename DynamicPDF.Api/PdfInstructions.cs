@@ -20,6 +20,7 @@ namespace DynamicPDF.Api
                 return templates;
             }
         }
+
         [JsonProperty]
         internal List<Font> Fonts
         {
@@ -59,7 +60,7 @@ namespace DynamicPDF.Api
         internal List<Input> Inputs { get; set; } = new List<Input>();
 
         [JsonProperty]
-        internal List<FormField> FormFields 
+        internal List<FormField> FormFields
         {
             get
             {
@@ -79,6 +80,5 @@ namespace DynamicPDF.Api
                 return outlines;
             }
         }
-
     }
 }

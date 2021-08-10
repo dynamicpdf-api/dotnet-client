@@ -54,12 +54,12 @@ namespace DynamicPDF.Api
             {
                 PdfInfoResponse response = new PdfInfoResponse();
                 request.AddParameter("", resource.Data, "application/pdf", ParameterType.RequestBody);
-             
+
                 IRestResponse restResponse = restClient.Post(request);
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     response = new PdfInfoResponse(restResponse.Content);
-                    response.IsSuccessful  = true;
+                    response.IsSuccessful = true;
                 }
                 else
                 {

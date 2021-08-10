@@ -13,6 +13,7 @@ namespace DynamicPDF.Api
         /// Encrypts all document contents.
         /// </summary>
         All,
+
         /// <summary>
         /// Encrypts all document contents except metadata.
         /// </summary>

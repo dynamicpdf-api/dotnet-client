@@ -22,9 +22,11 @@ namespace DynamicPDF.Api.Elements
         /// <param name="xOffset">The X coordinate of the barcode.</param>
         /// <param name="yOffset">The Y coordinate of the barcode.</param>
         public Gs1DataBarBarcodeElement(string value, ElementPlacement placement, float height, Gs1DataBarType type, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { this.type = type; Height = height; }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.Gs1DataBarBarcode;
+
         [JsonProperty("gs1DataBarType")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal Gs1DataBarType Gs1DataBarType { get { return type; } }

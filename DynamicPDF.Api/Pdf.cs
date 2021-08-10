@@ -49,7 +49,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
-        public string Title 
+        public string Title
         {
             get
             {
@@ -64,8 +64,8 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the subject.
         /// </summary>
-        public string Subject 
-        { 
+        public string Subject
+        {
             get
             {
                 return this.instructions.Subject;
@@ -73,14 +73,14 @@ namespace DynamicPDF.Api
             set
             {
                 this.instructions.Subject = value;
-            } 
+            }
         }
 
         /// <summary>
         /// Gets or sets the creator.
         /// </summary>
-        public string Creator 
-        { 
+        public string Creator
+        {
             get
             {
                 return this.instructions.Creator;
@@ -94,8 +94,8 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the keywords.
         /// </summary>
-        public string Keywords 
-        { 
+        public string Keywords
+        {
             get
             {
                 return this.instructions.Keywords;
@@ -103,14 +103,14 @@ namespace DynamicPDF.Api
             set
             {
                 this.instructions.Keywords = value;
-            } 
+            }
         }
 
         /// <summary>
         /// Gets or sets the security.
         /// </summary>
-        public Security Security 
-        { 
+        public Security Security
+        {
             get
             {
                 return this.instructions.Security;
@@ -125,7 +125,7 @@ namespace DynamicPDF.Api
         /// Gets or sets the value indicating whether to flatten all form fields.
         /// </summary>
         public bool? FlattenAllFormFields
-        { 
+        {
             get
             {
                 return this.instructions.FlattenAllFormFields;
@@ -139,7 +139,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the value indicating whether to retain signature form field.
         /// </summary>
-        public bool? RetainSignatureFormFields 
+        public bool? RetainSignatureFormFields
         {
             get
             {
@@ -329,7 +329,7 @@ namespace DynamicPDF.Api
         {
             var request = base.CreateRestRequest();
             request.AddHeader("Content-Type", "multipart/form-data");
-            
+
             request.AlwaysMultipartFormData = true;
             RestClient restClient = base.Client;
             return Task<PdfResponse>.Run(() =>
@@ -338,7 +338,7 @@ namespace DynamicPDF.Api
                 HashSet<Resource> finalResources = new HashSet<Resource>();
                 foreach (Input input in instructions.Inputs)
                 {
-                    if(input.Type == InputType.Page)
+                    if (input.Type == InputType.Page)
                     {
                         PageInput pageInput = (PageInput)input;
                         foreach (Element element in pageInput.Elements)
@@ -360,9 +360,9 @@ namespace DynamicPDF.Api
                     if (input.Template != null)
                     {
                         instructions.Templates.Add(input.Template);
-                        if(input.Template.Elements != null && input.Template.Elements.Count > 0)
+                        if (input.Template.Elements != null && input.Template.Elements.Count > 0)
                         {
-                            foreach(Element element in input.Template.Elements)
+                            foreach (Element element in input.Template.Elements)
                             {
                                 if (element.Resource != null)
                                 {
@@ -372,11 +372,10 @@ namespace DynamicPDF.Api
                                 {
                                     instructions.Fonts.Add(element.TextFont);
                                 }
-                                
+
                             }
                         }
                     }
-
                 }
 
                 String jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
@@ -386,7 +385,7 @@ namespace DynamicPDF.Api
                 });
                 request.AddFile("Instructions", Encoding.UTF8.GetBytes(jsonText), "Instructions.json", "application/json");
                 if (instructions.Inputs == null)
-                    throw new EndpointException("Minimum one input required.");                
+                    throw new EndpointException("Minimum one input required.");
                 foreach (Resource resource in finalResources)
                 {
                     if (resource.Type == ResourceType.LayoutData)
@@ -395,7 +394,7 @@ namespace DynamicPDF.Api
                         request.AddFile("Resource", resource.Data, res.LayoutDataResourceName, resource.MimeType);
                     }
                     else
-                        request.AddFile("Resource", resource.Data, resource.ResourceName, resource.MimeType);                  
+                        request.AddFile("Resource", resource.Data, resource.ResourceName, resource.MimeType);
                 }
                 PdfResponse response = null;
                 //IRestResponse restResponse = restClient.ExecuteAsyncPost()
@@ -418,6 +417,5 @@ namespace DynamicPDF.Api
                 return response;
             });
         }
-
     }
 }

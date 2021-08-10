@@ -1,6 +1,4 @@
-﻿
-
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
     /// Represents an RGB color.
@@ -13,8 +11,9 @@ namespace DynamicPDF.Api
         private float blue;
 
         internal RgbColor() { }
+
         internal RgbColor(string colorString) { this.colorString = colorString; }
-       
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RgbColor"/> class.
         /// </summary>
@@ -49,10 +48,13 @@ namespace DynamicPDF.Api
 
         /// <summary>Gets the color red.</summary>
         public static RgbColor Red { get { return new RgbColor("Red"); } }
+
         /// <summary>Gets the color blue.</summary>
-        public static RgbColor Blue { get { return new RgbColor("Blue");  } }
+        public static RgbColor Blue { get { return new RgbColor("Blue"); } }
+
         /// <summary>Gets the color green.</summary>
         public static RgbColor Green { get { return new RgbColor("Green"); } }
+
         /// <summary>Gets the color black.</summary>
         public static RgbColor Black { get { return new RgbColor("Black"); } }
 
@@ -100,7 +102,7 @@ namespace DynamicPDF.Api
 
         /// <summary>Gets the color azure.</summary>
         public static RgbColor Azure { get { return new RgbColor("Azure"); } }
-        
+
         /// <summary>Gets the color beige.</summary>
         public static RgbColor Beige { get { return new RgbColor("Beige"); } }
 
@@ -468,6 +470,5 @@ namespace DynamicPDF.Api
 
         /// <summary>Gets the color yellow green.</summary>
         public static RgbColor YellowGreen { get { return new RgbColor("YellowGreen"); } }
-
     }
 }

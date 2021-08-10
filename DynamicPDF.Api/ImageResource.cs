@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -8,7 +7,8 @@ using System.IO;
 namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Represents a image resource.
+    /// Represents an image resource used to create an <see cref="ImageInput"/> 
+    /// object to create PDF from images.
     /// </summary>
     public class ImageResource : Resource
     {
@@ -17,7 +17,7 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="filePath">The image file path.</param>
         /// <param name="resourceName">The name of the resource.</param>
-        public ImageResource(string filePath, string resourceName = null) : base(filePath, resourceName) {  }
+        public ImageResource(string filePath, string resourceName = null) : base(filePath, resourceName) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageResource"/> class.
@@ -36,7 +36,8 @@ namespace DynamicPDF.Api
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ResourceType Type { get; } = ResourceType.Image;
-        internal override string MimeType { get; set; } 
+
+        internal override string MimeType { get; set; }
 
         internal override string FileExtension
         {
@@ -92,19 +93,23 @@ namespace DynamicPDF.Api
             return header[0] == 0x89 && header[1] == 0x50 && header[2] == 0x4E && header[3] == 0x47 &&
                 header[4] == 0x0D && header[5] == 0x0A && header[6] == 0x1A && header[7] == 0x0A;
         }
+
         private static bool IsTiffImage(byte[] header)
         {
             return (header[0] == 0x49 && header[1] == 0x49 && header[2] == 0x2A && header[3] == 0x00) ||
                 (header[0] == 0x4D && header[1] == 0x4D && header[2] == 0x00 && header[3] == 0x2A);
         }
+
         private static bool IsGifImage(byte[] header)
         {
             return header[0] == 0x47 && header[1] == 0x49 && header[2] == 0x46 && header[3] == 0x38 && (header[4] == 0x37 || header[4] == 0x39) && header[5] == 0x61;
         }
+
         private static bool IsJpegImage(byte[] header)
         {
             return header[0] == 0xFF && header[1] == 0xD8 && header[2] == 0xFF;
         }
+
         private static bool IsValidBitmapImage(byte[] header)
         {
             return header[0] == 0x42 && header[1] == 0x4D;

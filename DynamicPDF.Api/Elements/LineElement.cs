@@ -84,6 +84,5 @@ namespace DynamicPDF.Api.Elements
                 LineStyleName = lineStyle.LineStyleString;
             }
         }
-
     }
 }

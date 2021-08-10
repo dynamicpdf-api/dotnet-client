@@ -11,27 +11,27 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets collection values of the MultiSelectListBox.
+        /// Gets or sets a collection of values of the MultiSelectListBox.
         /// </summary>
         public string[] Values { get; set; }
 
         /// <summary>
-        /// Gets or sets collection default values of the MultiSelectListBox.
+        /// Gets or sets a collection of default values of the MultiSelectListBox.
         /// </summary>
         public string[] DefaultValues { get; set; }
 
         /// <summary>
-        /// Gets or sets collection export values of the MultiSelectListBox.
+        /// Gets or sets a collection of export values of the MultiSelectListBox.
         /// </summary>
         public string[] ExportValues { get; set; }
 
         /// <summary>
-        /// Gets or sets collection items of the MultiSelectListBox.
+        /// Gets or sets a collection of items of the MultiSelectListBox.
         /// </summary>
         public string[] Items { get; set; }
 
         /// <summary>
-        /// Gets or sets collection items export values of the MultiSelectListBox.
+        /// Gets or sets a collection of export values of the MultiSelectListBox.
         /// </summary>
         public string[] ItemsExportValues { get; set; }
     }

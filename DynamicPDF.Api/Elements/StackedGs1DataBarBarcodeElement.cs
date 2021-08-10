@@ -22,9 +22,11 @@ namespace DynamicPDF.Api.Elements
         /// <param name="xOffset">The X coordinate of the barcode.</param>
         /// <param name="yOffset">The Y coordinate of the barcode.</param>
         public StackedGs1DataBarBarcodeElement(string value, ElementPlacement placement, StackedGs1DataBarType stackedGs1DataBarType, float rowHeight, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { this.stackedGs1DataBarType = stackedGs1DataBarType; RowHeight = rowHeight; }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.StackedGs1DataBarBarcode;
+
         [JsonProperty("stackedGs1DataBarType")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal StackedGs1DataBarType StackedGs1DataBarType { get { return stackedGs1DataBarType; } }

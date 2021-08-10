@@ -1,11 +1,10 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Represents a image response.
+    /// Represents an image response.
     /// </summary>
     public class ImageResponse : JsonResponse
     {
@@ -18,15 +17,14 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="ImageResponse"/> class.
         /// </summary>
         /// <param name="jsonContent">The image content of the response.</param>
-        public ImageResponse (string jsonContent) : base(jsonContent)
+        public ImageResponse(string jsonContent) : base(jsonContent)
         {
             Content = JsonConvert.DeserializeObject<List<ImageInformation>>(base.JsonContent);
         }
 
         /// <summary>
-        /// Gets or sets the collection of image information.
+        /// Gets or sets a collection of <see cref="ImageInformation"/>.
         /// </summary>
         public List<ImageInformation> Content { get; private set; }
- 
     }
 }

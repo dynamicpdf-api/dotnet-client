@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DynamicPDF.Api
@@ -27,6 +26,5 @@ namespace DynamicPDF.Api
         /// Gets the collection of PdfContent.
         /// </summary>
         public List<PdfContent> Content { get; private set; }
-
     }
 }

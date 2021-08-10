@@ -9,18 +9,22 @@
         /// Image resource.
         /// </summary>
         Image,
+
         /// <summary>
         /// Pdf resource.
         /// </summary>
         Pdf,
+
         /// <summary>
         /// LayoutData resource.
         /// </summary>
         LayoutData,
+
         /// <summary>
         /// Dlex resource.
         /// </summary>
         Dlex,
+
         /// <summary>
         /// Font resource.
         /// </summary>

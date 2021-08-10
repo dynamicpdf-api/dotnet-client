@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
@@ -30,8 +29,10 @@ namespace DynamicPDF.Api
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal abstract InputType Type { get; }
+
         [JsonProperty]
         internal string TemplateId { get; set; }
+
         internal List<Resource> Resources { get; set; } = new List<Resource>();
 
         /// <summary>
@@ -57,6 +58,5 @@ namespace DynamicPDF.Api
             }
             get { return this.template; }
         }
-
     }
 }

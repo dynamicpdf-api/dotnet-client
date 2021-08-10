@@ -106,10 +106,14 @@ namespace DynamicPDF.Api.Elements
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.PageNumbering;
+
         internal override Resource Resource { get; set; }
+
         internal override Font TextFont { get { return font; } }
+
         [JsonProperty("font")]
         internal string FontName { get; set; }
+
         [JsonProperty("color")]
         internal string ColorName { get; set; }
 
@@ -167,6 +171,5 @@ namespace DynamicPDF.Api.Elements
                 InputValue = value;
             }
         }
-
     }
 }

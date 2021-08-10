@@ -1,6 +1,4 @@
-﻿
-
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
     /// Represents an RGB color created using the web hexadecimal convention.
@@ -11,7 +9,6 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="WebColor"/> class.
         /// </summary>
         /// <param name="webHexString">The hexadecimal string representing the color.</param>
-        public WebColor(string webHexString) { ColorString = webHexString;  } 
-
+        public WebColor(string webHexString) { ColorString = webHexString; }
     }
 }

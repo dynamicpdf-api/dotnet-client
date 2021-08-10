@@ -20,9 +20,13 @@ namespace DynamicPDF.Api.Elements
         }
 
         internal Element(string value) { InputValue = value; }
+
         internal abstract ElementType Type { get; }
+
         internal virtual Resource Resource { get { return null; } set { } }
+
         internal string InputValue { get; set; }
+
         internal virtual Font TextFont { get; }
 
         /// <summary>
@@ -36,10 +40,10 @@ namespace DynamicPDF.Api.Elements
         /// Gets or sets the X coordinate of the page element.
         /// </summary>
         public float? XOffset { get; set; }
-        
+
         /// <summary>
-		/// Gets or sets the Y coordinate of the page element.
-		/// </summary>
+        /// Gets or sets the Y coordinate of the page element.
+        /// </summary>
         public float? YOffset { get; set; }
 
         /// <summary>

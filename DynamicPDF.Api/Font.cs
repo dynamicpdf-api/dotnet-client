@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace DynamicPDF.Api
     /// <summary>
     /// Represents font.
     /// </summary>
-    public class Font 
+    public class Font
     {
         private static Font timesRoman = null;
         private static Font timesBold = null;
@@ -34,7 +33,7 @@ namespace DynamicPDF.Api
 
         static Font()
         {
-           
+
             try
             {
                 string windDir = Environment.GetEnvironmentVariable("WINDIR");
@@ -57,31 +56,33 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Font"/> class.
+        /// Initializes a new instance of the <see cref="Font"/> class 
+        /// using the font name that is present in the cloud resource manager.
         /// </summary>
         /// <param name="cloudResourceName">The font name present in the cloud resource manager.</param>
-        public Font(string cloudResourceName) 
-        { 
+        public Font(string cloudResourceName)
+        {
             this.ResourceName = cloudResourceName;
             Name = System.Guid.NewGuid().ToString();
         }
 
         [JsonProperty]
         internal string Name { get; set; }
+
         internal FontResource Resource { get { return resource; } }
 
         /// <summary>
-        /// Gets or sets the boolean for whether to embed the font or not.
+        /// Gets or sets a boolean indicating whether to embed the font.
         /// </summary>
         public bool? Embed { get; set; }
 
         /// <summary>
-        /// Gets or sets the boolean for whether to subset the font or not.
+        /// Gets or sets a boolean indicating whether to subset embed the font.
         /// </summary>
         public bool? Subset { get; set; }
 
         /// <summary>
-        /// Gets or sets name for the font resource.
+        /// Gets or sets a name for the font resource.
         /// </summary>
         public string ResourceName { get; set; }
 
@@ -310,7 +311,8 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Font"/> class.
+        /// Initializes a new instance of the <see cref="Font"/> class 
+        /// using the file path of the font and resource name.
         /// </summary>
         /// <param name="filePath">The file path of the font file.</param>
         /// <param name="resourceName">The resource name for the font.</param>
@@ -322,7 +324,8 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Font"/> class.
+        /// Initializes a new instance of the <see cref="Font"/> class 
+        /// using the stream of the font file and resource name.
         /// </summary>
         /// <param name="stream">The stream of the font file.</param>
         /// <param name="resourceName">The resource name for the font.</param>
@@ -333,14 +336,15 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Font"/> class.
+        /// Initializes a new instance of the <see cref="Font"/> class 
+        /// using the system font name and resource name.
         /// </summary>
         /// <param name="fontName">The name of the font in the system.</param>
         /// <param name="resourceName">The resource name for the font.</param>
         public static Font FromSystem(string fontName, string resourceName = null)
         {
             FontResource fontResource;
-            
+
             if (fontName == null) return null;
             if (fontName == string.Empty || fontName.Length < 1) return null;
 
@@ -377,14 +381,14 @@ namespace DynamicPDF.Api
 
                         Stream reader;
                         FullNameTable nameTable;
-                       
+
                         foreach (FileInfo file in allFiles)
                         {
                             reader = new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read);
                             nameTable = ReadFontNameTable(reader);
                             if (nameTable != null)
                             {
-                                fontDetails.Add(new FontInformation(nameTable.FontName,file.FullName));
+                                fontDetails.Add(new FontInformation(nameTable.FontName, file.FullName));
                             }
                         }
                     }
@@ -418,6 +422,5 @@ namespace DynamicPDF.Api
             catch { }
             return nameTable;
         }
-
     }
 }

@@ -53,10 +53,10 @@ namespace DynamicPDF.Api
                 else
                 {
                     response = new XmlResponse();
-                    response.ErrorJson = restResponse.Content; 
+                    response.ErrorJson = restResponse.Content;
                     response.ErrorId = response.ErrorId;
                     response.ErrorMessage = restResponse.ErrorMessage;
-                    response.IsSuccessful  = false;
+                    response.IsSuccessful = false;
                     response.StatusCode = restResponse.StatusCode;
                 }
                 return response;

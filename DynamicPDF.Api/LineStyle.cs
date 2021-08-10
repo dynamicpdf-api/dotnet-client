@@ -1,5 +1,4 @@
-﻿
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
     /// Represents a style of line.
@@ -27,14 +26,14 @@ namespace DynamicPDF.Api
                     strLineStyle += val.ToString("0.00", objFormatter) + ",";
             }
             strLineStyle += "]";
-            if(dashPhase != 0)
+            if (dashPhase != 0)
             {
                 strLineStyle += dashPhase.ToString("0.00", objFormatter);
             }
             LineStyleString = strLineStyle;
         }
 
-        internal string LineStyleString {get;set;}
+        internal string LineStyleString { get; set; }
         /// <summary>
         /// Gets a solid line.
         /// </summary>

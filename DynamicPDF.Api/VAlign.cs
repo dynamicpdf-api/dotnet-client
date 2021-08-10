@@ -1,5 +1,4 @@
-﻿
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
     /// Specifies vertical alignment.
@@ -10,10 +9,12 @@ namespace DynamicPDF.Api
         /// Align top.
         /// </summary>
         Top,
+
         /// <summary>
         /// Align center. This is default.
         /// </summary>
         Center,
+
         /// <summary>
         /// Align bottom.
         /// </summary>

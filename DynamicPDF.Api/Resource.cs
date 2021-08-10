@@ -13,6 +13,7 @@ namespace DynamicPDF.Api
     public abstract class Resource
     {
         internal Resource() { }
+
         internal Resource(string filePath, string resourceName)
         {
             if (File.Exists(filePath))
@@ -39,6 +40,7 @@ namespace DynamicPDF.Api
             else
                 ResourceName = resourceName;
         }
+
         internal Resource(Stream steam, string resourceName)
         {
             if (steam != null)
@@ -50,13 +52,18 @@ namespace DynamicPDF.Api
             else
                 ResourceName = resourceName;
         }
-        internal string FilePath {get;set;}
+
+        internal string FilePath { get; set; }
+
         internal byte[] Data { get; set; }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
+
         internal abstract ResourceType Type { get; }
+
         internal abstract string FileExtension { get; }
+
         internal abstract string MimeType { get; set; }
 
         /// <summary>

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Represents a image information endpoint.
+    /// Represents an image information endpoint.
     /// </summary>
     public class ImageInfo : Endpoint
     {
