@@ -22,16 +22,6 @@ namespace DynamicPDF.Api
         internal override string EndpointName { get; } = "image-info";
 
         /// <summary>
-        /// Gets or sets the start page.
-        /// </summary>
-        public int StartPage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the page count.
-        /// </summary>
-        public int PageCount { get; set; }
-
-        /// <summary>
         /// Process the image resource to get image's information.
         /// </summary>
         public ImageResponse Process()
