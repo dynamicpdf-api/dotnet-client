@@ -38,7 +38,7 @@
                 if (colorString != null)
                     return colorString;
                 else
-                    return "rgb(" + red.ToString() + "," + blue.ToString() + "," + green.ToString() + ")";
+                    return "rgb(" + red.ToString() + "," + green.ToString() + "," + blue.ToString() + ")";
             }
             set
             {

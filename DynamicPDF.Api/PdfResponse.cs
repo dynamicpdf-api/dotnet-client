@@ -12,7 +12,7 @@
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PdfResponse"/> class.
-        /// </summary>s
+        /// </summary>
         /// <param name="pdfContent">The byte array of pdf content.</param>
         public PdfResponse(byte[] pdfContent) { Content = pdfContent; }
 
