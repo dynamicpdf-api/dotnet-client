@@ -11,6 +11,7 @@ namespace DynamicPDF.Api.Elements
     public abstract class Dim2BarcodeElement : BarcodeElement
     {
         internal Dim2BarcodeElement(string value, ElementPlacement placement, float xOffset, float yOffset) : base(value, placement, xOffset, yOffset) { }
+        
         internal Dim2BarcodeElement(byte[] value, ElementPlacement placement, float xOffset, float yOffset)
         {
             ValueType = ValueType.Base64EncodedBytes;

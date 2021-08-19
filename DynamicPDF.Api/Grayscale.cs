@@ -1,6 +1,4 @@
-﻿
-
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
     /// Represents a grayscale color.
@@ -23,7 +21,6 @@ namespace DynamicPDF.Api
 
         /// <summary>Gets the color white.</summary>
         public static Grayscale White { get { return new Grayscale(1); } }
-      
 
         internal override string ColorString
         {
@@ -32,7 +29,7 @@ namespace DynamicPDF.Api
                 if (colorString != null)
                     return colorString;
                 else
-                    return "gray(" + grayLevel.ToString()  + ")";
+                    return "gray(" + grayLevel.ToString() + ")";
             }
             set
             {

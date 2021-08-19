@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 
 namespace DynamicPDF.Api
 {
@@ -33,6 +31,5 @@ namespace DynamicPDF.Api
         /// Gets the error json.
         /// </summary>
         public string ErrorJson { get; internal set; }
-
     }
 }

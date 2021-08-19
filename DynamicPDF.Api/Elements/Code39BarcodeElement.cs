@@ -10,7 +10,6 @@ namespace DynamicPDF.Api.Elements
     /// <remarks>This class can be used to place a Code 3 of 9 barcode on a page.</remarks>
     public class Code39BarcodeElement : TextBarcodeElement
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Code39BarcodeElement"/> class.
         /// </summary>
@@ -20,6 +19,7 @@ namespace DynamicPDF.Api.Elements
         /// <param name="xOffset">The X coordinate of the barcode.</param>
         /// <param name="yOffset">The Y coordinate of the barcode.</param>
         public Code39BarcodeElement(string value, ElementPlacement placement, float height, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { Height = height; }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.Code39Barcode;

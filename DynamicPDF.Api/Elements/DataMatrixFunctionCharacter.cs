@@ -1,7 +1,7 @@
 ﻿namespace DynamicPDF.Api.Elements
 {
     /// <summary>
-    /// Specifies the Function Character.
+    /// Specifies the Function Character for a Datamatrix barcode.
     /// </summary>
     public enum DataMatrixFunctionCharacter
     {
@@ -29,6 +29,5 @@
         /// None.
         /// </summary>
         None
-
     }
 }

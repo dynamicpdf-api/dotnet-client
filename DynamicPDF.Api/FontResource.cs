@@ -7,11 +7,15 @@ namespace DynamicPDF.Api
 {
     internal class FontResource : Resource
     {
-        internal FontResource(string filePath, string resourceName = null) : base(filePath, resourceName) {  }
+        internal FontResource(string filePath, string resourceName = null) : base(filePath, resourceName) { }
+
         internal FontResource(Stream stream, string resourceName = null) : base(stream, resourceName) { }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
+
         internal override ResourceType Type { get; } = ResourceType.Font;
+
         internal override string MimeType { get; set; }
 
         internal override string FileExtension
@@ -33,7 +37,6 @@ namespace DynamicPDF.Api
                 {
                     throw new EndpointException("Unsupported font");
                 }
-
             }
         }
     }

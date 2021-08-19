@@ -9,6 +9,7 @@
         /// Represents a List box.
         /// </summary>
         ListBox,
+
         /// <summary>
         /// Represents a Combo box.
         /// </summary>

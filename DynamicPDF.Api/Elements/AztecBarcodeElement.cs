@@ -65,6 +65,5 @@ namespace DynamicPDF.Api.Elements
         /// and the size of the symbol should be one of the following, R15xC15 Compact, R19xC19, R23xC23, R27xC27, R31xC31, R37xC37, R41xC41, R45xC45, R49xC49, R53xC53, R57xC57, R61xC61, R67xC67, R71xC71, R75xC75,
         /// R79xC79, R83xC83, R87xC87, R91xC91, R95xC95, R101xC101, R105xC105, R109xC109, however it is recommended to set Auto.</remarks>
         public bool? ReaderInitializationSymbol { get; set; }
-
     }
 }

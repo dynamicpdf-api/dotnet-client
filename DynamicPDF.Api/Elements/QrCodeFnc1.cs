@@ -19,6 +19,5 @@
         /// FNC1 Industry.
         /// </summary>
         Industry
-
     }
 }

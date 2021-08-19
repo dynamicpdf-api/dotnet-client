@@ -25,7 +25,5 @@ namespace DynamicPDF.Api
         /// Gets the pdf information content.
         /// </summary>
         public PdfInformation Content { get; private set; }
-
-
     }
 }

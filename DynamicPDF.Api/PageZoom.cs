@@ -1,8 +1,7 @@
-﻿
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Specifies zoom type.
+    /// Specifies type of page zoom.
     /// </summary>
     public enum PageZoom
     {
@@ -10,18 +9,22 @@ namespace DynamicPDF.Api
         /// Keep unchanged.
         /// </summary>
         Retain,
+
         /// <summary>
         /// Fit page in window.
         /// </summary>
         FitPage,
+
         /// <summary>
         /// Fit width of page in window.
         /// </summary>
         FitWidth,
+
         /// <summary>
         /// Fit height of page in window.
         /// </summary>
         FitHeight,
+
         /// <summary>
         /// Fit all elements of page in window.
         /// </summary>

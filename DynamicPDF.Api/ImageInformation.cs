@@ -1,8 +1,7 @@
-﻿
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Represents information of the image.
+    /// Represents an image information.
     /// </summary>
     public class ImageInformation
     {
@@ -32,7 +31,7 @@ namespace DynamicPDF.Api
         public float VerticalDpi { get; set; }
 
         /// <summary>
-        /// Gets the number Of color components in the image.
+        /// Gets the number of color components present in the image.
         /// </summary>
         public float NumberOfComponents { get; set; }
 

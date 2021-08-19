@@ -1,6 +1,4 @@
-﻿
-
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
     /// Represents the xml response.
@@ -10,7 +8,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlResponse"/> class.
         /// </summary>
-        public XmlResponse() {  }
+        public XmlResponse() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlResponse"/> class.
@@ -21,7 +19,6 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets the xml content.
         /// </summary>
-        public string Content { get; private set;  }
- 
+        public string Content { get; private set; }
     }
 }

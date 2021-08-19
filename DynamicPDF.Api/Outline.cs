@@ -3,7 +3,6 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 
-
 namespace DynamicPDF.Api
 {
     /// <summary>
@@ -17,14 +16,14 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="Outline"/> class.
         /// </summary>
         /// <param name="input">The input of type <see cref="PdfInput"/> .</param>
-        public Outline(PdfInput input) 
+        public Outline(PdfInput input)
         {
             FromInputID = input.Id;
             if (input.MergeOptions == null)
             {
                 input.MergeOptions = new MergeOptions() { Outlines = false };
             }
-            else 
+            else
             {
                 input.MergeOptions.Outlines = false;
             }
@@ -86,6 +85,5 @@ namespace DynamicPDF.Api
                 ColorName = color.ColorString;
             }
         }
-
     }
 }

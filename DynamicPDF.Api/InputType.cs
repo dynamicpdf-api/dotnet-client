@@ -1,29 +1,31 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Specifies input type.
+    /// Specifies an input type.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum InputType
     {
         /// <summary>
-        /// Pdf.
+        /// Pdf input.
         /// </summary>
         Pdf,
+
         /// <summary>
-        /// Image.
+        /// Image input.
         /// </summary>
         Image,
+
         /// <summary>
-        /// Dlex.
+        /// Dlex input.
         /// </summary>
         Dlex,
+
         /// <summary>
-        /// Page.
+        /// Page input.
         /// </summary>
         Page
     }

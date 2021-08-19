@@ -15,7 +15,7 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="filePath">The pdf file path.</param>
         /// <param name="resourceName">The name of the resource.</param>
-        public PdfResource(string filePath, string resourceName = null) : base(filePath, resourceName) {  }
+        public PdfResource(string filePath, string resourceName = null) : base(filePath, resourceName) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PdfResource"/> class.
@@ -34,8 +34,9 @@ namespace DynamicPDF.Api
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ResourceType Type { get; } = ResourceType.Pdf;
-        internal override string FileExtension { get; } = ".pdf";
-        internal override string MimeType { get; set; } = "application/pdf";
 
+        internal override string FileExtension { get; } = ".pdf";
+
+        internal override string MimeType { get; set; } = "application/pdf";
     }
 }

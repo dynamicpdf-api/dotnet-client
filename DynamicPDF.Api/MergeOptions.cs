@@ -1,83 +1,86 @@
-﻿
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Represents options for merging PDF documents.
+    /// Represents different options for merging PDF documents.
     /// </summary>
     public class MergeOptions
     {
         /// <summary>
-        /// Gets or sets a value indicating if document information should be imported.
+        /// Gets or sets a boolean indicating whether to import document information when merging.
         /// </summary>
         public bool? DocumentInfo { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if document level JavaScript should be imported.
+        /// Gets or sets a boolean indicating whether to import document level JavaScript when merging.
         /// </summary>
         public bool? DocumentJavaScript { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if document properties should be imported.
+        /// Gets or sets a boolean indicating whether to import document properties when merging.
         /// </summary>
         public bool? DocumentProperties { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if the Embedded files should be imported.
+        /// Gets or sets a boolean indicating whether to import embedded files when merging.
         /// </summary>
         public bool? EmbeddedFiles { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if form fields should be imported.
+        /// Gets or sets a boolean indicating whether to import form fields when merging.
         /// </summary>
         public bool? FormFields { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if form XFA data should be imported.
+        /// Gets or sets a boolean indicating whether to import XFA form data when merging.
         /// </summary>
         public bool? FormsXfaData { get; set; }
 
         /// <summary>
-        /// Gets or Sets the value indicating if logical structure should be imported.
+        /// Gets or sets a boolean indicating whether to import logical structure 
+        /// (tagging information) when merging.
         /// </summary>
         public bool? LogicalStructure { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if the documents opening action (initial page and zoom settings) should be imported.
+        /// Gets or sets a boolean indicating whether to import document's opening 
+        /// action (initial page and zoom settings) when merging.
         /// </summary>
         public bool? OpenAction { get; set; }
 
         /// <summary>
-        /// Gets or sets the Output Content should be imported.
+        /// Gets or sets a boolean indicating whether to import optional content when merging.
         /// </summary>
         public bool? OptionalContentInfo { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if outlines and bookmarks should be imported.
+        /// Gets or sets a boolean indicating whether to import outlines and bookmarks when merging.
         /// </summary>
         public bool? Outlines { get; set; }
 
         /// <summary>
-        /// Gets or Sets a value indication if OutputIntent should be imported.
+        /// Gets or sets a boolean indicating whether to import OutputIntent when merging.
         /// </summary>
         public bool? OutputIntent { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if annotations should be imported.
+        /// Gets or sets a boolean indicating whether to import PageAnnotations when merging.
         /// </summary>
         public bool? PageAnnotations { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if page labels and sections should be imported.
+        /// Gets or sets a boolean indicating whether to import PageLabelsAndSections when merging.
         /// </summary>
         public bool? PageLabelsAndSections { get; set; }
 
         /// <summary>
-        /// Gets or sets the root form field for imported form fields.
+        /// Gets or sets the root form field for imported form fields. 
+        /// Useful when merging a PDF repeatedly to have a better 
+        /// contorl on the form field names.
         /// </summary>
         public string RootFormField { get; set; } = null;
 
         /// <summary>
-        /// Gets or sets a value indicating if Xmp Metadata should be imported.
+        /// Gets or sets a boolean indicating whether to import XmpMetadata when merging.
         /// </summary>
         public bool? XmpMetadata { get; set; }
     }

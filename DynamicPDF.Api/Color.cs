@@ -5,6 +5,6 @@
     /// </summary>
     public abstract class Color
     {
-        internal abstract string ColorString {get; set;}
+        internal abstract string ColorString { get; set; }
     }
 }

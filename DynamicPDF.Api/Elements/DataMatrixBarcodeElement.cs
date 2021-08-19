@@ -66,12 +66,13 @@ namespace DynamicPDF.Api.Elements
         [JsonProperty("dataMatrixSymbolSize")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal DataMatrixSymbolSize DataMatrixSymbolSize { get; set; }
+
         [JsonProperty("dataMatrixEncodingType")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal DataMatrixEncodingType DataMatrixEncodingType { get; set; }
+
         [JsonProperty("dataMatrixFunctionCharacter")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal DataMatrixFunctionCharacter DataMatrixFunctionCharacter { get; set; }
-
     }
 }

@@ -3,12 +3,10 @@ using System.IO;
 
 namespace DynamicPDF.Api
 {
-    internal class FullNameTable 
+    internal class FullNameTable
     {
         private static Encoding objUnicode = Encoding.BigEndianUnicode;
-
         private string fullFontName = string.Empty;
-
         private byte[] data;
         private byte[] tableDirectory;
 
@@ -30,7 +28,7 @@ namespace DynamicPDF.Api
             int dataStart = ReadUShort(4);
             int headerStart = 6;
             int headerEnd = (ReadUShort(2) * 12);
-            
+
             for (int i = headerStart; i < headerEnd; i += 12)
             {
                 if (ReadUShort(i + 6) == 4) //4 is the Name ID for Full font name 
@@ -63,12 +61,10 @@ namespace DynamicPDF.Api
             data = null;
         }
 
-
         internal string FontName
         {
             get { return fullFontName; }
         }
-
 
         private int ReadULong(byte[] data, int index)
         {
@@ -128,6 +124,5 @@ namespace DynamicPDF.Api
             intReturn += data[index];
             return intReturn;
         }
-
     }
 }

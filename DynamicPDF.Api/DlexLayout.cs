@@ -52,7 +52,7 @@ namespace DynamicPDF.Api
             return Task<PdfResponse>.Run(() =>
             {
                 PdfResponse response = null;
-                if(resource != null)
+                if (resource != null)
                     request.AddFile("LayoutData", resource.Data, resource.LayoutDataResourceName, resource.MimeType);
                 if (DlexPath != null)
                     request.AddParameter("DlexPath", DlexPath);
@@ -75,6 +75,6 @@ namespace DynamicPDF.Api
                 }
                 return response;
             });
-         }
+        }
     }
 }

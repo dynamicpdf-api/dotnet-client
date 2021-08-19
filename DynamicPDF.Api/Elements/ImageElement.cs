@@ -44,7 +44,9 @@ namespace DynamicPDF.Api.Elements
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.Image;
+
         internal override Resource Resource { get; set; }
+
         [JsonProperty]
         internal string ResourceName { get; set; }
 

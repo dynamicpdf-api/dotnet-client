@@ -20,10 +20,12 @@ namespace DynamicPDF.Api
             else
                 Id = id;
         }
+
         /// <summary>
         /// Gets or sets the id for the template.
         /// </summary>
         public string Id { get; set; } = null;
+
         /// <summary>
         /// Gets or sets the elements for the template.
         /// </summary>

@@ -25,6 +25,7 @@ namespace DynamicPDF.Api.Elements
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.Text;
+
         [JsonProperty("font")]
         internal string FontName { get; set; }
 
@@ -32,6 +33,7 @@ namespace DynamicPDF.Api.Elements
         internal string ColorName { get; set; }
 
         internal override Resource Resource { get; set; }
+
         internal override Font TextFont { get { return font; } }
 
         /// <summary>
@@ -88,6 +90,5 @@ namespace DynamicPDF.Api.Elements
         /// Gets or sets the font size for the text of the text element.
         /// </summary>
         public float? FontSize { get; set; }
-
     }
 }

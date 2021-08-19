@@ -33,6 +33,5 @@ namespace DynamicPDF.Api.Elements
         /// Gets or sets the height of the barcode.
         /// </summary>
         public float? Height { get; set; }
-
     }
 }

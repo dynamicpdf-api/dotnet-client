@@ -1,26 +1,25 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using System;
 
 namespace DynamicPDF.Api
 {
 
     /// <summary>
-    /// Represents a image input.
+    /// Represents an image input.
     /// </summary>
     public class ImageInput : Input
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageInput"/> class.
         /// </summary>
-        /// <param name="resource">The image resource of type <see cref="ImageResource"/>.</param>
+        /// <param name="resource">The <see cref="ImageResource"/> object to create ImageInput.</param>
         public ImageInput(ImageResource resource) : base(resource) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageInput"/> class.
         /// </summary>
-        /// <param name="cloudResourcePath">The file path of image in resource manager.</param>
+        /// <param name="cloudResourcePath">The image file path present in cloud resource manager.</param>
         public ImageInput(string cloudResourcePath) : base(cloudResourcePath) { }
 
         [JsonProperty("type")]
@@ -28,12 +27,12 @@ namespace DynamicPDF.Api
         internal override InputType Type { get { return InputType.Image; } }
 
         /// <summary>
-        /// Gets or sets the scaleX for the image.
+        /// Gets or sets the scaleX of the image.
         /// </summary>
         public float? ScaleX { get; set; }
 
         /// <summary>
-        /// Gets or sets the scaleY for the image.
+        /// Gets or sets the scaleY of the image.
         /// </summary>
         public float? ScaleY { get; set; }
 
@@ -68,24 +67,24 @@ namespace DynamicPDF.Api
         public float? PageHeight { get; set; }
 
         /// <summary>
-        /// Gets or sets the boolean, whether to expand the image.
+        /// Gets or sets a boolean indicating whether to expand the image.
         /// </summary>
         public bool? ExpandToFit { get; set; }
 
         /// <summary>
-        /// Gets or sets the boolean, whether to shrink the image.
+        /// Gets or sets a boolean indicating whether to shrink the image.
         /// </summary>
         public bool? ShrinkToFit { get; set; }
 
         /// <summary>
-        /// Gets or sets the horizontal align for the image on the page.
+        /// Gets or sets the horizontal alignment of the image.
         /// </summary>
         [JsonProperty("align")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         public Align Align { get; set; } = Align.Center;
 
         /// <summary>
-        /// Gets or sets the vertical align for the image on the page.
+        /// Gets or sets the vertical alignment of the image.
         /// </summary>
         [JsonProperty("vAlign")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
@@ -100,6 +99,5 @@ namespace DynamicPDF.Api
         /// Gets or sets the page count.
         /// </summary>
         public int? PageCount { get; set; }
-
     }
 }

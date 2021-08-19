@@ -19,7 +19,8 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="ownerPassword">The owner password to open the document.</param>
         /// <param name="userPassword">The user password to open the document.</param>
-        public RC4128Security( string userPassword, string ownerPassword) : base(userPassword, ownerPassword) { }
+        public RC4128Security(string userPassword, string ownerPassword) : base(userPassword, ownerPassword) { }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override SecurityType Type { get { return SecurityType.RC4128; } }
@@ -28,6 +29,5 @@ namespace DynamicPDF.Api
         /// Gets or sets the documents components to be encrypted.
         /// </summary>
         public bool? EncryptMetadata { get; set; }
-
     }
 }

@@ -1,11 +1,9 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 namespace DynamicPDF.Api
 {
-
     /// <summary>
     /// Represents AES 128 bit PDF document security.
     /// </summary>

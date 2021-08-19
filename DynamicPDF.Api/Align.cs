@@ -1,5 +1,4 @@
-﻿
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
     /// Specifies horizontal alignment. Center alignment is the default value for alignments.

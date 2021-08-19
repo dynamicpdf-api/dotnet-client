@@ -7,16 +7,17 @@ using System.Text;
 namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Represents the Layout data resource.
+    /// Represents the Layout data resource used to create PDF reports.
     /// </summary>
     public class LayoutDataResource : Resource
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LayoutDataResource"/> class.
+        /// Initializes a new instance of the <see cref="LayoutDataResource"/> class 
+        /// using the layout data object and a resource name.
         /// </summary>
-        /// <param name="layoutData">The layout data.</param>
+        /// <param name="layoutData">Serializable object data to create PDF report.</param>
         /// <param name="layoutDataResourceName">The name for layout data resource.</param>
-        public LayoutDataResource(Object layoutData, string layoutDataResourceName = null) : base() 
+        public LayoutDataResource(Object layoutData, string layoutDataResourceName = null) : base()
         {
             String jsonText = JsonConvert.SerializeObject(layoutData, new JsonSerializerSettings
             {
@@ -30,13 +31,14 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LayoutDataResource"/> class.
+        /// Initializes a new instance of the <see cref="LayoutDataResource"/> class 
+        /// using a JSON file with data and a resource name.
         /// </summary>
-        /// <param name="layoutData">The layout data string.</param>
+        /// <param name="layoutData">The layout data JSON file path.</param>
         /// <param name="layoutDataResourceName">The name for layout data resource.</param>
-        public LayoutDataResource(string layoutData, string layoutDataResourceName = null) : base() 
+        public LayoutDataResource(string layoutData, string layoutDataResourceName = null) : base()
         {
-             Data = Resource.GetUTF8FileData(layoutData);
+            Data = Resource.GetUTF8FileData(layoutData);
             if (LayoutDataResourceName == null)
                 LayoutDataResourceName = Guid.NewGuid().ToString() + ".json";
             else
@@ -46,11 +48,13 @@ namespace DynamicPDF.Api
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ResourceType Type { get; } = ResourceType.LayoutData;
+
         internal override string FileExtension { get; } = ".json";
+
         internal override string MimeType { get; set; } = "application/json";
 
         /// <summary>
-        /// Gets or sets name for layout data resource.
+        /// Gets or sets name of the layout data resource.
         /// </summary>
         public string LayoutDataResourceName { get; set; }
     }

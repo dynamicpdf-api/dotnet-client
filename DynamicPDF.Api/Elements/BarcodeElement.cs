@@ -8,7 +8,9 @@ namespace DynamicPDF.Api.Elements
     public abstract class BarcodeElement : Element
     {
         private Color color;
+
         internal BarcodeElement() { }
+
         internal BarcodeElement(string value, ElementPlacement placement, float xOffset, float yOffset) : base(value, placement, xOffset, yOffset) { }
 
         [JsonProperty("color")]
@@ -50,6 +52,5 @@ namespace DynamicPDF.Api.Elements
                 InputValue = value;
             }
         }
-
     }
 }

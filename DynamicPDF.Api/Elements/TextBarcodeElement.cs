@@ -14,14 +14,16 @@ namespace DynamicPDF.Api.Elements
 
         [JsonProperty("font")]
         internal string FontName { get; set; }
+
         internal override Font TextFont { get { return Font; } }
+
         internal override Resource Resource { get; set; }
 
         [JsonProperty("textColor")]
         internal string TextColorName { get; set; }
 
         /// <summary>
-        /// Gets or set the color of the text.
+        /// Gets or sets the color of the text.
         /// </summary>
         [JsonIgnore]
         public Color TextColor
@@ -64,6 +66,5 @@ namespace DynamicPDF.Api.Elements
         /// Gets or sets a value indicating if the value should be placed as text below the barcode.
         /// </summary>
         public bool? ShowText { get; set; }
-
     }
 }

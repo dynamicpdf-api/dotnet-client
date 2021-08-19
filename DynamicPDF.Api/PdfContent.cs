@@ -1,5 +1,4 @@
-﻿
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
     /// <summary>
     /// Represents the pdf content
