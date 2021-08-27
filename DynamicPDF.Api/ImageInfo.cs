@@ -51,6 +51,7 @@ namespace DynamicPDF.Api
                 {
                     response = new ImageResponse(restResponse.Content);
                     response.IsSuccessful = true;
+                    response.StatusCode = restResponse.StatusCode;
                 }
                 else
                 {
