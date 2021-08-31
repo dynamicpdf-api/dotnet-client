@@ -11,12 +11,13 @@ namespace DynamicPDF.Api
     public class Outline
     {
         private Color color;
+        private OutlineList children;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Outline"/> class.
         /// </summary>
         /// <param name="input">The input of type <see cref="PdfInput"/> .</param>
-        public Outline(PdfInput input)
+        internal Outline(PdfInput input)
         {
             FromInputID = input.Id;
             if (input.MergeOptions == null)
@@ -34,7 +35,7 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="text">text for the outline.</param>
         /// <param name="action">Action of the outline.</param>
-        public Outline(string text, Action action = null) { Text = text; Action = action; }
+        internal Outline(string text, Action action = null) { Text = text; Action = action; }
 
         [JsonProperty("color")]
         internal string ColorName { get; set; }
@@ -59,7 +60,16 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets a collection of child outlines.
         /// </summary>
-        public List<Outline> Children { get; set; } = new List<Outline>();
+        [JsonIgnore]
+        public OutlineList Children 
+        {
+            get
+            {
+                if (children == null)
+                    children = new OutlineList();
+                return children;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the Action of the outline.
@@ -83,6 +93,20 @@ namespace DynamicPDF.Api
             {
                 color = value;
                 ColorName = color.ColorString;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a collection of child outlines.
+        /// </summary>
+        [JsonProperty("children")]
+        internal List<Outline> GetChildren
+        {
+            get
+            {
+                if (children != null)
+                    return children.Outlines;
+                return null;
             }
         }
     }

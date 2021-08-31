@@ -8,7 +8,7 @@ namespace DynamicPDF.Api
         private List<FormField> formFields = null;
         private List<Template> templates = null;
         private List<Font> fonts = null;
-        private List<Outline> outlines = null;
+        private OutlineList outlines = null;
 
         [JsonProperty]
         internal List<Template> Templates
@@ -70,14 +70,23 @@ namespace DynamicPDF.Api
             }
         }
 
-        [JsonProperty]
-        internal List<Outline> Outlines
+       
+        internal OutlineList Outlines
         {
             get
             {
                 if (outlines == null)
-                    outlines = new List<Outline>();
+                    outlines = new OutlineList();
                 return outlines;
+            }
+        }
+
+        [JsonProperty("outlines")]
+        internal List<Outline> GetOutlines
+        {
+            get
+            {
+                return outlines.Outlines;
             }
         }
     }

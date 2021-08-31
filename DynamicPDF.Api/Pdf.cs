@@ -302,7 +302,8 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets the outlines.
         /// </summary>
-        public List<Outline> Outlines
+        [JsonIgnore]
+        public OutlineList Outlines
         {
             get
             {

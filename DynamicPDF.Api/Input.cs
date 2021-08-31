@@ -3,6 +3,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace DynamicPDF.Api
 {
@@ -12,6 +13,7 @@ namespace DynamicPDF.Api
     public abstract class Input
     {
         private Template template;
+        private string id = null;
         internal Input()
         {
         }
@@ -40,10 +42,22 @@ namespace DynamicPDF.Api
         /// </summary>
         public string ResourceName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        public string Id { get; set; }
+       
+        public string Id
+        {
+            get
+            {
+                if (id == null)
+                {
+                    id = Guid.NewGuid().ToString();
+                }
+                return id;
+            }
+            set
+            {
+                this.id = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the template.
