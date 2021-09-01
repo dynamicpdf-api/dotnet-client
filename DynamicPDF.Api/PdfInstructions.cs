@@ -86,7 +86,9 @@ namespace DynamicPDF.Api
         {
             get
             {
-                return outlines.Outlines;
+                if(outlines != null)
+                    return outlines.Outlines;
+                return null;
             }
         }
     }
