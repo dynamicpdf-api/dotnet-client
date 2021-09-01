@@ -6,28 +6,28 @@ namespace DynamicPDF.Api
     internal class PdfInstructions
     {
         private List<FormField> formFields = null;
-        private List<Template> templates = null;
-        private List<Font> fonts = null;
+        private HashSet<Template> templates = null;
+        private HashSet<Font> fonts = null;
         private OutlineList outlines = null;
 
         [JsonProperty]
-        internal List<Template> Templates
+        internal HashSet<Template> Templates
         {
             get
             {
                 if (templates == null)
-                    templates = new List<Template>();
+                    templates = new HashSet<Template>();
                 return templates;
             }
         }
 
         [JsonProperty]
-        internal List<Font> Fonts
+        internal HashSet<Font> Fonts
         {
             get
             {
                 if (fonts == null)
-                    fonts = new List<Font>();
+                    fonts = new HashSet<Font>();
                 return fonts;
             }
         }
