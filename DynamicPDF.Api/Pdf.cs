@@ -269,7 +269,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets the templates.
         /// </summary>
-        public List<Template> Templates
+        public HashSet<Template> Templates
         {
             get
             {
@@ -280,7 +280,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets the fonts.
         /// </summary>
-        public List<Font> Fonts
+        public HashSet<Font> Fonts
         {
             get
             {
@@ -309,6 +309,46 @@ namespace DynamicPDF.Api
             {
                 return this.instructions.Outlines;
             }
+        }
+
+        public string GetInstructonsJson()
+        {
+            foreach (Input input in instructions.Inputs)
+            {
+                if (input.Type == InputType.Page)
+                {
+                    PageInput pageInput = (PageInput)input;
+                    foreach (Element element in pageInput.Elements)
+                    {
+                        if (element.TextFont != null)
+                        {
+                            instructions.Fonts.Add(element.TextFont);
+                        }
+                    }
+                }
+                if (input.Template != null)
+                {
+                    instructions.Templates.Add(input.Template);
+                    if (input.Template.Elements != null && input.Template.Elements.Count > 0)
+                    {
+                        foreach (Element element in input.Template.Elements)
+                        {
+                            if (element.TextFont != null)
+                            {
+                                instructions.Fonts.Add(element.TextFont);
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            String jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                NullValueHandling = NullValueHandling.Ignore
+            });
+            return jsonText;
         }
 
         /// <summary>
@@ -398,7 +438,6 @@ namespace DynamicPDF.Api
                         request.AddFile("Resource", resource.Data, resource.ResourceName, resource.MimeType);
                 }
                 PdfResponse response = null;
-                //IRestResponse restResponse = restClient.ExecuteAsyncPost()
                 IRestResponse restResponse = restClient.Post(request);
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
