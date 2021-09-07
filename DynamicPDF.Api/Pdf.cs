@@ -311,7 +311,7 @@ namespace DynamicPDF.Api
             }
         }
 
-        public string GetInstructonsJson()
+        public string GetInstructionsJson()
         {
             foreach (Input input in instructions.Inputs)
             {
