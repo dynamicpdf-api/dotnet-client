@@ -8,6 +8,8 @@ namespace DynamicPDF.Api
     /// </summary>
     public abstract class Endpoint
     {
+        private const string endPointVersion = "v1.0";
+
         internal Endpoint()
         {
         }
@@ -19,7 +21,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets default base url.
         /// </summary>
-        public static string DefaultBaseUrl { get; set; } = "https://api.dynamicpdf.com/v1.0";
+        public static string DefaultBaseUrl { get; set; } = "https://api.dynamicpdf.com";
 
         /// <summary>
         /// Gets or sets default api key.
@@ -38,7 +40,7 @@ namespace DynamicPDF.Api
 
         protected RestRequest CreateRestRequest()
         {
-            Client = new RestClient(BaseUrl + "/" + EndpointName);
+            Client = new RestClient(BaseUrl + "/" + endPointVersion + "/" + EndpointName);
             RestRequest restRequest = new RestRequest();
             restRequest.AddHeader("Authorization", "Bearer " + ApiKey);
             return restRequest;
