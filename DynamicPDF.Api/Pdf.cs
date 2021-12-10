@@ -225,10 +225,22 @@ namespace DynamicPDF.Api
         /// Returns a <see cref="DlexInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="cloudResourcePath">The resource path in cloud resource manager.</param>
-        /// <param name="cloudLayoutDataPat">The layout data resource path in cloud resource manager.</param>
-        public DlexInput AddDlex(string cloudResourcePath, string cloudLayoutDataPat)
+        /// <param name="layoutData">The json data string used to create the PDF report.</param>
+        public DlexInput AddDlex(string cloudResourcePath, string layoutData)
         {
-            DlexInput input = new DlexInput(cloudResourcePath, cloudLayoutDataPat);
+            DlexInput input = new DlexInput(cloudResourcePath, layoutData);
+            this.Inputs.Add(input);
+            return input;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="DlexInput"/> object containing the input pdf.
+        /// </summary>
+        /// <param name="dlexResource">The resource path in cloud resource manager.</param>
+        /// <param name="layoutData">The json data string used to create the PDF report.</param>
+        public DlexInput AddDlex(DlexResource dlexResource, string layoutData)
+        {
+            DlexInput input = new DlexInput(dlexResource, layoutData);
             this.Inputs.Add(input);
             return input;
         }
@@ -311,6 +323,10 @@ namespace DynamicPDF.Api
             }
         }
 
+        /// <summary>
+        /// Gets the instructions json based on the inputs passed.
+        /// </summary>
+        /// <returns>The json string.</returns>
         public string GetInstructionsJson()
         {
             foreach (Input input in instructions.Inputs)

@@ -34,11 +34,18 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="LayoutDataResource"/> class 
         /// using a JSON file with data and a resource name.
         /// </summary>
-        /// <param name="layoutData">The layout data JSON file path.</param>
+        /// <param name="layoutData">The layout data JSON file path or JSON string.</param>
         /// <param name="layoutDataResourceName">The name for layout data resource.</param>
         public LayoutDataResource(string layoutData, string layoutDataResourceName = null) : base()
         {
-            Data = Resource.GetUTF8FileData(layoutData);
+            if (layoutData.EndsWith(".json"))
+            {
+                Data = Resource.GetUTF8FileData(layoutData);
+            }
+            else
+            {
+                Data = Encoding.UTF8.GetBytes(layoutData);
+            }
             if (LayoutDataResourceName == null)
                 LayoutDataResourceName = Guid.NewGuid().ToString() + ".json";
             else

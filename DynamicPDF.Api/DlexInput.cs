@@ -24,6 +24,21 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="DlexInput"/> class by posting the 
+        /// DLEX file and the JSON data file from the client to the API to create the PDF report.
+        /// </summary>
+        /// <param name="dlexResource">The <see cref="DlexResource"/>, dlex file created as per the desired PDF report layout design.</param>
+        /// <param name="layoutData">The json data string used to create the PDF report.</param>
+        public DlexInput(DlexResource dlexResource, string layoutData)
+        {
+            ResourceName = dlexResource.ResourceName;
+            LayoutDataResource layoutDataResource = new LayoutDataResource(layoutData);
+            LayoutDataResourceName = layoutDataResource.LayoutDataResourceName;
+            Resources.Add(dlexResource);
+            Resources.Add(layoutDataResource);
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DlexInput"/> class by taking the 
         /// DLEX file path that is present in the cloud environment and the JSON data file from the client.
         /// </summary>
@@ -40,11 +55,13 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="DlexInput"/> class.
         /// </summary>
         /// <param name="cloudResourcePath">The DLEX file path present in the resource manager.</param>
-        /// <param name="cloudLayoutDataPath">The JSON data file path present in the resource manager used to create the PDF report.</param>
-        public DlexInput(string cloudResourcePath, string cloudLayoutDataPath) : base()
+        /// <param name="layoutData">The json data string used to create the PDF report.</param>
+        public DlexInput(string cloudResourcePath, string layoutData) : base()
         {
             ResourceName = cloudResourcePath;
-            LayoutDataResourceName = cloudLayoutDataPath;
+            LayoutDataResource layoutDataResource = new LayoutDataResource(layoutData);
+            LayoutDataResourceName = layoutDataResource.LayoutDataResourceName;
+            Resources.Add(layoutDataResource);
         }
 
         [JsonProperty("type")]
