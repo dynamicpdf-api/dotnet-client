@@ -6,6 +6,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.IO;
 
 namespace DynamicPDF.Api
 {
@@ -25,6 +26,32 @@ namespace DynamicPDF.Api
         }
 
         internal override string EndpointName { get; } = "pdf";
+
+        /// <summary>
+        /// Adds additional resource to the endpoint.
+        /// </summary>
+        /// <param name="resourcePath">The resource file path.</param>
+        /// <param name="type">The type of the resource.</param>
+        /// <param name="resourceName">The name of the resource.</param>
+        public void AddAdditionalResource(string resourcePath, ResourceType type, string resourceName = null)
+        {
+            if( resourceName == null)
+                resourceName = Path.GetFileName(resourcePath);
+            AdditionalResource resource = new AdditionalResource( resourcePath, resourceName, type);
+            Resources.Add(resource);
+        }
+
+        /// <summary>
+        /// Adds additional resource to the endpoint.
+        /// </summary>
+        /// <param name="resourceData">The resource data.</param>
+        /// <param name="type">The type of the resource.</param>
+        /// <param name="resourceName">The name of the resource.</param>
+        public void AddAdditionalResource(byte[] resourceData, ResourceType type, string resourceName = null)
+        {
+            AdditionalResource resource = new AdditionalResource(resourceData, resourceName, type);
+            Resources.Add(resource);
+        }
 
         /// <summary>
         /// Gets or sets the collection of resource.
@@ -439,7 +466,6 @@ namespace DynamicPDF.Api
                 {
                     finalResources.Add(resource);
                 }
-
 
                 String jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
                 {
