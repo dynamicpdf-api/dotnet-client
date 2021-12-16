@@ -435,6 +435,12 @@ namespace DynamicPDF.Api
                     }
                 }
 
+                foreach (Resource resource in Resources)
+                {
+                    finalResources.Add(resource);
+                }
+
+
                 String jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -454,6 +460,7 @@ namespace DynamicPDF.Api
                         request.AddFile("Resource", resource.Data, resource.ResourceName, resource.MimeType);
                 }
                 PdfResponse response = null;
+                //IRestResponse restResponse = restClient.ExecuteAsyncPost()
                 IRestResponse restResponse = restClient.Post(request);
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
