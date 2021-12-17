@@ -1,18 +1,51 @@
 ﻿
 using System;
+using System.IO;
 
 namespace DynamicPDF.Api
 {
     internal class AdditionalResource : Resource
     {
-        internal AdditionalResource(string resourcePath, string resourceName, ResourceType type) : base(resourcePath, resourceName)
+        internal AdditionalResource(string resourcePath, string resourceName) : base(resourcePath, resourceName)
         {
-            Type = type;
+            Type = GetResourceType(resourcePath);
         }
 
         internal AdditionalResource(byte[] resourceData, string resourceName, ResourceType type) : base(resourceData, resourceName)
         {
             Type = type;
+        }
+
+        private ResourceType GetResourceType(string resourcePath)
+        {
+            ResourceType type = ResourceType.Pdf;
+            string fileExtension = Path.GetExtension(resourcePath);
+            switch(fileExtension)
+            {
+                case ".pdf":
+                    type = ResourceType.Pdf;
+                    break;
+                case ".dlex":
+                    type = ResourceType.Dlex;
+                    break;
+                case ".json":
+                    type = ResourceType.LayoutData;
+                    break;
+                case ".ttf":
+                case ".otf":
+                    type = ResourceType.Font;
+                    break;
+                case ".tiff":
+                case ".tif":
+                case ".png":
+                case ".gif":
+                case ".jpeg":
+                case ".jpg":
+                case ".bmp":
+                    type = ResourceType.Image;
+                    break;
+            }
+            return type;
         }
 
         internal override ResourceType Type { get; } = ResourceType.LayoutData;

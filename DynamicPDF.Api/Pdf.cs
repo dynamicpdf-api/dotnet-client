@@ -33,11 +33,11 @@ namespace DynamicPDF.Api
         /// <param name="resourcePath">The resource file path.</param>
         /// <param name="type">The type of the resource.</param>
         /// <param name="resourceName">The name of the resource.</param>
-        public void AddAdditionalResource(string resourcePath, ResourceType type, string resourceName = null)
+        public void AddAdditionalResource(string resourcePath,  string resourceName = null)
         {
             if( resourceName == null)
                 resourceName = Path.GetFileName(resourcePath);
-            AdditionalResource resource = new AdditionalResource( resourcePath, resourceName, type);
+            AdditionalResource resource = new AdditionalResource( resourcePath, resourceName);
             Resources.Add(resource);
         }
 
