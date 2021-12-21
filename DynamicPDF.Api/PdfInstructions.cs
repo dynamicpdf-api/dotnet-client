@@ -42,7 +42,7 @@ namespace DynamicPDF.Api
         internal string Subject { get; set; }
 
         [JsonProperty]
-        internal string Creator { get; set; } = "DynmaicPDF Cloud Api";
+        internal string Creator { get; set; } = "DynamicPDF Cloud Api";
 
         [JsonProperty]
         internal string Keywords { get; set; }
