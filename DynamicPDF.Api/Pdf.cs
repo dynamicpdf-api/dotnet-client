@@ -31,7 +31,6 @@ namespace DynamicPDF.Api
         /// Adds additional resource to the endpoint.
         /// </summary>
         /// <param name="resourcePath">The resource file path.</param>
-        /// <param name="type">The type of the resource.</param>
         /// <param name="resourceName">The name of the resource.</param>
         public void AddAdditionalResource(string resourcePath,  string resourceName = null)
         {

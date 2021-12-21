@@ -1,7 +1,7 @@
 ﻿namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Specifies resouce type.
+    /// Specifies resource type.
     /// </summary>
     public enum ResourceType
     {
