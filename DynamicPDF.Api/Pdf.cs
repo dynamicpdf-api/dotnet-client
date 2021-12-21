@@ -45,10 +45,23 @@ namespace DynamicPDF.Api
         /// Adds additional resource to the endpoint.
         /// </summary>
         /// <param name="resourceData">The resource data.</param>
-        /// <param name="type">The type of the resource.</param>
+        /// <param name="additionalResourceType">The type of the additional resource.</param>
         /// <param name="resourceName">The name of the resource.</param>
-        public void AddAdditionalResource(byte[] resourceData, ResourceType type, string resourceName = null)
+        public void AddAdditionalResource(byte[] resourceData, AdditionalResourceType additionalResourceType, string resourceName)
         {
+            ResourceType type = ResourceType.Pdf;
+            switch(additionalResourceType)
+            {
+                case AdditionalResourceType.Font:
+                    type = ResourceType.Font;
+                    break;
+                case AdditionalResourceType.Image:
+                    type = ResourceType.Image;
+                    break;
+                case AdditionalResourceType.Pdf:
+                    type = ResourceType.Pdf;
+                    break;
+            }
             AdditionalResource resource = new AdditionalResource(resourceData, resourceName, type);
             Resources.Add(resource);
         }
