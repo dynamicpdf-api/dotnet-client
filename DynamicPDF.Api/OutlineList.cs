@@ -56,7 +56,10 @@ namespace DynamicPDF.Api
             return outline;
         }
 
-
+        /// <summary>
+        /// Adds an <see cref="Outline"/> object to the outline list.
+        /// </summary>
+        /// <param name="pdfInput"> PdfInput of type <see cref="PdfInput"/>  object to import outlines to the PDF.</param>
         public void AddPdfOutlines(PdfInput pdfInput)
         {
             outlines.Add(new Outline(pdfInput));
