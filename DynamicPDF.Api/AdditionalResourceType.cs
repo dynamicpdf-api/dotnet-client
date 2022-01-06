@@ -1,9 +1,9 @@
 ﻿namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Specifies resource type.
+    /// Specifies additional resource type.
     /// </summary>
-    public enum ResourceType
+    public enum AdditionalResourceType
     {
         /// <summary>
         /// Image resource.
@@ -14,16 +14,6 @@
         /// Pdf resource.
         /// </summary>
         Pdf,
-
-        /// <summary>
-        /// LayoutData resource.
-        /// </summary>
-        LayoutData,
-
-        /// <summary>
-        /// Dlex resource.
-        /// </summary>
-        Dlex,
 
         /// <summary>
         /// Font resource.

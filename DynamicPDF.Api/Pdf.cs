@@ -6,6 +6,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.IO;
 
 namespace DynamicPDF.Api
 {
@@ -25,6 +26,44 @@ namespace DynamicPDF.Api
         }
 
         internal override string EndpointName { get; } = "pdf";
+
+        /// <summary>
+        /// Adds additional resource to the endpoint.
+        /// </summary>
+        /// <param name="resourcePath">The resource file path.</param>
+        /// <param name="resourceName">The name of the resource.</param>
+        public void AddAdditionalResource(string resourcePath,  string resourceName = null)
+        {
+            if( resourceName == null)
+                resourceName = Path.GetFileName(resourcePath);
+            AdditionalResource resource = new AdditionalResource( resourcePath, resourceName);
+            Resources.Add(resource);
+        }
+
+        /// <summary>
+        /// Adds additional resource to the endpoint.
+        /// </summary>
+        /// <param name="resourceData">The resource data.</param>
+        /// <param name="additionalResourceType">The type of the additional resource.</param>
+        /// <param name="resourceName">The name of the resource.</param>
+        public void AddAdditionalResource(byte[] resourceData, AdditionalResourceType additionalResourceType, string resourceName)
+        {
+            ResourceType type = ResourceType.Pdf;
+            switch(additionalResourceType)
+            {
+                case AdditionalResourceType.Font:
+                    type = ResourceType.Font;
+                    break;
+                case AdditionalResourceType.Image:
+                    type = ResourceType.Image;
+                    break;
+                case AdditionalResourceType.Pdf:
+                    type = ResourceType.Pdf;
+                    break;
+            }
+            AdditionalResource resource = new AdditionalResource(resourceData, resourceName, type);
+            Resources.Add(resource);
+        }
 
         /// <summary>
         /// Gets or sets the collection of resource.
@@ -435,6 +474,11 @@ namespace DynamicPDF.Api
                     }
                 }
 
+                foreach (Resource resource in Resources)
+                {
+                    finalResources.Add(resource);
+                }
+
                 String jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -454,6 +498,7 @@ namespace DynamicPDF.Api
                         request.AddFile("Resource", resource.Data, resource.ResourceName, resource.MimeType);
                 }
                 PdfResponse response = null;
+                //IRestResponse restResponse = restClient.ExecuteAsyncPost()
                 IRestResponse restResponse = restClient.Post(request);
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
