@@ -28,7 +28,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             DlexResource dlex = new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"));
             LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"));
             DlexInput input = pdf.AddDlex(dlex, layoutData);
-
+            pdf.AddAdditionalResource(base.GetResourcePath("Northwind Logo.gif"));
             PdfResponse response = pdf.Process();
             bool pass = false;
 
@@ -60,7 +60,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             string jsonString = File.ReadAllText(base.GetResourcePath("SimpleReportData.json"));
 
-            DlexInput input = new DlexInput("SimpleReportWithCoverPage.dlex", jsonString);
+            DlexInput input = new DlexInput("TFWResources/SimpleReportWithCoverPage.dlex", jsonString);
             pdf.Inputs.Add(input);
 
             PdfResponse response = pdf.Process();
@@ -94,7 +94,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             DlexResource dlex = new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"));
             LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"));
             DlexInput input = new DlexInput(dlex, layoutData);
-
+            pdf.AddAdditionalResource(base.GetResourcePath("Northwind Logo.gif"));
             Template template = new Template("temp1");
             TextElement textElement = new TextElement("HelloWorld", ElementPlacement.TopRight);
             textElement.YOffset = -40;

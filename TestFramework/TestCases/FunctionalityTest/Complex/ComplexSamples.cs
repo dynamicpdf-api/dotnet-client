@@ -285,7 +285,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.Complex
             ImageInput imageInput2 = new ImageInput(resource2);
             pdf.Inputs.Add(imageInput2);
 
-            ImageInput imageInput3 = new ImageInput("fw9_18.tif");
+            ImageInput imageInput3 = new ImageInput("TFWResources/fw9_18.tif");
             pdf.Inputs.Add(imageInput3);
 
             PdfResource resource3 = new PdfResource(base.GetResourcePath("DocumentA100.pdf"));

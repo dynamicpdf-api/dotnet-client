@@ -22,7 +22,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
             Name = "Simple";
             LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"));
 
-            DlexLayout dlexEndpoint = new DlexLayout("SimpleReportWithCoverPage.dlex", layoutData);
+            DlexLayout dlexEndpoint = new DlexLayout("TFWResources/SimpleReportWithCoverPage.dlex", layoutData);
            
             PdfResponse response = dlexEndpoint.Process();
             bool pass = false;
