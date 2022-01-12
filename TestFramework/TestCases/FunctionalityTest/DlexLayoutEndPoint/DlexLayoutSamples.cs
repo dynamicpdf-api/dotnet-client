@@ -83,7 +83,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
 
             LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("ContentGroupSubReportData.json"));
 
-            DlexLayout dlexEndpoint = new DlexLayout("TFWResources/ContentGroup/ContentGroupSubReport.dlex", layoutData);
+            DlexLayout dlexEndpoint = new DlexLayout("TFWResources/ContentGroupSubReport.dlex", layoutData);
 
 
             PdfResponse response = dlexEndpoint.Process();
@@ -143,7 +143,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
 
             LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("ContentGroupData.json"));
 
-            DlexLayout dlexEndpoint = new DlexLayout("Resources/ReportWriter/ContentGroup.dlex", layoutData);
+            DlexLayout dlexEndpoint = new DlexLayout("TFWResources/ContentGroup.dlex", layoutData);
 
 
             PdfResponse response = dlexEndpoint.Process();
@@ -173,7 +173,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
 
             LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("InvoiceReportData.json"));
 
-            DlexLayout dlexEndpoint = new DlexLayout("Resources/ReportWriter/Invoice.dlex", layoutData);
+            DlexLayout dlexEndpoint = new DlexLayout("TFWResources/Invoice.dlex", layoutData);
 
 
             PdfResponse response = dlexEndpoint.Process();
@@ -204,7 +204,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
             var invoiceLinqData = InvoiceData.Order11077;
 
             LayoutDataResource layoutDataResource = new LayoutDataResource(invoiceLinqData);
-            DlexLayout dlexEndpoint = new DlexLayout("InvoiceOrderId.dlex", layoutDataResource);
+            DlexLayout dlexEndpoint = new DlexLayout("TFWResources/InvoiceOrderId.dlex", layoutDataResource);
 
             PdfResponse response = dlexEndpoint.Process();
             bool pass = false;

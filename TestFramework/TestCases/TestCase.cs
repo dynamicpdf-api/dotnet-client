@@ -14,7 +14,6 @@ namespace DynamicPDFApiTestForNET.TestCases
     {
         private string inputFilesFolder;
         private string outputFilesFolder;
-        private string baselinePNGsFolder;
 
         internal const string Author = "ceTe Software";
         internal const string Title = "First Rest API";
@@ -55,7 +54,6 @@ namespace DynamicPDFApiTestForNET.TestCases
 
             this.inputFilesFolder = Path.Combine(testFrameWorkRootFolder, "Resources");
             this.outputFilesFolder = Path.Combine(testFrameWorkRootFolder, "Outputs");
-            this.baselinePNGsFolder = Path.Combine(testFrameWorkRootFolder, "BaselinePNGs");
         }
 
         public string Name { get; set; }
@@ -121,186 +119,10 @@ namespace DynamicPDFApiTestForNET.TestCases
             return Path.Combine(filePath, fileName);
         }
 
-        protected string GetOutputPngFilePath(int pageNumber, InputSampleType inputSampleType)
-        {
-            if (pageNumber < 1) throw new Exception("Page Number must be greater than 0.");
-            string filePath = GetFilePath(inputSampleType, this.outputFilesFolder);
-            return Path.Combine(filePath, "Output_Page" + pageNumber.ToString() + ".png");
-        }
-
-        protected string GetInputPngFilePath(int pageNumber, InputSampleType inputSampleType)
-        {
-            if (pageNumber < 1) throw new Exception("Page Number must be greater than 0.");
-            string filePath = GetFilePath(inputSampleType, baselinePNGsFolder);
-            return Path.Combine(filePath, "Baseline_Page" + pageNumber.ToString() + ".png");
-        }
-
 
         #endregion
 
-        #region Private Methods
-
-        private bool ComparePngs(int pageNumber, InputSampleType inputSampleType)
-        {
-            int baselineWidth;
-            int baselineHeight;
-            int outputWidth;
-            int outputHeight;
-            int baselineStride;
-            int outputStride;
-
-            Bitmap inputBitmap = new Bitmap(GetInputPngFilePath(pageNumber, inputSampleType));
-
-            baselineWidth = inputBitmap.Width;
-            baselineHeight = inputBitmap.Height;
-
-            byte[] inputData = GetBitmapImageData(inputBitmap, out baselineStride);
-            inputBitmap.Dispose();
-
-            Bitmap outputBitmap = new Bitmap(GetOutputPngFilePath(pageNumber, inputSampleType));
-
-            outputWidth = outputBitmap.Width;
-            outputHeight = outputBitmap.Height;
-
-            byte[] outputData = GetBitmapImageData(outputBitmap, out outputStride);
-            outputBitmap.Dispose();
-            int i = 0;
-            bool bImageMatches = true;
-            if (inputData.Length == outputData.Length)
-            {
-                for (i = 0; i < inputData.Length; i++)
-                {
-                    if (inputData[i] != outputData[i])
-                    {
-                        bImageMatches = false;
-                        break;
-                    }
-                }
-            }
-            else
-                bImageMatches = false;
-
-
-            if (bImageMatches == false)
-            {
-                ImageComparisonFile baseLineOutputFiles = new ImageComparisonFile();
-
-                baseLineOutputFiles.BaseLineData = inputData;
-                baseLineOutputFiles.OutputData = outputData;
-
-                baseLineOutputFiles.BaselineWidth = baselineWidth;
-                baseLineOutputFiles.BaselineHeight = baselineHeight;
-
-                baseLineOutputFiles.OutputWidth = outputWidth;
-                baseLineOutputFiles.OutputHeight = outputHeight;
-
-                baseLineOutputFiles.baselineStride = baselineStride;
-                baseLineOutputFiles.outputStride = outputStride;
-
-                baseLineOutputFiles.BaseLinePng = GetInputPngFilePath(pageNumber, inputSampleType);
-                baseLineOutputFiles.OutputPng = GetOutputPngFilePath(pageNumber, inputSampleType);
-
-                baseLineOutputFiles.PageNumber = pageNumber;
-
-                ThreadPool.QueueUserWorkItem(new WaitCallback(GenerateDifferenceImage), baseLineOutputFiles);
-            }
-
-            // System.GC.GetTotalMemory(true);
-
-            return bImageMatches;
-        }
-
-        private byte[] GetBitmapImageData(Bitmap bitmap, out int stride)
-        {
-            BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-            int length = bitmapData.Stride * bitmap.Height;
-            stride = bitmapData.Stride;
-            byte[] data = new byte[length];
-            System.Runtime.InteropServices.Marshal.Copy(bitmapData.Scan0, data, 0, length);
-            return data;
-        }
-
-
-        private void GenerateDifferenceImage(object compareFiles)
-        {
-            ImageComparisonFile baseLineOutputFiles = compareFiles as ImageComparisonFile;
-
-            int width = (baseLineOutputFiles.BaselineWidth >= baseLineOutputFiles.OutputWidth) ? baseLineOutputFiles.BaselineWidth : baseLineOutputFiles.OutputWidth;
-            int height = (baseLineOutputFiles.BaselineHeight >= baseLineOutputFiles.OutputHeight) ? baseLineOutputFiles.BaselineHeight : baseLineOutputFiles.OutputHeight;
-
-            int stride = (width * 3);
-
-            if ((stride % 4) != 0)
-            {
-                stride += (4 - (stride % 4));
-            }
-
-            int dataSize = stride * height;
-
-            byte[] compareData = new byte[dataSize];
-
-            int baselineDifference = (baseLineOutputFiles.BaselineWidth * 3) - baseLineOutputFiles.baselineStride;
-
-            int remainder = baseLineOutputFiles.BaseLineData.Length % 3;
-
-            for (int i = 0; i < baseLineOutputFiles.BaseLineData.Length - remainder; i += 3)
-            {
-                if (i + 3 > baseLineOutputFiles.OutputData.Length)
-                    break;
-                if (baseLineOutputFiles.BaseLineData[i] == baseLineOutputFiles.OutputData[i])
-                {
-                    compareData[i] = (byte)(baseLineOutputFiles.BaseLineData[i] * 0.40);
-                    compareData[i + 1] = (byte)(baseLineOutputFiles.BaseLineData[i + 1] * 0.40);
-                    compareData[i + 2] = (byte)(baseLineOutputFiles.BaseLineData[i + 2] * 0.40);
-                }
-                else
-                {
-                    compareData[i] = 0;
-                    compareData[i + 1] = 255;
-                    compareData[i + 2] = 255;
-                }
-            }
-
-            if (remainder > 0)
-            {
-                if (remainder == 1)
-                {
-                    if (baseLineOutputFiles.BaseLineData[baseLineOutputFiles.BaseLineData.Length - 1] == baseLineOutputFiles.OutputData[baseLineOutputFiles.BaseLineData.Length - 1])
-                    {
-                        compareData[baseLineOutputFiles.BaseLineData.Length - 1] = (byte)(baseLineOutputFiles.BaseLineData[baseLineOutputFiles.BaseLineData.Length - 1] * 0.40);
-                    }
-                    else
-                    {
-                        compareData[baseLineOutputFiles.BaseLineData.Length - 1] = 0;
-                    }
-                }
-
-                if (remainder == 2)
-                {
-                    if (baseLineOutputFiles.BaseLineData[baseLineOutputFiles.BaseLineData.Length - 2] == baseLineOutputFiles.OutputData[baseLineOutputFiles.BaseLineData.Length - 2])
-                    {
-                        compareData[baseLineOutputFiles.BaseLineData.Length - 2] = (byte)(baseLineOutputFiles.BaseLineData[baseLineOutputFiles.BaseLineData.Length - 2] * 0.40);
-                        compareData[baseLineOutputFiles.BaseLineData.Length - 1] = (byte)(baseLineOutputFiles.BaseLineData[baseLineOutputFiles.BaseLineData.Length - 1] * 0.40);
-                    }
-                    else
-                    {
-                        compareData[baseLineOutputFiles.BaseLineData.Length - 2] = 0;
-                        compareData[baseLineOutputFiles.BaseLineData.Length - 1] = 255;
-                    }
-                }
-            }
-
-            Bitmap bmp = new Bitmap(width, height, PixelFormat.Format24bppRgb);
-
-            BitmapData bitmapData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-            System.Runtime.InteropServices.Marshal.Copy(compareData, 0, bitmapData.Scan0, compareData.Length);
-            bmp.UnlockBits(bitmapData);
-
-            bmp.Save(outputFilesFolder + "\\Difference_Page" + baseLineOutputFiles.PageNumber + ".bmp");
-
-            bmp.Dispose();
-        }
-
+        #region Private Method
         private string GetFilePath(InputSampleType inputSampleType, string rootPath)
         {
             string filePath = "";
@@ -383,27 +205,6 @@ namespace DynamicPDFApiTestForNET.TestCases
 
         #endregion
 
-    }
-
-    internal class ImageComparisonFile
-    {
-        internal string BaseLinePng;
-        internal string OutputPng;
-
-        internal byte[] BaseLineData;
-        internal byte[] OutputData;
-
-        internal int BaselineWidth;
-        internal int BaselineHeight;
-
-        internal int OutputWidth;
-        internal int OutputHeight;
-
-        internal int baselineStride;
-        internal int outputStride;
-
-
-        internal int PageNumber;
     }
 
     public enum InputSampleType
