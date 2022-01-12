@@ -1,0 +1,23 @@
+<document xmlns="http://www.dynamicpdf.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.dynamicpdf.com DLEX20.xsd" version="2.0" author="" keywords="" subject="" title="" id="Document1">
+  <report id="Report1" dataName="details" pageSize="letter" pageOrientation="portrait" leftMargin="50" topMargin="50" rightMargin="50" bottomMargin="50">
+    <template id="Template1"/>
+    <header id="Header1" height="5"/>
+    <detail id="Detail1" autoSplit="false" height="93">
+      <contentGroup id="ContentGroup1" x="-42" y="6" width="594" height="90">
+        <rectangle id="Rectangle1" x="6" y="6" width="120.5" height="72.5" borderColor="black"/>
+        <rectangle id="Rectangle2" x="132" y="6" width="456" height="24" borderColor="black"/>
+        <label id="Label1" x="138" y="12" width="72" height="13" underline="false" text="ID"/>
+        <label id="Label2" x="222" y="12" width="126" height="13" underline="false" text="Name"/>
+        <label id="Label3" x="354" y="12" width="222" height="13" underline="false" text="Address"/>
+        <rectangle id="Rectangle3" x="132" y="30" width="456" height="30" borderColor="black"/>
+        <recordBox id="RecordBox1" x="138" y="36" width="72" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="ID"/>
+        <recordBox id="RecordBox2" x="222" y="36" width="126" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="Name"/>
+        <recordBox id="RecordBox3" x="354" y="36" width="222" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="true" splittable="false" dataName="Address"/>
+        <recordBox id="RecordBox4" x="138" y="66" width="67" height="17.5" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="Count(ID)"/>
+      </contentGroup>
+    </detail>
+    <footer id="Footer1" height="5">
+      <pageNumberingLabel id="PageNumberingLabel1" x="402" y="6" width="105" height="19.5" underline="false" text="Page %%CP(i)%% of %%TP(i)%%"/>
+    </footer>
+  </report>
+</document>

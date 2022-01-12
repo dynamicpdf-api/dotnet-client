@@ -1,0 +1,71 @@
+<document xmlns="http://www.dynamicpdf.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.dynamicpdf.com DLEX20.xsd" version="2.0" author="" keywords="" subject="" title="" id="Document1">
+  <report id="Report1" dataName="MarksSheet" pageSize="a5" pageOrientation="landscape" leftMargin="50" topMargin="50" rightMargin="50" bottomMargin="50">
+    <template id="Template1"/>
+    <header id="Header1" height="0">
+      <label id="Label9" x="-42" y="-36" width="594" height="18" align="center" fontSize="18" underline="false" text="Marks Sheet"/>
+    </header>
+    <detail id="Detail1" autoSplit="false" height="270.5">
+      <contentGroup id="ContentGroup1" x="0" y="6" width="492" height="264">
+        <subReport id="SubReport1" x="0" y="48" width="492" dataName="stdDetails">
+          <header id="Header2" height="17.5">
+            <rectangle id="Rectangle1" x="0" y="0" width="492" height="18" borderColor="black"/>
+            <label id="Label2" x="12" y="2.5" width="91" height="12" underline="false" text="Subject Name"/>
+            <label id="Label3" x="108" y="2.5" width="91" height="12" underline="false" text="Total Marks"/>
+            <label id="Label4" x="204" y="2.5" width="91" height="12" underline="false" text="External Marks"/>
+            <label id="Label5" x="300" y="2.5" width="91" height="12" underline="false" text="Internal Marks"/>
+            <label id="Label10" x="396" y="2.5" width="91" height="12" underline="false" text="Total Marks"/>
+          </header>
+          <detail id="Detail2" autoSplit="false" height="156.5">
+            <label id="Label1" x="12" y="6" width="91" height="24" underline="false" text="Electronics"/>
+            <label id="Label6" x="108" y="6" width="91" height="18" underline="false" text="80+20"/>
+            <recordBox id="RecordBox1" x="204" y="6" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="s1e"/>
+            <recordArea id="RecordArea1" x="396" y="6" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false">
+              <text>#s1e+s1i#</text>
+            </recordArea>
+            <label id="Label7" x="12" y="42" width="91" height="29.1" underline="false" text="Web&#10;Development"/>
+            <label id="Label8" x="108" y="48" width="91" height="18" underline="false" text="80+20"/>
+            <recordBox id="RecordBox2" x="204" y="48" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="s2e"/>
+            <recordArea id="RecordArea2" x="396" y="48" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false">
+              <text>#s2e+s2i#</text>
+            </recordArea>
+            <label id="Label11" x="12" y="84" width="91" height="24" underline="false" text="DBMS"/>
+            <label id="Label12" x="12" y="120" width="91" height="24" underline="false" text="Data Structure"/>
+            <label id="Label13" x="108" y="84" width="91" height="18" underline="false" text="80+20"/>
+            <label id="Label14" x="108" y="120" width="91" height="18" underline="false" text="80+20"/>
+            <recordBox id="RecordBox3" x="204" y="84" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="s3e"/>
+            <recordBox id="RecordBox4" x="204" y="120" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="s4e"/>
+            <recordBox id="RecordBox5" x="300" y="6" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="s1i"/>
+            <recordBox id="RecordBox6" x="300" y="84" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="s3i"/>
+            <recordBox id="RecordBox7" x="300" y="120" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="s4i"/>
+            <recordBox id="RecordBox8" x="300" y="48" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false" dataName="s2i"/>
+            <recordArea id="RecordArea4" x="396" y="120" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false">
+              <text>#s4e+s4i#</text>
+            </recordArea>
+            <recordArea id="RecordArea5" x="396" y="84" width="91" height="18" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false">
+              <text>#s3e+s3i#</text>
+            </recordArea>
+            <line id="Line1" x1="0" y1="36" x2="492" y2="36"/>
+            <line id="Line2" x1="0" y1="78" x2="492" y2="78"/>
+            <line id="Line3" x1="0" y1="114" x2="492" y2="114"/>
+            <line id="Line4" x1="0" y1="150" x2="492" y2="150"/>
+          </detail>
+          <footer id="Footer2" height="43">
+            <recordArea id="RecordArea3" x="282" y="0" width="209.1" height="24" fontSize="14" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false">
+              <text>Total Percentage = #((s1e+s1i+s2e+s2i+s3e+s3i+s4e+s4i)/4)#%</text>
+            </recordArea>
+            <recordArea id="RecordArea6" x="354" y="24" width="138" height="24" fontSize="14" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" splittable="false">
+              <text>Pass : #((s1e+s1i+s2e+s2i+s3e+s3i+s4e+s4i)/4)&gt;=75#</text>
+            </recordArea>
+          </footer>
+        </subReport>
+        <formattedRecordArea id="FormattedRecordArea1" x="0" y="0" width="516" height="30" expandable="false" splittable="false" vAlign="center">
+          <text>&lt;P&gt;Dear &lt;I&gt;#name#&lt;/I&gt;&lt;/P&gt;&lt;P&gt;Here is your report card for the Current Semester&lt;/P&gt;</text>
+        </formattedRecordArea>
+      </contentGroup>
+      <pageBreak id="PageBreak1" y="270"/>
+    </detail>
+    <footer id="Footer1" height="0">
+      <pageNumberingLabel id="PageNumberingLabel1" x="420" y="0" width="120" height="24" underline="false" text="Student %%CP(1)%% of %%TP(1)%%"/>
+    </footer>
+  </report>
+</document>
