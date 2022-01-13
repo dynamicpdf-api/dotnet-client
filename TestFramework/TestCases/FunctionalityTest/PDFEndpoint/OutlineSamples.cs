@@ -168,7 +168,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             PdfInput input1 = pdf.AddPdf(resource1);
             input1.Id = "document2";
 
-            PdfResource resource2 = new PdfResource(base.GetResourcePath("Invoice.pdf"));
+            PdfResource resource2 = new PdfResource(base.GetResourcePath("InvoiceTemplate.pdf"));
             PdfInput input2 = pdf.AddPdf(resource2);
             input2.Id = "invoice";
 

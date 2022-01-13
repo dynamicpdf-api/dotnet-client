@@ -92,31 +92,7 @@ namespace DynamicPDFApiTestForNET.TestCases
 
         protected string GetResourcePath(string fileName)
         {
-            string filePath = "";
-            switch (this.InputSampleType)
-            {
-                case InputSampleType.DlexLayout:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
-                    break;
-                case InputSampleType.PdfText:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
-                    break;
-                case InputSampleType.PdfXmp:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
-                    break;
-                case InputSampleType.ImageInfo:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
-                    break;
-                case InputSampleType.PdfInfo:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
-                    break;
-                case InputSampleType.Complex:
-                default:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
-                    break;
-            }
-
-            return Path.Combine(filePath, fileName);
+            return Path.Combine(this.InputFilesFolder, fileName);
         }
 
 
@@ -191,8 +167,8 @@ namespace DynamicPDFApiTestForNET.TestCases
                 case InputSampleType.PdfInfo:
                     filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfInfo", Name));
                     break;
-                case InputSampleType.Complex:
-                    filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\Complex", Name));
+                case InputSampleType.MultipleInputs:
+                    filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\MultipleInputs", Name));
                     break;
             }
             if (!Directory.Exists(filePath))
@@ -211,7 +187,6 @@ namespace DynamicPDFApiTestForNET.TestCases
     {
         None,
         ColorPattern,
-        Complex,
         Dlex,
         Font,
         FormFilling,
@@ -219,6 +194,7 @@ namespace DynamicPDFApiTestForNET.TestCases
         ImageElement,
         ImageInput,
         Line,
+        MultipleInputs,
         Outline,
         PageInput,
         PdfInput,

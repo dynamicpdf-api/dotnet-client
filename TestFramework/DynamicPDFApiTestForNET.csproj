@@ -43,8 +43,6 @@
 
   <ItemGroup>
     <Folder Include="Outputs\" />
-    <Folder Include="Resources\Cloud\" />
-    <Folder Include="TestCases\FunctionalityTest\Complex\" />
   </ItemGroup>
 
   <ItemGroup>
