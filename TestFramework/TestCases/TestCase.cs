@@ -168,7 +168,7 @@ namespace DynamicPDFApiTestForNET.TestCases
                     filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfInfo", Name));
                     break;
                 case InputSampleType.MultipleInputs:
-                    filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\MultipleInputs", Name));
+                    filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfEndpoint\\MultipleInputs", Name));
                     break;
             }
             if (!Directory.Exists(filePath))
