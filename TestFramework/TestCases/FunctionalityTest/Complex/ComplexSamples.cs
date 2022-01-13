@@ -188,7 +188,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.Complex
             PdfInput pdfInput1 = new PdfInput(resource1);
             pdf.Inputs.Add(pdfInput1);
 
-            PdfInput pdfInput2 = new PdfInput("DocumentA100.pdf");
+            PdfInput pdfInput2 = new PdfInput("TFWResources/DocumentA100.pdf");
             pdf.Inputs.Add(pdfInput2);
 
             PageInput pageInput1 = new PageInput();
@@ -387,7 +387,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.Complex
 
             string jsonString = File.ReadAllText(base.GetResourcePath("SimpleReportData.json"));
 
-            DlexInput input2 = new DlexInput("SimpleReportWithCoverPage.dlex", jsonString);
+            DlexInput input2 = new DlexInput("TFWResources/SimpleReportWithCoverPage.dlex", jsonString);
             pdf.Inputs.Add(input2);
 
             PdfResponse response = pdf.Process();
@@ -549,7 +549,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.Complex
             pdf.Author = Author;
             pdf.Title = Title;
 
-            PdfInput pdfInput = new PdfInput("DocumentA100.pdf");
+            PdfInput pdfInput = new PdfInput("TFWResources/DocumentA100.pdf");
             MergeOptions mergeOptions = new MergeOptions();
             pdfInput.MergeOptions = mergeOptions;
             pdf.Inputs.Add(pdfInput);
@@ -563,10 +563,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.Complex
             ImageResource img = new ImageResource(base.GetResourcePath("Northwind Logo.gif"), "northwind logo.gif");
             pdf.Resources.Add(img);
             string jsonString = File.ReadAllText(base.GetResourcePath("SimpleReportData.json"));
-            DlexInput dlexInput = new DlexInput("SimpleReportWithCoverPage.dlex", jsonString);
+            DlexInput dlexInput = new DlexInput("TFWResources/SimpleReportWithCoverPage.dlex", jsonString);
             pdf.Inputs.Add(dlexInput);
 
-            ImageInput imageInput = new ImageInput("Northwind Logo.gif");
+            ImageInput imageInput = new ImageInput("TFWResources/Northwind Logo.gif");
             imageInput.TopMargin = 10;
             imageInput.LeftMargin = 10;
             imageInput.RightMargin = 10;

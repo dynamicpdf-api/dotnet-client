@@ -118,7 +118,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             pdf.Author = Author;
             pdf.Title = Title;
 
-            PdfInput input = new PdfInput("Emptypages.pdf");
+            PdfInput input = new PdfInput("TFWResources/Emptypages.pdf");
             pdf.Inputs.Add(input);
 
             Template template = new Template("Temp1");

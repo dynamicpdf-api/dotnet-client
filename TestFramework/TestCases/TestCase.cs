@@ -96,23 +96,23 @@ namespace DynamicPDFApiTestForNET.TestCases
             switch (this.InputSampleType)
             {
                 case InputSampleType.DlexLayout:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest\\DlexLayout"));
+                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
                     break;
                 case InputSampleType.PdfText:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest\\PdfText"));
+                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
                     break;
                 case InputSampleType.PdfXmp:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest\\PdfXmp"));
+                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
                     break;
                 case InputSampleType.ImageInfo:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest\\ImageInfo"));
+                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
                     break;
                 case InputSampleType.PdfInfo:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest\\PdfInfo"));
+                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
                     break;
                 case InputSampleType.Complex:
                 default:
-                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest\\PdfEndpoint"));
+                    filePath = Path.Combine(this.InputFilesFolder, Path.Combine("FunctionalityTest"));
                     break;
             }
 

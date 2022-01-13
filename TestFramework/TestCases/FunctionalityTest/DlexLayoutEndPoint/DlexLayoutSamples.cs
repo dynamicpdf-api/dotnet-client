@@ -53,7 +53,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
 
             LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("ContactList.json"));
 
-            DlexLayout dlexEndpoint = new DlexLayout("ContactList.dlex", layoutData);
+            DlexLayout dlexEndpoint = new DlexLayout("TFWResources/ContactList.dlex", layoutData);
 
 
             PdfResponse response = dlexEndpoint.Process();

@@ -79,7 +79,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             pdf.Author = Author;
             pdf.Title = Title;
 
-            PdfInput input = new PdfInput("fw9AcroForm_14.pdf");
+            PdfInput input = new PdfInput("TFWResources/fw9AcroForm_14.pdf");
             pdf.Inputs.Add(input);
 
             FormField field = new FormField("topmostSubform[0].Page1[0].f1_1[0]");

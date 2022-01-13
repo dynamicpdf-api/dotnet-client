@@ -44,10 +44,6 @@
   <ItemGroup>
     <Folder Include="Outputs\" />
     <Folder Include="Resources\Cloud\" />
-    <Folder Include="Resources\FunctionalityTest\DlexLayout\" />
-    <Folder Include="Resources\FunctionalityTest\PdfEndpoint\" />
-    <Folder Include="Resources\FunctionalityTest\PdfText\" />
-    <Folder Include="Resources\FunctionalityTest\PdfXmp\" />
     <Folder Include="TestCases\FunctionalityTest\Complex\" />
   </ItemGroup>
 

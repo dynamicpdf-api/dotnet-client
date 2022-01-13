@@ -108,7 +108,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             security.EncryptMetadata = true;
             pdf.Security = security;
 
-            PdfInput input = new PdfInput("XmpAndOtherSample.pdf");
+            PdfInput input = new PdfInput("TFWResources/XmpAndOtherSample.pdf");
             pdf.Inputs.Add(input);
             
             PdfResponse response = pdf.Process();
