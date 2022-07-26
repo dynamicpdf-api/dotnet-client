@@ -4,7 +4,7 @@ ___
 
 # C# .NET Client Library (`dotnet-client`)
 
-The C# .NET Client Examples project uses the DynamicPDF Cloud API Java client library to create, merge, split, form fill, stamp, obtain metadata, convert, and secure/encrypt PDF documents. This project contains the DynamicPDF Cloud API's .NET client library (`dotnet-client`) for the following REST API endpoints. The website for this project is available at [cloud.dynamicpdf.com](https://cloud.dynamicpdf.com/).
+The C# .NET Client library (`dotnet-client`) uses the DynamicPDF Cloud API Java client library to create, merge, split, form fill, stamp, obtain metadata, convert, and secure/encrypt PDF documents. The website for this project is available at [cloud.dynamicpdf.com](https://cloud.dynamicpdf.com/).
 
 * `dlex-layout`
 * `image-info`
