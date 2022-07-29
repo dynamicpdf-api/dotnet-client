@@ -2,7 +2,9 @@
 
 # C# .NET Client Library (`dotnet-client`)
 
-The C# .NET Client library (`dotnet-client`) uses the DynamicPDF Cloud API Java client library to create, merge, split, form fill, stamp, obtain metadata, convert, and secure/encrypt PDF documents. The website for this project is available at [cloud.dynamicpdf.com](https://cloud.dynamicpdf.com/).
+The C# .NET Client library (`dotnet-client`) uses the DynamicPDF Cloud API .NET client library to create, merge, split, form fill, stamp, obtain metadata, convert, and secure/encrypt PDF documents. The website for this project is available at [cloud.dynamicpdf.com](https://cloud.dynamicpdf.com/).
+
+The DynamicPDF Cloud API consists of the following endpoints.
 
 * `dlex-layout`
 * `image-info`
@@ -20,14 +22,14 @@ The C# .NET Client library (`dotnet-client`) uses the DynamicPDF Cloud API Java 
 * Obtain overview documentation for the DynamicPDF Cloud API Client libraries from the [Cloud API Users Guide](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/client-libraries/cloud-api-client-libraries).
 * Access the documentation for each particular endpoint from the following Users Guide pages. 
 
-| Endpoint      | REST Endpoint                                                | REST Endpoint Client Library              | Description                                                  |
-| ------------- | ------------------------------------------------------------ | ----------------------------------------- | ------------------------------------------------------------ |
-| `dlex-layout` | [Cloud API Users Guide - `dlex-layout`](./cloud-api-dlex-layout) | [`dlex-layout`](./client-api-dlex-layout) | Returns a PDF after processing a DLEX file with it's associated JSON data. |
-| `image-info`  | [Cloud API Users Guide - `image-info`](./cloud-api-image-info) | [`image-info`](./client-api-image-info)   | Returns image metadata as a JSON document.                   |
-| `pdf`         | [Cloud API Users Guide - `pdf`](./cloud-api-pdf)             | [`pdf`](./client-api-pdf)                 | Returns a PDF after performing one of the pdf endpoint's tasks (`page`, `dlex`, `image`) or merging. |
-| `pdf-info`    | [Cloud API Users Guide - `pdf-Info`](./cloud-api-pdf-info)   | [`pdf-info`](./client-api-pdf-info)       | Returns PDF metadata as a JSON document.                     |
-| `pdf-text`    | [Cloud API Users Guide - `pdf-text`](./cloud-api-pdf-text)   | [`pdf-text`](./client-api-pdf-text)       | Returns the text from a PDF as a JSON document.              |
-| `pdf-xmp`     | [Cloud API Users Guide - `pdf-xmp`](./cloud-api-pdf-xmp)     | [`pdf-xmp`](./client-api-pdf-xmp)         | Returns XMP metadata from a PDF.                             |
+| Endpoint      | REST Endpoint                                                | REST Endpoint Client Library                                 | Description                                                  |
+| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `dlex-layout` | [Cloud API Users Guide - `dlex-layout`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/cloud-api-dlex-layout) | [`dlex-layout`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/client-libraries/client-api-dlex-layout) | Returns a PDF after processing a DLEX file with it's associated JSON data. |
+| `image-info`  | [Cloud API Users Guide - `image-info`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/cloud-api-image-info) | [`image-info`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/client-libraries/client-api-image-info) | Returns image metadata as a JSON document.                   |
+| `pdf`         | [Cloud API Users Guide - `pdf`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/cloud-api-pdf) | [`pdf`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/client-libraries/client-api-pdf) | Returns a PDF after performing one of the pdf endpoint's tasks (`page`, `dlex`, `image`) or merging. |
+| `pdf-info`    | [Cloud API Users Guide - `pdf-Info`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/cloud-api-pdf-info) | [`pdf-info`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/client-libraries/client-api-pdf-info) | Returns PDF metadata as a JSON document.                     |
+| `pdf-text`    | [Cloud API Users Guide - `pdf-text`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/cloud-api-pdf-text) | [`pdf-text`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/client-libraries/client-api-pdf-text) | Returns the text from a PDF as a JSON document.              |
+| `pdf-xmp`     | [Cloud API Users Guide - `pdf-xmp`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/cloud-api-pdf-xmp) | [`pdf-xmp`](https://cloud.dynamicpdf.com/docs/usersguide/cloud-api/client-libraries/client-api-pdf-xmp) | Returns XMP metadata from a PDF.                             |
 
 ## REST Client
 
@@ -35,19 +37,19 @@ The C# .NET Client library (`dotnet-client`) uses the DynamicPDF Cloud API Java 
 
 ## **Tutorials**
 
-The following table lists the tutorial project or file name.  In Visual Studio each tutorial is it's own project. In the remaining client libraries each tutorial is its own individual class. 
+The following table lists the available tutorials.
 
-| Tutorial Title                                     | Project/File/Class      | Tutorial Location                                            |
-| -------------------------------------------------- | ----------------------- | ------------------------------------------------------------ |
-| Merging PDFs                                       | MergePdfs               | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/merging-pdfs |
-| Completing an AcroForm                             | `CompletingAcroForm`    | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/form-completion |
-| Creating a PDF Using a DLEX and the `pdf` Endpoint | `CreatingPdfDlex`       | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/dlex-pdf-endpoint |
-| Adding Bookmarks to a PDF                          | `AddBookmarks`          | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/bookmarks |
-| Creating a PDF Using the `dlex-layout` Endpoint    | `CreatingPdfDlexLayout` | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/dlex-layout |
-| Extracting Image Metadata                          | `GetImageInfo`          | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/image-info |
-| Extract PDF Metadata                               | `GetPdfInfo`            | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/pdf-info |
-| Extracting PDF's Text                              | `ExtractingText`        | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/pdf-text |
-| Extract XMP Metadata                               | `GetXmpMetaData`        | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/pdf-xmp |
+| Tutorial Title                                     | Tutorial Location                                            |
+| -------------------------------------------------- | ------------------------------------------------------------ |
+| Merging PDFs                                       | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/merging-pdfs |
+| Completing an AcroForm                             | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/form-completion |
+| Creating a PDF Using a DLEX and the `pdf` Endpoint | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/dlex-pdf-endpoint |
+| Adding Bookmarks to a PDF                          | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/bookmarks |
+| Creating a PDF Using the `dlex-layout` Endpoint    | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/dlex-layout |
+| Extracting Image Metadata                          | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/image-info |
+| Extract PDF Metadata                               | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/pdf-info |
+| Extracting PDF's Text                              | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/pdf-text |
+| Extract XMP Metadata                               | https://cloud.dynamicpdf.com/docs/tutorials/cloud-api/pdf-xmp |
 
 # Support
 
@@ -59,4 +61,4 @@ Ticket support is available to Pro Plan subscribers. But we still encourage you 
 
 # License
 
-The `dotnet-client-examples` library is licensed under the [MIT License](./LICENSE).
+The `dotnet-client` library is licensed under the [MIT License](./LICENSE).
