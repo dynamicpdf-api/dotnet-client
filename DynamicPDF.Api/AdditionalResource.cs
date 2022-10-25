@@ -44,6 +44,9 @@ namespace DynamicPDF.Api
                 case ".bmp":
                     type = ResourceType.Image;
                     break;
+                case ".html":
+                    type = ResourceType.Html;
+                    break;
             }
             return type;
         }
@@ -115,6 +118,9 @@ namespace DynamicPDF.Api
                         {
                             throw new EndpointException("Unsupported font");
                         }
+                    case ResourceType.Html:
+                        MimeType = "text/html";
+                        return ".html";
 
                 }
                 return null;

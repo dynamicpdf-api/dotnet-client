@@ -170,6 +170,9 @@ namespace DynamicPDFApiTestForNET.TestCases
                 case InputSampleType.MultipleInputs:
                     filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfEndpoint\\MultipleInputs", Name));
                     break;
+                case InputSampleType.Html:
+                    filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfEndpoint", Name));
+                    break;
             }
             if (!Directory.Exists(filePath))
             {
@@ -208,5 +211,6 @@ namespace DynamicPDFApiTestForNET.TestCases
         PdfXmp,
         ImageInfo,
         PdfInfo,
+        Html
     }
 }

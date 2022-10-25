@@ -60,6 +60,9 @@ namespace DynamicPDF.Api
                 case AdditionalResourceType.Pdf:
                     type = ResourceType.Pdf;
                     break;
+                case AdditionalResourceType.Html:
+                    type = ResourceType.Html;
+                    break;
             }
             AdditionalResource resource = new AdditionalResource(resourceData, resourceName, type);
             Resources.Add(resource);
