@@ -240,6 +240,28 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
+        /// Returns an <see cref="HtmlInput"/> object containing the input pdf.
+        /// </summary>
+        /// <param name="resource">The resource of type <see cref="HtmlResource"/>.</param>
+        public HtmlInput AddHtml(HtmlResource resource, string basepath = null, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        {
+            HtmlInput input = new HtmlInput(resource, basepath, size, orientation, margins);
+            this.Inputs.Add(input);
+            return input;
+        }
+
+        /// <summary>
+        /// Returns an <see cref="HtmlInput"/> object containing the input pdf.
+        /// </summary>
+        /// <param name="html">The HTML input string.</param>
+        public HtmlInput AddHtml(string html, string basepath = null, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        {
+            HtmlInput input = new HtmlInput(html, basepath, size, orientation, margins);
+            this.Inputs.Add(input);
+            return input;
+        }
+
+        /// <summary>
         /// Returns a <see cref="DlexInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="dlexResource">The dlex resource of type <see cref="DlexResource"/>.</param>

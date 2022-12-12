@@ -17,18 +17,10 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="HtmlResource"/> class.
         /// </summary>
         /// <param name="filePath">The pdf file path.</param>
-        public HtmlResource(string filePath)
+        /// <param name="resourceName">The name of the resource.</param>
+        public HtmlResource(string filePath, string resourceName = null) :base(filePath, resourceName) 
         {
-            if (File.Exists(filePath))
-            {
-                Data = Resource.GetFileData(filePath);
-                FilePath = filePath;
-                ResourceName = "htmlinput.html";
-            }
-            else
-                throw new EndpointException("File does not exist.");
         }
-
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]

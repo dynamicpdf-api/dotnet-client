@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
+using api = DynamicPDF.Api;
+
 
 namespace DynamicPDF.Api
 {
@@ -13,162 +11,163 @@ namespace DynamicPDF.Api
     /// </summary>
     public class HtmlInput : Input
     {
+        private api.PageSize pageSize = api.PageSize.A4;
+        private api.PageOrientation pageOrientation = api.PageOrientation.Portrait;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="HtmlInput"/> class.
         /// </summary>
         /// <param name="resource">The resource of type <see cref="HtmlResource"/>.</param>
         /// <param name="basepath">The basepath options for the url.</param>
-        public HtmlInput(HtmlResource resource, string basepath = null) : base(resource)
+        public HtmlInput(HtmlResource resource, string basepath = null, api.PageSize size = api.PageSize.A4, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) : base(resource)
         {
-            Resources.Add(resource);
-            resourceName = resource.ResourceName;
-
+            if (orientation != api.PageOrientation.Portrait)
+            {
+                PageOrientation = orientation;
+            }
+            PageSize = size;
             if (basepath != null)
             {
-                basePath = basepath;
+                BasePath = basepath;
+            }
+
+            if (margins != null)
+            {
+                TopMargin = margins;
+                BottomMargin = margins;
+                RightMargin = margins;
+                LeftMargin = margins;
             }
         }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HtmlInput"/> class.
         /// </summary>
-        /// <param name="htmlString">The Html content for conversion.</param>
+        /// <param name="resource">The resource of type <see cref="HtmlResource"/>.</param>
         /// <param name="basepath">The basepath options for the url.</param>
-        public HtmlInput(string htmlString, string basepath = null) : base(htmlString)
+        public HtmlInput(string htmlString, string basepath = null, api.PageSize size = api.PageSize.A4, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) : base()
         {
-            this.htmlString = htmlString;
-
+            if (orientation != api.PageOrientation.Portrait)
+            {
+                PageOrientation = orientation;
+            }
+            PageSize = size;
             if (basepath != null)
             {
-                basePath = basepath;
+                BasePath = basepath;
             }
-        }
-
-        [JsonProperty]
-        internal string resourceName { get; set; } = null;
+            if (margins != null)
+            {
+                TopMargin = margins;
+                BottomMargin = margins;
+                RightMargin = margins;
+                LeftMargin = margins;
+            }
+            if (htmlString != null)
+            {
+                this.HtmlString = htmlString;
+            }
+        }   
 
         /// <summary>
         /// Gets or sets the Html String for Input.
         /// </summary>
-        public string htmlString { get; set; } = null;
+        public string HtmlString { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the Basepath option.
         /// </summary>
-        public string basePath { get; set; } = null;
+        public string BasePath { get; set; } = null;
 
-        [JsonProperty]
-        internal double? pageWidth { get; set; }
+        /// <summary>
+        /// Gets or sets the top margin.
+        /// </summary>
+        public float? TopMargin { get; set; } = null;
 
-        [JsonProperty]
-        internal double? pageHeight { get; set; }
+        /// <summary>
+        /// Gets or sets the left margin.
+        /// </summary>
+        public float? LeftMargin { get; set; } = null;
 
-        [JsonProperty]
-        internal double? topMargin { get; set; }
+        /// <summary>
+        /// Gets or sets the bottom margin.
+        /// </summary>
+        public float? BottomMargin { get; set; } = null;
 
-        [JsonProperty]
-        internal double? bottomMargin { get; set; }
+        /// <summary>
+        /// Gets or sets the right margin.
+        /// </summary>
+        public float? RightMargin { get; set; } = null;
 
-        [JsonProperty]
-        internal double? rightMargin { get; set; }
+        /// <summary>
+        /// Gets or sets the page width.
+        /// </summary>
+        public float? PageWidth { get; set; } = null;
 
-        [JsonProperty]
-        internal double? leftMargin { get; set; }
+        /// <summary>
+        /// Gets or sets the page height.
+        /// </summary>
+        public float? PageHeight { get; set; } = null;
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override InputType Type { get { return InputType.Html; } }
 
         /// <summary>
-        /// Sets the Margin for Pdf Output.
+        /// Gets or sets the Page size.
         /// </summary>
-        /// <param name="margin">The margin for all four sides.</param>
-
-        public void Margin(double margin)
+        [JsonIgnore]
+        public api.PageSize PageSize
         {
-            topMargin = margin;
-            bottomMargin = margin;
-            rightMargin = margin;
-            leftMargin = margin;
-        }
-
-        /// <summary>
-        /// Sets the Margin for Pdf Output.
-        /// </summary>
-        /// <param name="topBottom">The Top and Bottom margin.</param>
-        /// <param name="rightLeft">The Right and Left margin.</param>
-        public void Margin(double topBottom, double rightLeft)
-        {
-            topMargin = topBottom;
-            bottomMargin = topBottom;
-            rightMargin = rightLeft;
-            leftMargin = rightLeft;
-        }
-
-        /// <summary>
-        /// Sets the Margin for Pdf Output.
-        /// </summary>
-        /// <param name="topBottom">The Top and Bottom margin.</param>
-        /// <param name="right">The Right margin.</param>
-        /// <param name="left">The Left margin.</param>
-        public void Margin(double topBottom, double right, double left)
-        {
-            topMargin = topBottom;
-            bottomMargin = topBottom;
-            rightMargin = right;
-            leftMargin = left;
-        }
-
-        /// <summary>
-        /// Sets the Margin for Pdf Output.
-        /// </summary>
-        /// <param name="top">The Top margin.</param>
-        /// <param name="bottom">The Bottom margin.</param>
-        /// <param name="right">The Right margin.</param>
-        /// <param name="left">The Left margin.</param>
-
-        public void Margin(double top, double bottom, double right, double left)
-        {
-            topMargin = top;
-            bottomMargin = bottom;
-            rightMargin = right;
-            leftMargin = left;
-        }
-
-        /// <summary>
-        /// Sets the Page for Pdf Output.
-        /// </summary>
-        /// <param name="width">The Width of the page.</param>
-        /// <param name="height">The Height of the page.</param>
-        public void PageSize(double width, double height)
-        {
-            pageHeight = height;
-            pageWidth = width;
-        }
-
-        /// <summary>
-        /// Sets the Page for Pdf Output.
-        /// </summary>
-        /// <param name="pageSize">The <see cref="Api.PageSize"/> of the page.</param>
-        /// <param name="orientation">The <see cref="PageOrientation"/> of the page.</param>
-        public void PageSize(PageSize pageSize, PageOrientation orientation)
-        {
-            double smaller;
-            double larger;
-
-            UnitConverter.GetPaperSize(pageSize, out smaller, out larger);
-
-            if (orientation == PageOrientation.Portrait)
+            set
             {
-                pageWidth = smaller;
-                pageHeight = larger;
+                pageSize = value;
+                double pgWidth = 0.0f;
+                double pgHeight = 0.0f;
+                UnitConverter.GetPaperSize(value, out pgWidth, out pgHeight);
+                if (PageOrientation == PageOrientation.Portrait)
+                {
+                    PageHeight = (float)pgHeight;
+                    PageWidth = (float)pgWidth;
+                }
+                else
+                {
+                    PageHeight = (float)pgWidth;
+                    PageWidth = (float)pgHeight; 
+                }
             }
-            else
+            get
             {
-                pageWidth = larger;
-                pageHeight = smaller;
+                return pageSize;
             }
         }
+
+        /// <summary>
+        /// Gets or sets page orientation.
+        /// </summary>
+        [JsonIgnore]
+        public api.PageOrientation PageOrientation
+        {
+            get
+            {
+                return pageOrientation;
+            }
+            set
+            {
+                pageOrientation = value;
+                if (pageOrientation == PageOrientation.Landscape)
+                {
+                    float? tempWidth = PageWidth;
+                    if( PageWidth != null)
+                    {
+                        PageWidth = PageHeight;
+                    }
+                    if( PageHeight != null)
+                    {
+                        PageHeight = tempWidth;
+                    }
+                }
+            }
+        } 
     }
 }
