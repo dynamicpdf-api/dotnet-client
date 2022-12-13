@@ -102,12 +102,12 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the page width.
         /// </summary>
-        public float? PageWidth { get; set; } = null;
+        public float PageWidth { get; set; } = 612.0f;
 
         /// <summary>
         /// Gets or sets the page height.
         /// </summary>
-        public float? PageHeight { get; set; } = null;
+        public float PageHeight { get; set; } = 792.0f;
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
@@ -155,33 +155,28 @@ namespace DynamicPDF.Api
             set
             {
                 pageOrientation = value;
-
-                if (PageWidth != null && PageHeight != null)
+                float smaller = (float)PageWidth;
+                float larger = (float)PageHeight;
+                if (PageWidth > PageHeight)
                 {
-                    float smaller = (float)PageWidth;
-                    float larger = (float)PageHeight;
-                    if (PageWidth > PageHeight)
-                    {
-                        smaller = (float)PageHeight;
-                        larger = (float)PageWidth;
-                    }
-                    else
-                    {
-                        smaller = (float)PageWidth;
-                        larger = (float)PageHeight;
-                    }
-                    if (PageOrientation == PageOrientation.Portrait)
-                    {
-                        PageHeight = larger;
-                        PageWidth = smaller;
-                    }
-                    else
-                    {
-                        PageHeight = smaller;
-                        PageWidth = larger;
-                    }
+                    smaller = (float)PageHeight;
+                    larger = (float)PageWidth;
                 }
- 
+                else
+                {
+                    smaller = (float)PageWidth;
+                    larger = (float)PageHeight;
+                }
+                if (PageOrientation == PageOrientation.Portrait)
+                {
+                    PageHeight = larger;
+                    PageWidth = smaller;
+                }
+                else
+                {
+                    PageHeight = smaller;
+                    PageWidth = larger;
+                }
             }
         } 
     }
