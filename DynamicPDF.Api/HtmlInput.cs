@@ -11,26 +11,22 @@ namespace DynamicPDF.Api
     /// </summary>
     public class HtmlInput : Input
     {
-        private api.PageSize pageSize = api.PageSize.A4;
-        private api.PageOrientation pageOrientation = api.PageOrientation.Portrait;
+        private api.PageSize pageSize ;
+        private api.PageOrientation pageOrientation ;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HtmlInput"/> class.
         /// </summary>
         /// <param name="resource">The resource of type <see cref="HtmlResource"/>.</param>
         /// <param name="basepath">The basepath options for the url.</param>
-        public HtmlInput(HtmlResource resource, string basepath = null, api.PageSize size = api.PageSize.A4, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) : base(resource)
+        public HtmlInput(HtmlResource resource, string basepath = null, api.PageSize size = api.PageSize.Letter, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) : base(resource)
         {
-            if (orientation != api.PageOrientation.Portrait)
-            {
-                PageOrientation = orientation;
-            }
             PageSize = size;
+            PageOrientation = orientation;
             if (basepath != null)
             {
                 BasePath = basepath;
             }
-
             if (margins != null)
             {
                 TopMargin = margins;
@@ -45,27 +41,31 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="resource">The resource of type <see cref="HtmlResource"/>.</param>
         /// <param name="basepath">The basepath options for the url.</param>
-        public HtmlInput(string htmlString, string basepath = null, api.PageSize size = api.PageSize.A4, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) : base()
+        public HtmlInput(string htmlString, string basepath = null, api.PageSize size = api.PageSize.Letter, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) : base()
         {
-            if (orientation != api.PageOrientation.Portrait)
+            if (htmlString != null && htmlString.Length > 0)
             {
+                PageSize = size;
                 PageOrientation = orientation;
+                if (basepath != null)
+                {
+                    BasePath = basepath;
+                }
+                if (margins != null)
+                {
+                    TopMargin = margins;
+                    BottomMargin = margins;
+                    RightMargin = margins;
+                    LeftMargin = margins;
+                }
+                if (htmlString != null)
+                {
+                    this.HtmlString = htmlString;
+                }
             }
-            PageSize = size;
-            if (basepath != null)
+            else
             {
-                BasePath = basepath;
-            }
-            if (margins != null)
-            {
-                TopMargin = margins;
-                BottomMargin = margins;
-                RightMargin = margins;
-                LeftMargin = margins;
-            }
-            if (htmlString != null)
-            {
-                this.HtmlString = htmlString;
+                throw new EndpointException("Specify valid Html string.");
             }
         }   
 
@@ -122,18 +122,18 @@ namespace DynamicPDF.Api
             set
             {
                 pageSize = value;
-                double pgWidth = 0.0f;
-                double pgHeight = 0.0f;
-                UnitConverter.GetPaperSize(value, out pgWidth, out pgHeight);
+                double smallerWidth = 0.0f;
+                double largerWidth = 0.0f;
+                UnitConverter.GetPaperSize(value, out smallerWidth, out largerWidth);
                 if (PageOrientation == PageOrientation.Portrait)
                 {
-                    PageHeight = (float)pgHeight;
-                    PageWidth = (float)pgWidth;
+                    PageHeight = (float)largerWidth;
+                    PageWidth = (float)smallerWidth;
                 }
                 else
                 {
-                    PageHeight = (float)pgWidth;
-                    PageWidth = (float)pgHeight; 
+                    PageHeight = (float)smallerWidth;
+                    PageWidth = (float)largerWidth; 
                 }
             }
             get
@@ -155,18 +155,33 @@ namespace DynamicPDF.Api
             set
             {
                 pageOrientation = value;
-                if (pageOrientation == PageOrientation.Landscape)
+
+                if (PageWidth != null && PageHeight != null)
                 {
-                    float? tempWidth = PageWidth;
-                    if( PageWidth != null)
+                    float smallerWidth = (float)PageWidth;
+                    float largerWidth = (float)PageHeight;
+                    if (PageWidth > PageHeight)
                     {
-                        PageWidth = PageHeight;
+                        smallerWidth = (float)PageHeight;
+                        largerWidth = (float)PageWidth;
                     }
-                    if( PageHeight != null)
+                    else
                     {
-                        PageHeight = tempWidth;
+                        smallerWidth = (float)PageWidth;
+                        largerWidth = (float)PageHeight;
+                    }
+                    if (PageOrientation == PageOrientation.Portrait)
+                    {
+                        PageHeight = largerWidth;
+                        PageWidth = smallerWidth;
+                    }
+                    else
+                    {
+                        PageHeight = smallerWidth;
+                        PageWidth = largerWidth;
                     }
                 }
+ 
             }
         } 
     }
