@@ -16,7 +16,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Initializes a new instance of the <see cref="HtmlResource"/> class.
         /// </summary>
-        /// <param name="filePath">The pdf file path.</param>
+        /// <param name="filePath">The html file path.</param>
         /// <param name="resourceName">The name of the resource.</param>
         public HtmlResource(string filePath, string resourceName = null) :base(filePath, resourceName) 
         {
