@@ -45,6 +45,7 @@ namespace DynamicPDF.Api
         {
             if (htmlString != null && htmlString.Length > 0)
             {
+                HtmlString = htmlString;
                 PageSize = size;
                 PageOrientation = orientation;
                 if (basepath != null)
@@ -58,10 +59,6 @@ namespace DynamicPDF.Api
                     RightMargin = margins;
                     LeftMargin = margins;
                 }
-                if (htmlString != null)
-                {
-                    this.HtmlString = htmlString;
-                }
             }
             else
             {
@@ -72,7 +69,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the Html String for Input.
         /// </summary>
-        public string HtmlString { get; set; } = null;
+        public string HtmlString { get; internal set; } = null;
 
         /// <summary>
         /// Gets or sets the Basepath option.
