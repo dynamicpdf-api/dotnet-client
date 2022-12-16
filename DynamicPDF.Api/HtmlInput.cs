@@ -67,12 +67,12 @@ namespace DynamicPDF.Api
         }   
 
         /// <summary>
-        /// Gets or sets the Html String for Input.
+        /// Gets the html string for the input.
         /// </summary>
         public string HtmlString { get; internal set; } = null;
 
         /// <summary>
-        /// Gets or sets the Basepath option.
+        /// Gets or sets the base path option.
         /// </summary>
         public string BasePath { get; set; } = null;
 
@@ -111,7 +111,7 @@ namespace DynamicPDF.Api
         internal override InputType Type { get { return InputType.Html; } }
 
         /// <summary>
-        /// Gets or sets the Page size.
+        /// Gets or sets the page size.
         /// </summary>
         [JsonIgnore]
         public api.PageSize PageSize
