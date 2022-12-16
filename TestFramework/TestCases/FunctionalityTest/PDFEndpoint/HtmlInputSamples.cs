@@ -25,8 +25,14 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Pdf pdf = new Pdf();
 
             HtmlInput html = new HtmlInput("<html><body>hello</body></html>");
-            html.PageSize(300,200);
-            html.Margin(10, 40);
+
+            html.PageWidth = 300;
+            html.PageHeight = 200;
+
+            html.TopMargin = 10;
+            html.BottomMargin = 10;
+            html.RightMargin = 40;
+            html.LeftMargin = 40;
 
             pdf.Inputs.Add(html);
 
@@ -44,6 +50,29 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         }
 
         [TestMethod]
+        public void HtmlStringParameters_pdfoutput()
+        {
+            Name = "HtmlToPdf";
+            Pdf pdf = new Pdf();
+
+            HtmlInput html = new HtmlInput("<html><body>hello</body></html>",null, PageSize.Letter, PageOrientation.Portrait, 10f);
+
+            pdf.Inputs.Add(html);
+
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlStringParameters.pdf", InputSampleType), (byte[])response.Content);
+
+                pass = response.IsSuccessful;
+            }
+            Assert.IsTrue(pass);
+
+        }
+
+        [TestMethod]
         public void HtmlResource_pdfoutput()
         {
             Name = "HtmlToPdf";
@@ -52,9 +81,14 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
 
             HtmlInput html = new HtmlInput(file);
-            html.PageSize(PageSize.B4, PageOrientation.Landscape);
+            html.PageSize = PageSize.B4;
+            html.PageOrientation = PageOrientation.Landscape;
 
-            html.Margin(50,80);
+            html.TopMargin = 50;
+            html.BottomMargin = 50;
+            html.RightMargin = 80;
+            html.LeftMargin = 80;
+
 
             pdf.Inputs.Add(html);
 
@@ -64,6 +98,83 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             if (response.IsSuccessful)
             {
                 File.WriteAllBytes(base.GetOutputFilePath("HtmlFileOP.pdf", InputSampleType), (byte[])response.Content);
+
+                pass = response.IsSuccessful;
+            }
+            Assert.IsTrue(pass);
+        }
+
+        [TestMethod]
+        public void HtmlResourcePageSize_pdfoutput()
+        {
+            Name = "HtmlToPdf";
+            Pdf pdf = new Pdf();
+
+            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+
+            HtmlInput html = new HtmlInput(file);
+            html.PageSize = PageSize.Postcard;
+
+
+            pdf.Inputs.Add(html);
+
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlFilePageSize.pdf", InputSampleType), (byte[])response.Content);
+
+                pass = response.IsSuccessful;
+            }
+            Assert.IsTrue(pass);
+        }
+
+        [TestMethod]
+        public void HtmlResourcePageHeightPageWidth_pdfoutput()
+        {
+            Name = "HtmlToPdf";
+            Pdf pdf = new Pdf();
+
+            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+
+            HtmlInput html = new HtmlInput(file);
+            html.PageHeight = 400;
+            html.PageWidth = 300;
+
+
+            pdf.Inputs.Add(html);
+
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlFilePageHeightPageWidth.pdf", InputSampleType), (byte[])response.Content);
+
+                pass = response.IsSuccessful;
+            }
+            Assert.IsTrue(pass);
+        }
+
+        [TestMethod]
+        public void HtmlResourceParameters_pdfoutput()
+        {
+            Name = "HtmlToPdf";
+            Pdf pdf = new Pdf();
+
+            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+
+            HtmlInput html = new HtmlInput(file, null, PageSize.A3, PageOrientation.Landscape, 30f);
+
+            pdf.Inputs.Add(html);
+
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlFilePageHeightPageWidth.pdf", InputSampleType), (byte[])response.Content);
 
                 pass = response.IsSuccessful;
             }
