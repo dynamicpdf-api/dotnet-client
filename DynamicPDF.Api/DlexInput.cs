@@ -71,6 +71,6 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the name for layout data resource.
         /// </summary>
-        public string LayoutDataResourceName { get; set; }
+        public string LayoutDataResourceName { get; internal set; }
     }
 }
