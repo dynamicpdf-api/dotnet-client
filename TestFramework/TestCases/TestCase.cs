@@ -26,28 +26,28 @@ namespace DynamicPDFApiTestForNET.TestCases
             switch (this.InputSampleType)
             {
                 case InputSampleType.DlexLayout:
-                    DlexLayout.DefaultApiKey = "ApiKey";
-                    DlexLayout.DefaultBaseUrl = "https://api.dynamicpdf.com";
+                    DlexLayout.DefaultApiKey = "DP.SUaV+Zs9QdbFsXll5uAE34DBZGEAT1wph44hlT5MahnOQ6x0UnddAPbj";
+                    //DlexLayout.DefaultBaseUrl = "https://localhost:44397";
                     break;
                 case InputSampleType.ImageInfo:
-                    ImageInfo.DefaultApiKey = "ApiKey";
-                    ImageInfo.DefaultBaseUrl = "https://api.dynamicpdf.com";
+                    ImageInfo.DefaultApiKey = "DP.SUaV+Zs9QdbFsXll5uAE34DBZGEAT1wph44hlT5MahnOQ6x0UnddAPbj";
+                    //ImageInfo.DefaultBaseUrl = "https://localhost:44397";
                     break;
                 case InputSampleType.PdfInfo:
-                    PdfInfo.DefaultApiKey = "ApiKey";
-                    PdfInfo.DefaultBaseUrl = "https://api.dynamicpdf.com";
+                    PdfInfo.DefaultApiKey = "DP.SUaV+Zs9QdbFsXll5uAE34DBZGEAT1wph44hlT5MahnOQ6x0UnddAPbj";
+                    //PdfInfo.DefaultBaseUrl = "https://localhost:44397";
                     break;
                 case InputSampleType.PdfText:
-                    PdfText.DefaultApiKey = "ApiKey";
-                    PdfText.DefaultBaseUrl = "https://api.dynamicpdf.com";
+                    PdfText.DefaultApiKey = "DP.SUaV+Zs9QdbFsXll5uAE34DBZGEAT1wph44hlT5MahnOQ6x0UnddAPbj";
+                    //PdfText.DefaultBaseUrl = "https://localhost:44397";
                     break;
                 case InputSampleType.PdfXmp:
-                    PdfXmp.DefaultApiKey = "ApiKey";
-                    PdfXmp.DefaultBaseUrl= "https://api.dynamicpdf.com";
+                    PdfXmp.DefaultApiKey = "DP.SUaV+Zs9QdbFsXll5uAE34DBZGEAT1wph44hlT5MahnOQ6x0UnddAPbj";
+                    //PdfXmp.DefaultBaseUrl= "https://localhost:44397";
                     break;
                 default:
-                    Pdf.DefaultApiKey = "ApiKey";
-                    Pdf.DefaultBaseUrl= "https://api.dynamicpdf.com";
+                    Pdf.DefaultApiKey = "DP.SUaV+Zs9QdbFsXll5uAE34DBZGEAT1wph44hlT5MahnOQ6x0UnddAPbj";
+                    //Pdf.DefaultBaseUrl= "https://localhost:44397";
                     break;
             }
             testFrameWorkRootFolder = Path.GetFullPath(@"..\..\..\");
@@ -170,6 +170,9 @@ namespace DynamicPDFApiTestForNET.TestCases
                 case InputSampleType.MultipleInputs:
                     filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfEndpoint\\MultipleInputs", Name));
                     break;
+                case InputSampleType.html:
+                    filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfEndpoint\\HtmlInputSamples", Name));
+                    break;
             }
             if (!Directory.Exists(filePath))
             {
@@ -208,5 +211,6 @@ namespace DynamicPDFApiTestForNET.TestCases
         PdfXmp,
         ImageInfo,
         PdfInfo,
+        html,
     }
 }
