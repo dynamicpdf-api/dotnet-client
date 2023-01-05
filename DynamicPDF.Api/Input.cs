@@ -40,7 +40,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the resource name.
         /// </summary>
-        public string ResourceName { get; set; }
+        public string ResourceName { get; internal set; }
 
        
         public string Id

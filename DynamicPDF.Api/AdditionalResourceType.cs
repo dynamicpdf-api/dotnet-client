@@ -18,6 +18,11 @@
         /// <summary>
         /// Font resource.
         /// </summary>
-        Font
+        Font,
+
+        /// <summary>
+        /// Html resource.
+        /// </summary>
+        Html
     }
 }

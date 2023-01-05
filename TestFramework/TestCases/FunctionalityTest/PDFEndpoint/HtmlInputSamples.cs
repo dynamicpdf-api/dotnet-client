@@ -1,7 +1,9 @@
 ﻿using DynamicPDF.Api;
-using DynamicPDF.Api.Elements;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 {
@@ -12,115 +14,169 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         {
             get
             {
-                return InputSampleType.html;
+                return InputSampleType.Html;
             }
         }
+
         [TestMethod]
-        public void HtmlStringInput()
+        public void HtmlString_pdfoutput()
         {
-            Name = "HtmlStringInputPdfOutput";
+            Name = "HtmlToPdf";
             Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
-            string htmlString = "<h1>DynamicPDF</h1><h1>Hello World!</h1><script>document.write(new Date().toString())</script><br/><img src='https://www.dynamicpdf.com/images/logo.png' />";
-            HtmlInput input = new HtmlInput(htmlString);
-            pdf.Inputs.Add(input);
+
+            HtmlInput html = new HtmlInput("<html><body>hello</body></html>");
+
+            html.PageWidth = 300;
+            html.PageHeight = 200;
+
+            html.TopMargin = 10;
+            html.BottomMargin = 10;
+            html.RightMargin = 40;
+            html.LeftMargin = 40;
+
+            pdf.Inputs.Add(html);
+
             PdfResponse response = pdf.Process();
 
             bool pass = false;
-
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlStringOP.pdf", InputSampleType), (byte[])response.Content);
 
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
                 pass = response.IsSuccessful;
-#endif
+            }
+            Assert.IsTrue(pass);
 
+        }
+
+        [TestMethod]
+        public void HtmlStringParameters_pdfoutput()
+        {
+            Name = "HtmlToPdf";
+            Pdf pdf = new Pdf();
+
+            HtmlInput html = new HtmlInput("<html><body>hello</body></html>",null, PageSize.Letter, PageOrientation.Portrait, 10f);
+
+            pdf.Inputs.Add(html);
+
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlStringParameters.pdf", InputSampleType), (byte[])response.Content);
+
+                pass = response.IsSuccessful;
+            }
+            Assert.IsTrue(pass);
+
+        }
+
+        [TestMethod]
+        public void HtmlResource_pdfoutput()
+        {
+            Name = "HtmlToPdf";
+            Pdf pdf = new Pdf();
+
+            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+
+            HtmlInput html = new HtmlInput(file);
+            html.PageSize = PageSize.B4;
+            html.PageOrientation = PageOrientation.Landscape;
+
+            html.TopMargin = 50;
+            html.BottomMargin = 50;
+            html.RightMargin = 80;
+            html.LeftMargin = 80;
+
+
+            pdf.Inputs.Add(html);
+
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlFileOP.pdf", InputSampleType), (byte[])response.Content);
+
+                pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
         }
-        [TestMethod]
-        public void HtmlFileInput()
-        {
-            Name = "HtmlFileInputPdfOutput";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
 
-            HtmlResource resource = new HtmlResource(base.GetResourcePath("HtmlWithAllTags.html"));
-            HtmlInput input = new HtmlInput(resource);
-            pdf.Inputs.Add(input);
+        [TestMethod]
+        public void HtmlResourcePageSize_pdfoutput()
+        {
+            Name = "HtmlToPdf";
+            Pdf pdf = new Pdf();
+
+            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+
+            HtmlInput html = new HtmlInput(file);
+            html.PageSize = PageSize.Postcard;
+
+
+            pdf.Inputs.Add(html);
 
             PdfResponse response = pdf.Process();
 
             bool pass = false;
-
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlFilePageSize.pdf", InputSampleType), (byte[])response.Content);
 
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
                 pass = response.IsSuccessful;
-#endif
-
             }
             Assert.IsTrue(pass);
         }
+
         [TestMethod]
-        public void HtmlInput_With_AllProperties()
+        public void HtmlResourcePageHeightPageWidth_pdfoutput()
         {
-            Name = "HtmlInputWithAllProperties";
+            Name = "HtmlToPdf";
             Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
 
-            Template template = new Template("Temp1");
-            TextElement element1 = new TextElement("Hello World", ElementPlacement.TopLeft);
-            template.Elements.Add(element1);
-            HtmlResource resource = new HtmlResource(base.GetResourcePath("SampleHtml.html"));
-            HtmlInput input = new HtmlInput(resource);
-            input.BasePath = "https://www.dynamicpdf.com/images/";
-            input.BottomMargin = 10;
-            input.LeftMargin = 10;
-            input.RightMargin = 10;
-            input.TopMargin = 50;
-            input.Id = "Html input with all properties";
-            input.PageHeight = 700;
-            input.PageWidth = 500;
-            input.PageOrientation = PageOrientation.Landscape;
-            input.PageSize = PageSize.Letter;
-            input.Template = template;
+            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
 
-            pdf.Inputs.Add(input);
+            HtmlInput html = new HtmlInput(file);
+            html.PageHeight = 400;
+            html.PageWidth = 300;
+
+
+            pdf.Inputs.Add(html);
 
             PdfResponse response = pdf.Process();
 
             bool pass = false;
-
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlFilePageHeightPageWidth.pdf", InputSampleType), (byte[])response.Content);
 
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
                 pass = response.IsSuccessful;
-#endif
+            }
+            Assert.IsTrue(pass);
+        }
 
+        [TestMethod]
+        public void HtmlResourceParameters_pdfoutput()
+        {
+            Name = "HtmlToPdf";
+            Pdf pdf = new Pdf();
+
+            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+
+            HtmlInput html = new HtmlInput(file, null, PageSize.A3, PageOrientation.Landscape, 30f);
+
+            pdf.Inputs.Add(html);
+
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlFilePageHeightPageWidth.pdf", InputSampleType), (byte[])response.Content);
+
+                pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
         }

@@ -60,6 +60,9 @@ namespace DynamicPDF.Api
                 case AdditionalResourceType.Pdf:
                     type = ResourceType.Pdf;
                     break;
+                case AdditionalResourceType.Html:
+                    type = ResourceType.Html;
+                    break;
             }
             AdditionalResource resource = new AdditionalResource(resourceData, resourceName, type);
             Resources.Add(resource);
@@ -232,6 +235,28 @@ namespace DynamicPDF.Api
         public ImageInput AddImage(string cloudResourcePath)
         {
             ImageInput input = new ImageInput(cloudResourcePath);
+            this.Inputs.Add(input);
+            return input;
+        }
+
+        /// <summary>
+        /// Returns an <see cref="HtmlInput"/> object containing the input pdf.
+        /// </summary>
+        /// <param name="resource">The resource of type <see cref="HtmlResource"/>.</param>
+        public HtmlInput AddHtml(HtmlResource resource, string basepath = null, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        {
+            HtmlInput input = new HtmlInput(resource, basepath, size, orientation, margins);
+            this.Inputs.Add(input);
+            return input;
+        }
+
+        /// <summary>
+        /// Returns an <see cref="HtmlInput"/> object containing the input pdf.
+        /// </summary>
+        /// <param name="html">The HTML input string.</param>
+        public HtmlInput AddHtml(string html, string basepath = null, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        {
+            HtmlInput input = new HtmlInput(html, basepath, size, orientation, margins);
             this.Inputs.Add(input);
             return input;
         }
