@@ -256,9 +256,7 @@ namespace DynamicPDF.Api
         /// <param name="html">The HTML input string.</param>
         public HtmlInput AddHtml(string html, string basepath = null, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
         {
-            HtmlInput input = new HtmlInput(html, basepath, size, orientation, margins);
-            this.Inputs.Add(input);
-            return input;
+            return AddHtml(new HtmlResource(html), basepath, size, orientation, margins);
         }
 
         /// <summary>
