@@ -18,8 +18,29 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="filePath">The html file path.</param>
         /// <param name="resourceName">The name of the resource.</param>
-        public HtmlResource(string filePath, string resourceName = null) :base(filePath, resourceName) 
+        public HtmlResource(string filePathOrString, string resourceName = null) : base() 
         {
+            string extension = filePathOrString.Substring(filePathOrString.Length - 5);
+            string dosExtension = extension.Substring(1);
+            if (extension.ToLower().Equals(".html") || dosExtension.ToLower().Equals(".htm"))
+            {
+                if (File.Exists(filePathOrString))
+                {
+                    Data = Resource.GetFileData(filePathOrString);
+                    FilePath = filePathOrString;
+                }
+                else
+                    throw new EndpointException("File does not exist.");      
+            }
+            else
+            {
+                Data = Encoding.ASCII.GetBytes(filePathOrString); 
+
+            }
+            if (resourceName == null)
+                ResourceName = Guid.NewGuid().ToString() + FileExtension;
+            else
+                ResourceName = resourceName;
         }
 
         [JsonProperty("type")]
