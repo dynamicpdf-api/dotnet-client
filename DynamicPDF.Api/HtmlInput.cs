@@ -39,24 +39,6 @@ namespace DynamicPDF.Api
             }
         }
 
-        //if needed we add this
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="HtmlInput"/> class.
-        ///// </summary>
-        ///// <param name="htmlString">The input html string.</param>
-        ///// <param name="basepath">The basepath options for the url.</param>
-        ///// <param name="size">The page size of the output PDF.</param>
-        ///// <param name="orientation">The page orientation of the output PDF.</param>
-        ///// <param name="margins">The page margins of the output PDF.</param>
-        //public HtmlInput(string htmlString, string basepath = null, api.PageSize size = api.PageSize.Letter, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null)
-        //     : this(new HtmlResource(htmlString), basepath, size, orientation, margins) { }
-        
-        ///// <summary>
-        ///// Gets the html string for the input.
-        ///// </summary>
-        //[JsonIgnore]
-        //public string HtmlString { get; internal set; } = null;
-
         /// <summary>
         /// Gets or sets the base path option.
         /// </summary>
