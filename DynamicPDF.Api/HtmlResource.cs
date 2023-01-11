@@ -34,8 +34,7 @@ namespace DynamicPDF.Api
             }
             else
             {
-                Data = Encoding.ASCII.GetBytes(filePathOrString); 
-
+                Data = Encoding.UTF8.GetBytes(filePathOrString); 
             }
             if (resourceName == null)
                 ResourceName = Guid.NewGuid().ToString() + FileExtension;
