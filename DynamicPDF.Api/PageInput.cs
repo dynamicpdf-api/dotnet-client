@@ -24,13 +24,12 @@ namespace DynamicPDF.Api
         /// <param name="size">The size of the page.</param>
         /// <param name="orientation">The orientation of the page.</param>
         /// <param name="margins">The margins of the page.</param>
-        public PageInput(api.PageSize size = PageSize.Letter, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) 
-        { 
-            if(orientation != api.PageOrientation.Portrait)
-                PageOrientation = orientation;
-            if(size != PageSize.Letter )
-                PageSize = size;
-            if(margins != null)
+        public PageInput(api.PageSize size = PageSize.Letter, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null)
+        {
+            PageSize = size;
+            PageOrientation = orientation;
+
+            if (margins != null)
             {
                 TopMargin = margins;
                 BottomMargin = margins;
@@ -63,7 +62,7 @@ namespace DynamicPDF.Api
         public float? PageHeight { get; set; } = null;
 
         [JsonProperty("PageWidth")]
-        internal float Widht { get { return PageWidth ?? DefaultPagewidth; } }
+        internal float Width { get { return PageWidth ?? DefaultPagewidth; } }
 
         [JsonProperty("PageHeight")]
         internal float Height { get { return PageHeight ?? DefaultPageHeight; } }
@@ -97,8 +96,8 @@ namespace DynamicPDF.Api
             set
             {
                 pageSize = value;
-                double smaller = 0.0f;
-                double larger = 0.0f;
+                double smaller;
+                double larger;
                 UnitConverter.GetPaperSize(value, out smaller, out larger);
                 if (PageOrientation == PageOrientation.Portrait)
                 {
@@ -130,17 +129,17 @@ namespace DynamicPDF.Api
             set
             {
                 pageOrientation = value;
-                float smaller = (float)PageWidth;
-                float largerWidth = (float)PageHeight;
-                if (PageWidth > PageHeight)
+                float smaller;
+                float largerWidth;
+                if (Width > Height)
                 {
-                    smaller = (float)PageHeight;
-                    largerWidth = (float)PageWidth;
+                    smaller = Height;
+                    largerWidth = Width;
                 }
                 else
                 {
-                    smaller = (float)PageWidth;
-                    largerWidth = (float)PageHeight;
+                    smaller = Width;
+                    largerWidth = Height;
                 }
                 if (PageOrientation == PageOrientation.Portrait)
                 {
