@@ -15,6 +15,8 @@ namespace DynamicPDF.Api
         private List<Element> elements;
         private api.PageSize pageSize;
         private api.PageOrientation pageOrientation;
+        private const float DefaultPageHeight = 792.0f;
+        private const float DefaultPagewidth = 612.0f;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PageInput"/> class.
@@ -26,7 +28,7 @@ namespace DynamicPDF.Api
         { 
             if(orientation != api.PageOrientation.Portrait)
                 PageOrientation = orientation;
-            if(size != PageSize.A4) 
+            if(size != PageSize.Letter )
                 PageSize = size;
             if(margins != null)
             {
@@ -44,11 +46,6 @@ namespace DynamicPDF.Api
         /// <param name="pageHeight">The height of the page.</param>
         public PageInput(float pageWidth, float pageHeight) { PageWidth = pageWidth; PageHeight = pageHeight; }
 
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="PageInput"/> class.
-        ///// </summary>
-        //public PageInput() { }
-
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override InputType Type { get { return InputType.Page; } }
@@ -56,12 +53,20 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the width of the page.
         /// </summary>
-        public float PageWidth { get; set; } = 612.0f;
+        [JsonIgnore]
+        public float? PageWidth { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the height of the page.
         /// </summary>
-        public float PageHeight { get; set; } = 792.0f;
+        [JsonIgnore]
+        public float? PageHeight { get; set; } = null;
+
+        [JsonProperty("PageWidth")]
+        internal float Widht { get { return ((PageWidth == null) ? DefaultPagewidth : PageWidth.Value); } }
+
+        [JsonProperty("PageHeight")]
+        internal float Height { get { return ((PageHeight == null) ? DefaultPageHeight : PageHeight.Value); } }
 
         /// <summary>
         /// Gets or sets the top margin.

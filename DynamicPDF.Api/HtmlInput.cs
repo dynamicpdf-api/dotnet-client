@@ -67,12 +67,12 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the page width.
         /// </summary>
-        public float PageWidth { get; set; } = 612.0f;
+        public float PageWidth { get; set; } 
 
         /// <summary>
         /// Gets or sets the page height.
         /// </summary>
-        public float PageHeight { get; set; } = 792.0f;
+        public float PageHeight { get; set; } 
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
