@@ -63,10 +63,10 @@ namespace DynamicPDF.Api
         public float? PageHeight { get; set; } = null;
 
         [JsonProperty("PageWidth")]
-        internal float Widht { get { return ((PageWidth == null) ? DefaultPagewidth : PageWidth.Value); } }
+        internal float Widht { get { return PageWidth ?? DefaultPagewidth; } }
 
         [JsonProperty("PageHeight")]
-        internal float Height { get { return ((PageHeight == null) ? DefaultPageHeight : PageHeight.Value); } }
+        internal float Height { get { return PageHeight ?? DefaultPageHeight; } }
 
         /// <summary>
         /// Gets or sets the top margin.
