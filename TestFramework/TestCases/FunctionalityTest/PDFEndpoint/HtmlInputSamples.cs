@@ -24,7 +24,8 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Name = "HtmlToPdf";
             Pdf pdf = new Pdf();
 
-            HtmlInput html = new HtmlInput("<html><body>hello</body></html>");
+            HtmlResource htmlResource = new HtmlResource("<html><body>hello</body></html>");
+            HtmlInput html = new HtmlInput(htmlResource);
 
             html.PageWidth = 300;
             html.PageHeight = 200;
@@ -55,7 +56,8 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Name = "HtmlToPdf";
             Pdf pdf = new Pdf();
 
-            HtmlInput html = new HtmlInput("<html><body>hello</body></html>",null, PageSize.Letter, PageOrientation.Portrait, 10f);
+            HtmlResource htmlResource = new HtmlResource("<html><body>hello</body></html>");
+            HtmlInput html = new HtmlInput(htmlResource, null, PageSize.Letter, PageOrientation.Portrait, 10f);
 
             pdf.Inputs.Add(html);
 
@@ -78,7 +80,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Name = "HtmlToPdf";
             Pdf pdf = new Pdf();
 
-            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+            string htmlString;
+            using (var reader = new StreamReader(File.OpenRead(base.GetResourcePath("html.html")), Encoding.UTF8))
+            {
+                htmlString = reader.ReadToEnd();
+            }
+            HtmlResource file = new HtmlResource(htmlString);
 
             HtmlInput html = new HtmlInput(file);
             html.PageSize = PageSize.B4;
@@ -110,7 +117,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Name = "HtmlToPdf";
             Pdf pdf = new Pdf();
 
-            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+            string htmlString;
+            using (var reader = new StreamReader(File.OpenRead(base.GetResourcePath("html.html")), Encoding.UTF8))
+            {
+                htmlString = reader.ReadToEnd();
+            }
+            HtmlResource file = new HtmlResource(htmlString);
 
             HtmlInput html = new HtmlInput(file);
             html.PageSize = PageSize.Postcard;
@@ -136,7 +148,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Name = "HtmlToPdf";
             Pdf pdf = new Pdf();
 
-            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+            string htmlString;
+            using (var reader = new StreamReader(File.OpenRead(base.GetResourcePath("html.html")), Encoding.UTF8))
+            {
+                htmlString = reader.ReadToEnd();
+            }
+            HtmlResource file = new HtmlResource(htmlString);
 
             HtmlInput html = new HtmlInput(file);
             html.PageHeight = 400;
@@ -163,7 +180,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Name = "HtmlToPdf";
             Pdf pdf = new Pdf();
 
-            HtmlResource file = new HtmlResource(base.GetResourcePath("html.html"));
+            string htmlString;
+            using (var reader = new StreamReader(File.OpenRead(base.GetResourcePath("html.html")), Encoding.UTF8))
+            {
+                htmlString = reader.ReadToEnd();
+            }
+            HtmlResource file = new HtmlResource(htmlString);
 
             HtmlInput html = new HtmlInput(file, null, PageSize.A3, PageOrientation.Landscape, 30f);
 
@@ -174,7 +196,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             bool pass = false;
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("HtmlFilePageHeightPageWidth.pdf", InputSampleType), (byte[])response.Content);
+                File.WriteAllBytes(base.GetOutputFilePath("HtmlFilePageSizeAndOrientation.pdf", InputSampleType), (byte[])response.Content);
 
                 pass = response.IsSuccessful;
             }
