@@ -27,6 +27,11 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Page input.
         /// </summary>
-        Page
+        Page,
+
+        /// <summary>
+        /// Html input.
+        /// </summary>
+        Html
     }
 }

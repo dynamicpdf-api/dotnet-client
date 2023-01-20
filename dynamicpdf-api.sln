@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicPDF.Api", "DynamicPDF.Api\DynamicPDF.Api.csproj", "{C9712963-4F95-4903-A3C2-1A4689E9A56A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicPDFApiTestForNET", "TestFramework\DynamicPDFApiTestForNET.csproj", "{F16D6EAF-4159-4CBF-B9FF-BF57AB1CB180}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C9712963-4F95-4903-A3C2-1A4689E9A56A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9712963-4F95-4903-A3C2-1A4689E9A56A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9712963-4F95-4903-A3C2-1A4689E9A56A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F16D6EAF-4159-4CBF-B9FF-BF57AB1CB180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F16D6EAF-4159-4CBF-B9FF-BF57AB1CB180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F16D6EAF-4159-4CBF-B9FF-BF57AB1CB180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F16D6EAF-4159-4CBF-B9FF-BF57AB1CB180}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BaselinePNGs\**" />
+    <Compile Remove="Outputs\Bugs\**" />
+    <Compile Remove="Outputs\FunctionalityTest\**" />
+    <Compile Remove="Resources\Bugs\**" />
+    <Compile Remove="TestCases\Bugs\**" />
+    <EmbeddedResource Remove="BaselinePNGs\**" />
+    <EmbeddedResource Remove="Outputs\Bugs\**" />
+    <EmbeddedResource Remove="Outputs\FunctionalityTest\**" />
+    <EmbeddedResource Remove="Resources\Bugs\**" />
+    <EmbeddedResource Remove="TestCases\Bugs\**" />
+    <None Remove="BaselinePNGs\**" />
+    <None Remove="Outputs\Bugs\**" />
+    <None Remove="Outputs\FunctionalityTest\**" />
+    <None Remove="Resources\Bugs\**" />
+    <None Remove="TestCases\Bugs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="TestCases\FunctionalityTest\Testing.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
+    <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Outputs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DynamicPDF.Api\DynamicPDF.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\ceTeProductTestCases\DynamicPDFCoreSuiteForNET\trunk\Support DLLs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
