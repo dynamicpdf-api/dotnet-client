@@ -33,6 +33,11 @@
         /// <summary>
         /// Html resource.
         /// </summary>
-        Html
+        Html,
+
+        /// <summary>
+        /// Word resource.
+        /// </summary>
+        Word
     }
 }
