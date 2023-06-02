@@ -341,6 +341,19 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="fontName">The name of the font in the system.</param>
         /// <param name="resourceName">The resource name for the font.</param>
+        public static Font Google(string fontDetail)
+        {            
+            Font font = new Font();
+            font.Name = fontDetail;
+            return font;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Font"/> class 
+        /// using the system font name and resource name.
+        /// </summary>
+        /// <param name="fontName">The name of the font in the system.</param>
+        /// <param name="resourceName">The resource name for the font.</param>
         public static Font FromSystem(string fontName, string resourceName = null)
         {
             FontResource fontResource;

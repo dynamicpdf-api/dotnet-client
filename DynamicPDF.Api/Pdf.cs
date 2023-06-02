@@ -391,14 +391,14 @@ namespace DynamicPDF.Api
         /// <returns>The json string.</returns>
         public string GetInstructionsJson()
         {
-            foreach (Input input in instructions.Inputs)
+            foreach (Input input in instructions.Inputs) 
             {
                 if (input.Type == InputType.Page)
                 {
                     PageInput pageInput = (PageInput)input;
                     foreach (Element element in pageInput.Elements)
                     {
-                        if (element.TextFont != null)
+                        if (element.TextFont != null && element.TextFont.ResourceName != null)
                         {
                             instructions.Fonts.Add(element.TextFont);
                         }
@@ -411,7 +411,7 @@ namespace DynamicPDF.Api
                     {
                         foreach (Element element in input.Template.Elements)
                         {
-                            if (element.TextFont != null)
+                            if (element.TextFont != null && element.TextFont.ResourceName != null)
                             {
                                 instructions.Fonts.Add(element.TextFont);
                             }
@@ -466,7 +466,7 @@ namespace DynamicPDF.Api
                             {
                                 finalResources.Add(element.Resource);
                             }
-                            if (element.TextFont != null)
+                            if (element.TextFont != null && element.TextFont.ResourceName != null)
                             {
                                 instructions.Fonts.Add(element.TextFont);
                             }
@@ -487,7 +487,7 @@ namespace DynamicPDF.Api
                                 {
                                     finalResources.Add(element.Resource);
                                 }
-                                if (element.TextFont != null)
+                                if (element.TextFont != null && element.TextFont.ResourceName != null)
                                 {
                                     instructions.Fonts.Add(element.TextFont);
                                 }
@@ -516,7 +516,7 @@ namespace DynamicPDF.Api
                     {
                         LayoutDataResource res = (LayoutDataResource)resource;
                         request.AddFile("Resource", resource.Data, res.LayoutDataResourceName, resource.MimeType);
-                    }
+                    }  
                     else
                         request.AddFile("Resource", resource.Data, resource.ResourceName, resource.MimeType);
                 }
