@@ -47,7 +47,7 @@ namespace DynamicPDFApiTestForNET.TestCases
                     break;
                 default:
                     Pdf.DefaultApiKey = "ApiKey";
-                    Pdf.DefaultBaseUrl = "https://api.dynamicpdf.com";
+                    Pdf.DefaultBaseUrl = "https://dynamicpdfcloudcin-qa.azurewebsites.net/v1.0/pdf";
                     break;
             }
             testFrameWorkRootFolder = Path.GetFullPath(@"..\..\..\");
@@ -173,6 +173,9 @@ namespace DynamicPDFApiTestForNET.TestCases
                 case InputSampleType.Html:
                     filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfEndpoint", Name));
                     break;
+                case InputSampleType.Word:
+                    filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfEndpoint\\WordInputSamples", Name));
+                    break;
             }
             if (!Directory.Exists(filePath))
             {
@@ -211,6 +214,7 @@ namespace DynamicPDFApiTestForNET.TestCases
         PdfXmp,
         ImageInfo,
         PdfInfo,
-        Html
+        Html,
+        Word
     }
 }

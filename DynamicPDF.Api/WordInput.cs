@@ -67,19 +67,9 @@ namespace DynamicPDF.Api
         public float PageHeight { get; set; }
 
         /// <summary>
-        /// Gets or sets the FindString value. This string will be replaced with <see cref="ReplaceString"/> during conversion.
+        ///  Gets or sets the TextReplace object.
         /// </summary>
-        public string FindString { get; set; }
-
-        /// <summary>
-        /// Gets or sets ReplaceString value.This string will replace the <see cref="FindString"/> during conversion.
-        /// </summary>
-        public string ReplaceString { get; set; }
-
-        /// <summary>
-        /// If True, the find operation locates only whole words and not text that's part of a larger word.
-        /// </summary>
-        public bool MatchWholeWord { get; set; }
+        public TextReplace TextReplace { get; set; }
 
 
         [JsonProperty("type")]
