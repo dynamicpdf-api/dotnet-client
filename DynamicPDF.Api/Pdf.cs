@@ -388,8 +388,9 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets the instructions json based on the inputs passed.
         /// </summary>
+        /// <param name="indented">The boolean value specifying whether the json string is indented or not.</param>
         /// <returns>The json string.</returns>
-        public string GetInstructionsJson()
+        public string GetInstructionsJson(bool indented)
         {
             foreach (Input input in instructions.Inputs) 
             {
@@ -421,11 +422,25 @@ namespace DynamicPDF.Api
                 }
             }
 
-            String jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
+            String jsonText;
+            if (indented)
             {
-                ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                NullValueHandling = NullValueHandling.Ignore
-            });
+                jsonText = JsonConvert.SerializeObject(this.instructions, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters = new[] { new FloatJsonConverter() }
+                });
+            }
+            else
+            {
+                jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters = new[] { new FloatJsonConverter() }
+                });
+            }
             return jsonText;
         }
 
@@ -505,7 +520,8 @@ namespace DynamicPDF.Api
                 String jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                    NullValueHandling = NullValueHandling.Ignore
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters = new[] { new FloatJsonConverter() }
                 });
                 request.AddFile("Instructions", Encoding.UTF8.GetBytes(jsonText), "Instructions.json", "application/json");
                 if (instructions.Inputs == null)

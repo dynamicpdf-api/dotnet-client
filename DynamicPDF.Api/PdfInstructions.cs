@@ -10,7 +10,6 @@ namespace DynamicPDF.Api
         private HashSet<Font> fonts = null;
         private OutlineList outlines = null;
 
-        [JsonProperty]
         internal HashSet<Template> Templates
         {
             get
@@ -21,7 +20,17 @@ namespace DynamicPDF.Api
             }
         }
 
-        [JsonProperty]
+        [JsonProperty("templates")]
+        internal HashSet<Template> GetTemplates
+        {
+            get
+            {
+                if (templates != null && templates.Count > 0)
+                    return templates;
+                return null;
+            }
+        }
+
         internal HashSet<Font> Fonts
         {
             get
@@ -32,8 +41,19 @@ namespace DynamicPDF.Api
             }
         }
 
+        [JsonProperty("fonts")]
+        internal HashSet<Font> GetFonts
+        {
+            get
+            {
+                if (fonts != null && fonts.Count > 0)
+                    return fonts;
+                return null;
+            }
+        }
+
         [JsonProperty]
-        internal string Author { get; set; } = "CeteSoftware";
+        internal string Author { get; set; }
 
         [JsonProperty]
         internal string Title { get; set; }
@@ -42,7 +62,7 @@ namespace DynamicPDF.Api
         internal string Subject { get; set; }
 
         [JsonProperty]
-        internal string Creator { get; set; } = "DynamicPDF Cloud Api";
+        internal string Creator { get; set; }
 
         [JsonProperty]
         internal string Keywords { get; set; }
@@ -59,7 +79,6 @@ namespace DynamicPDF.Api
         [JsonProperty]
         internal List<Input> Inputs { get; set; } = new List<Input>();
 
-        [JsonProperty]
         internal List<FormField> FormFields
         {
             get
@@ -70,7 +89,18 @@ namespace DynamicPDF.Api
             }
         }
 
-       
+        [JsonProperty("formFields")]
+        internal List<FormField> GetFormFields
+        {
+            get
+            {
+                if (formFields != null && formFields.Count > 0)
+                    return formFields;
+                return null;
+            }
+        }
+
+
         internal OutlineList Outlines
         {
             get
