@@ -3,14 +3,14 @@ using System;
 
 namespace DynamicPDF.Api
 {
-    internal class DecimalJsonConverter : JsonConverter<float?>
+    internal class DecimalJsonConverter : JsonConverter<decimal?>
     {
-        public override float? ReadJson(JsonReader reader, Type objectType, float? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override decimal? ReadJson(JsonReader reader, Type objectType, decimal? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }
 
-        public override void WriteJson(JsonWriter writer, float? value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, decimal? value, JsonSerializer serializer)
         {
             writer.WriteRawValue(value.ToString());
         }

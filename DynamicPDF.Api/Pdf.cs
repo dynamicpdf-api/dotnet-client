@@ -390,7 +390,7 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="indented">The boolean value specifying whether the json string is indented or not.</param>
         /// <returns>The json string.</returns>
-        public string GetInstructionsJson(bool indented = false)
+        public string GetInstructionsJson(bool indented = true)
         {
             foreach (Input input in instructions.Inputs) 
             {

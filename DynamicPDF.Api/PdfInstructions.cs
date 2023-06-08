@@ -25,9 +25,7 @@ namespace DynamicPDF.Api
         {
             get
             {
-                if (templates != null && templates.Count > 0)
-                    return templates;
-                return null;
+                return templates;
             }
         }
 
@@ -46,9 +44,7 @@ namespace DynamicPDF.Api
         {
             get
             {
-                if (fonts != null && fonts.Count > 0)
-                    return fonts;
-                return null;
+                return fonts;
             }
         }
 
@@ -94,9 +90,7 @@ namespace DynamicPDF.Api
         {
             get
             {
-                if (formFields != null && formFields.Count > 0)
-                    return formFields;
-                return null;
+                return formFields;
             }
         }
 
