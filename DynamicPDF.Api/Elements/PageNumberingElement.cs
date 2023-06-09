@@ -101,7 +101,7 @@ namespace DynamicPDF.Api.Elements
         /// <param name="placement">The placement of the page numbering element on the page.</param>
         /// <param name="xOffset">X coordinate of the label.</param>
         /// <param name="yOffset">Y coordinate of the label.</param>
-        public PageNumberingElement(string text, ElementPlacement placement, float xOffset = 0, float yOffset = 0) : base(text, placement, xOffset, yOffset) { }
+        public PageNumberingElement(string text, ElementPlacement placement = ElementPlacement.TopLeft, float xOffset = 0, float yOffset = 0) : base(text, placement, xOffset, yOffset) { }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]

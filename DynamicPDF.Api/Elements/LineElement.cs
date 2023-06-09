@@ -26,6 +26,19 @@ namespace DynamicPDF.Api.Elements
             Y2Offset = y2Offset;
         }
 
+        /// <summary>
+		/// Initializes a new instance of the <see cref="LineElement"/> class.
+		/// </summary>
+		/// <param name="x2Offset">X2 coordinate of the line.</param>
+		/// <param name="y2Offset">Y2 coordinate of the line.</param>
+        /// <param name="placement">The placement of the line on the page.</param>
+        public LineElement(float x2Offset, float y2Offset, ElementPlacement placement = ElementPlacement.TopLeft)
+        {
+            Placement = placement;
+            X2Offset = x2Offset;
+            Y2Offset = y2Offset;
+        }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.Line;

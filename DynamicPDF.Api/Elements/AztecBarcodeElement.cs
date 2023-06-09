@@ -20,7 +20,7 @@ namespace DynamicPDF.Api.Elements
         /// <param name="placement">The placement of the barcode on the page.</param>
         /// <param name="xOffset">The X coordinate of the barcode.</param>
         /// <param name="yOffset">The Y coordinate of the barcode.</param>
-        public AztecBarcodeElement(string value, ElementPlacement placement, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { }
+        public AztecBarcodeElement(string value, ElementPlacement placement = ElementPlacement.TopLeft, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AztecBarcodeElement"/> class.
@@ -29,7 +29,7 @@ namespace DynamicPDF.Api.Elements
         /// <param name="placement">The placement of the barcode on the page.</param>
         /// <param name="xOffset">The X coordinate of the barcode.</param>
         /// <param name="yOffset">The Y coordinate of the barcode.</param>
-        public AztecBarcodeElement(byte[] value, ElementPlacement placement, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { }
+        public AztecBarcodeElement(byte[] value, ElementPlacement placement = ElementPlacement.TopLeft, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]

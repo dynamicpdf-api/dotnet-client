@@ -17,7 +17,7 @@ namespace DynamicPDF.Api.Elements
         /// <param name="placement">The placement of the image on the page.</param>
         /// <param name="xOffset">X coordinate of the image.</param>
         /// <param name="yOffset">Y coordinate of the image.</param>
-        public ImageElement(ImageResource resource, ElementPlacement placement, float xOffset = 0, float yOffset = 0) : base()
+        public ImageElement(ImageResource resource, ElementPlacement placement = ElementPlacement.TopLeft, float xOffset = 0, float yOffset = 0) : base()
         {
             Resource = resource;
             ResourceName = resource.ResourceName;
@@ -33,7 +33,7 @@ namespace DynamicPDF.Api.Elements
         /// <param name="placement">The placement of the image on the page.</param>
         /// <param name="xOffset">X coordinate of the image.</param>
         /// <param name="yOffset">Y coordinate of the image.</param>
-        public ImageElement(string resourceName, ElementPlacement placement, float xOffset = 0, float yOffset = 0) : base()
+        public ImageElement(string resourceName, ElementPlacement placement = ElementPlacement.TopLeft, float xOffset = 0, float yOffset = 0) : base()
         {
             ResourceName = resourceName;
             Placement = placement;

@@ -27,6 +27,19 @@ namespace DynamicPDF.Api.Elements
             Height = height;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RectangleElement"/> class.
+        /// </summary>
+        /// <param name="width">Width of the rectangle.</param>
+        /// <param name="height">Height of the rectangle.</param>
+        /// <param name="placement">The placement of the rectangle on the page.</param>
+        public RectangleElement(float width, float height, ElementPlacement placement = ElementPlacement.TopLeft)
+        {
+            Placement = placement;
+            Width = width;
+            Height = height;
+        }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.Rectangle;
