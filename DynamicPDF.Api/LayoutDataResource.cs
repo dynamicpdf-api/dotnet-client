@@ -21,7 +21,6 @@ namespace DynamicPDF.Api
         {
             String jsonText = JsonConvert.SerializeObject(layoutData, new JsonSerializerSettings
             {
-                Converters = new[] { new DecimalJsonConverter() }
             });
 
             Data = Encoding.UTF8.GetBytes(jsonText);
