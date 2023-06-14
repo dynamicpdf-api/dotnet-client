@@ -338,7 +338,7 @@ namespace DynamicPDF.Api
 
         internal static string GetGoogleFontText(string name, int weight, bool italic)
         {
-            return "google(\"" + name + "\"," + weight.ToString() + "," + italic.ToString() + ")";
+            return name + "," + weight.ToString() + "," + italic.ToString();
         }
 
        /// <summary>
