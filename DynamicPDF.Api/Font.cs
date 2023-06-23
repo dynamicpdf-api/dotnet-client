@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DynamicPDF.Api
 {
@@ -338,7 +339,12 @@ namespace DynamicPDF.Api
 
         internal static string GetGoogleFontText(string name, int weight, bool italic)
         {
-            return name + "," + weight.ToString() + "," + italic.ToString();
+            StringBuilder fontText = new StringBuilder(name);
+            fontText.Append(":");
+            fontText.Append(weight);
+            if (italic)
+                fontText.Append("italic");
+            return fontText.ToString();
         }
 
        /// <summary>
