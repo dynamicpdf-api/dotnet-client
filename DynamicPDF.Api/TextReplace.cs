@@ -8,17 +8,7 @@ namespace DynamicPDF.Api
     public class TextReplace
     {
 
-        /// <summary>
-        /// Represents the find and replace values and its options.
-        /// </summary>
-        /// <param name="text">Text to find.</param>
-        /// <param name="replaceText">Text to replace.</param>
-        public TextReplace(string text, string replaceText)
-        {
-            this.Text = text;
-            this.ReplaceText = replaceText;
-            this.MatchCase = false;
-        }
+
 
         /// <summary>
         /// Represents the find and replace values and its options.
@@ -26,7 +16,7 @@ namespace DynamicPDF.Api
         /// <param name="text">Text to find.</param>
         /// <param name="replaceText">Text to replace.</param>
         /// <param name="matchCase">True value will make the search operation case sensitive.</param>
-        public TextReplace(string text, string replaceText, bool matchCase)
+        public TextReplace(string text, string replaceText, bool matchCase = false)
         {
             this.Text = text;
             this.ReplaceText = replaceText;

@@ -64,11 +64,6 @@ namespace DynamicPDF.Api
                     MimeType = "application/vnd.oasis.opendocument.text";
                     return ".odt";
                 }
-                else if (IsRtf(fileHeader))
-                {
-                    MimeType = "text/rtf";
-                    return ".rtf";
-                }
                 else
                     throw new EndpointException("Unsupported file type or invalid file.");
             }
@@ -94,12 +89,6 @@ namespace DynamicPDF.Api
             //50 4b 03 04 14 00 00 08 odt
             return (header[0] == 0x50 && header[1] == 0x4b && header[2] == 0x03 && header[3] == 0x04 && (header[4] == 0x14 || header[4] == 0x0a) &&
                 header[5] == 0x00 && (header[6] == 0x00) );
-        }
-        internal static bool IsRtf(char[] header)
-        {
-            //7b 5c 72 74 66 31 5c rtf
-            return (header[0] == 0x7b && header[1] == 0x5c && header[2] == 0x72 && header[3] == 0x74 && header[4] == 0x66 &&
-               header[5] == 0x31 && (header[6] == 0x5c));
         }
 
     }
