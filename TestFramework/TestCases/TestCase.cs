@@ -47,7 +47,7 @@ namespace DynamicPDFApiTestForNET.TestCases
                     break;
                 default:
                     Pdf.DefaultApiKey = "ApiKey";
-                    Pdf.DefaultBaseUrl = "https://dynamicpdfcloudcin-qa.azurewebsites.net/v1.0/pdf";
+                    Pdf.DefaultBaseUrl = "https://api.dynamicpdf.com";
                     break;
             }
             testFrameWorkRootFolder = Path.GetFullPath(@"..\..\..\");
