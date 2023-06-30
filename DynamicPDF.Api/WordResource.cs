@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace DynamicPDF.Api
 {
@@ -21,19 +22,6 @@ namespace DynamicPDF.Api
         /// <param name="resourceName">The name of the resource.</param>
         public WordResource(string filePath, string resourceName = null) : base(filePath, resourceName) { }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WordResource"/> class.
-        /// </summary>
-        /// <param name="value">The byte array of the Word file.</param>
-        /// <param name="resourceName">The name of the resource.</param>
-        public WordResource(byte[] value, string resourceName = null) : base(value, resourceName) { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WordResource"/> class.
-        /// </summary>
-        /// <param name="data">The stream of the Word file.</param>
-        /// <param name="resourceName">The name of the resource.</param>
-        public WordResource(Stream data, string resourceName = null) : base(data, resourceName) { }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
@@ -48,24 +36,27 @@ namespace DynamicPDF.Api
             {
                 char[] fileHeader = new char[16];
                 Array.Copy(Data, fileHeader, 16);
-                 
-                if (IsDoc(fileHeader))
+
+                string inputFileExtension = Path.GetExtension(FilePath).ToLower();
+                if (inputFileExtension == ".doc" && IsDoc(fileHeader))
                 {
                     MimeType = "application/msword";
                     return ".doc";
                 }
-                else if (IsDocx(fileHeader))
+                else if (inputFileExtension == ".docx" && IsDocxOrOdt(fileHeader))
                 {
                     MimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
                     return ".docx";
                 }
-                else if (IsOdt(fileHeader))
+                else if (inputFileExtension == ".odt" && IsDocxOrOdt(fileHeader))
                 {
                     MimeType = "application/vnd.oasis.opendocument.text";
                     return ".odt";
                 }
                 else
-                    throw new EndpointException("Unsupported file type or invalid file.");
+                {
+                    throw new EndpointException("Unsupported file type or invalid file extension.");
+                }
             }
         }
 
@@ -76,20 +67,18 @@ namespace DynamicPDF.Api
             return (header[0] == 0xd0 && header[1] == 0xcf && header[2] == 0x11 && header[3] == 0xe0 && header[4] == 0xa1 &&
                 header[5] == 0xb1 && (header[6] == 0x1a)) ;
         }
-        internal static bool IsDocx(char[] header)
+        internal static bool IsDocxOrOdt(char[] header)
         {
-            //50 4b 03 04 14 00 06 00 docx
-            return (header[0] == 0x50 && header[1] == 0x4b && header[2] == 0x03 && header[3] == 0x04 && header[4] == 0x14 &&
-                header[5] == 0x00 && (header[6] == 0x06));
-        }
-        internal static bool IsOdt(char[] header)
-        {
-           // 50 4b 03 04 0a 00 00
+            // 50 4B 03 04
+            // 50 4B 05 06(empty archive)
+            // 50 4B 07 08(spanned archive)
 
-            //50 4b 03 04 14 00 00 08 odt
-            return (header[0] == 0x50 && header[1] == 0x4b && header[2] == 0x03 && header[3] == 0x04 && (header[4] == 0x14 || header[4] == 0x0a) &&
-                header[5] == 0x00 && (header[6] == 0x00) );
+            return (header[0] == 0x50 && 
+                header[1] == 0x4b && 
+                (header[2] == 0x03 || header[2] == 0x05 || header[2] == 0x07 ) && 
+                (header[3] == 0x04 || header[3] == 0x06 || header[3] == 0x08)  );
         }
+
 
     }
 }
