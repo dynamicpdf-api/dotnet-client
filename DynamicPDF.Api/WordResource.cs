@@ -20,21 +20,33 @@ namespace DynamicPDF.Api
         /// </summary>
         /// <param name="filePath">The Word file path.</param>
         /// <param name="resourceName">The name of the resource.</param>
-        public WordResource(string filePath, string resourceName = null) : base(filePath, resourceName) { }
+        public WordResource(string filePath, string resourceName = null) : base(filePath, resourceName)
+        {
+            if (string.IsNullOrWhiteSpace(ResourceName) == true || Path.HasExtension(ResourceName.Trim()) == false)
+                throw new EndpointException("Invalid filePath or resourceName.");
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
         /// <param name="value">The byte array of the Word file.</param>
         /// <param name="resourceName">The name of the resource.</param>
-        public WordResource(byte[] value, string resourceName) : base(value, resourceName) { }
+        public WordResource(byte[] value, string resourceName) : base(value, resourceName) 
+        {
+            if (string.IsNullOrWhiteSpace(ResourceName) == true || Path.HasExtension(ResourceName.Trim()) == false)
+                throw new EndpointException("Invalid filePath or resourceName.");
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
         /// <param name="data">The stream of the Word file.</param>
         /// <param name="resourceName">The name of the resource.</param>
-        public WordResource(Stream data, string resourceName ) : base(data, resourceName) { }
+        public WordResource(Stream data, string resourceName ) : base(data, resourceName)
+        {
+            if (string.IsNullOrWhiteSpace(ResourceName) == true || Path.HasExtension(ResourceName.Trim()) == false)
+                throw new EndpointException("Invalid filePath or resourceName.");
+        }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
