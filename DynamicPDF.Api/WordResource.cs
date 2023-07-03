@@ -22,6 +22,19 @@ namespace DynamicPDF.Api
         /// <param name="resourceName">The name of the resource.</param>
         public WordResource(string filePath, string resourceName = null) : base(filePath, resourceName) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WordResource"/> class.
+        /// </summary>
+        /// <param name="value">The byte array of the Word file.</param>
+        /// <param name="resourceName">The name of the resource.</param>
+        public WordResource(byte[] value, string resourceName) : base(value, resourceName) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WordResource"/> class.
+        /// </summary>
+        /// <param name="data">The stream of the Word file.</param>
+        /// <param name="resourceName">The name of the resource.</param>
+        public WordResource(Stream data, string resourceName ) : base(data, resourceName) { }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
@@ -36,8 +49,16 @@ namespace DynamicPDF.Api
             {
                 char[] fileHeader = new char[16];
                 Array.Copy(Data, fileHeader, 16);
+                              
+                string inputFileExtension = "";
+                if (string.IsNullOrWhiteSpace(FilePath) == false && Path.HasExtension(FilePath.Trim()) == true)
+                    inputFileExtension = Path.GetExtension(FilePath.Trim()).ToLower();
+                else if (string.IsNullOrWhiteSpace(ResourceName) == false && Path.HasExtension(ResourceName.Trim()) == true)
+                    inputFileExtension = Path.GetExtension(ResourceName).ToLower();
+                else
+                    throw new EndpointException("Invalid filePath or resourceName.");
 
-                string inputFileExtension = Path.GetExtension(FilePath).ToLower();
+
                 if (inputFileExtension == ".doc" && IsDoc(fileHeader))
                 {
                     MimeType = "application/msword";

@@ -23,7 +23,8 @@ namespace DynamicPDF.Api
             }
             else
                 throw new EndpointException("File does not exist.");
-            if (resourceName == null)
+
+            if (string.IsNullOrWhiteSpace(resourceName) == true || Path.HasExtension(resourceName.Trim()) == false)
                 ResourceName = Guid.NewGuid().ToString() + FileExtension;
             else
                 ResourceName = resourceName;
@@ -31,26 +32,29 @@ namespace DynamicPDF.Api
 
         internal Resource(byte[] value, string resourceName)
         {
+            ResourceName = resourceName;
+
             if (value.Length > 0)
                 Data = value;
             else
                 throw new EndpointException("Byte array is empty.");
-            if (resourceName == null)
+
+            if (string.IsNullOrWhiteSpace(resourceName) == true || Path.HasExtension(resourceName.Trim()) == false)
                 ResourceName = Guid.NewGuid().ToString() + FileExtension;
-            else
-                ResourceName = resourceName;
+
         }
 
         internal Resource(Stream steam, string resourceName)
         {
+            ResourceName = resourceName;
+
             if (steam != null)
                 Data = Resource.GetSteamData(steam);
             else
                 throw new EndpointException("Stream is null.");
-            if (resourceName == null)
+
+            if (string.IsNullOrWhiteSpace(resourceName) == true || Path.HasExtension(resourceName.Trim()) == false)
                 ResourceName = Guid.NewGuid().ToString() + FileExtension;
-            else
-                ResourceName = resourceName;
         }
 
         internal string FilePath { get; set; }
