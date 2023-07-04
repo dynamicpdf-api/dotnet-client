@@ -90,28 +90,27 @@ namespace DynamicPDF.Api
                 {
                     throw new EndpointException("Unsupported file type or invalid file extension.");
                 }
+
+                bool IsDoc(char[] header)
+                {
+                    //d0 cf 11 e0 a1 b1 1a e1 doc
+                    return (header[0] == 0xd0 && header[1] == 0xcf && header[2] == 0x11 && header[3] == 0xe0 && header[4] == 0xa1 &&
+                        header[5] == 0xb1 && (header[6] == 0x1a));
+                }
+
+                bool IsDocxOrOdt(char[] header)
+                {
+                    // 50 4B 03 04
+                    // 50 4B 05 06(empty archive)
+                    // 50 4B 07 08(spanned archive)
+
+                    return (header[0] == 0x50 &&
+                        header[1] == 0x4b &&
+                        (header[2] == 0x03 || header[2] == 0x05 || header[2] == 0x07) &&
+                        (header[3] == 0x04 || header[3] == 0x06 || header[3] == 0x08));
+                }
             }
         }
-
-
-        internal static bool IsDoc(char[] header)
-        {
-            //d0 cf 11 e0 a1 b1 1a e1 doc
-            return (header[0] == 0xd0 && header[1] == 0xcf && header[2] == 0x11 && header[3] == 0xe0 && header[4] == 0xa1 &&
-                header[5] == 0xb1 && (header[6] == 0x1a)) ;
-        }
-        internal static bool IsDocxOrOdt(char[] header)
-        {
-            // 50 4B 03 04
-            // 50 4B 05 06(empty archive)
-            // 50 4B 07 08(spanned archive)
-
-            return (header[0] == 0x50 && 
-                header[1] == 0x4b && 
-                (header[2] == 0x03 || header[2] == 0x05 || header[2] == 0x07 ) && 
-                (header[3] == 0x04 || header[3] == 0x06 || header[3] == 0x08)  );
-        }
-
 
     }
 }

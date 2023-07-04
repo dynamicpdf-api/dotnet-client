@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using api = DynamicPDF.Api;
-
+using System.Collections.Generic;
 
 namespace DynamicPDF.Api
 {
@@ -11,8 +11,9 @@ namespace DynamicPDF.Api
     /// </summary>
     public class WordInput : Input
     {
-        private api.PageSize pageSize ;
-        private api.PageOrientation pageOrientation ;
+        private api.PageSize pageSize;
+        private api.PageOrientation pageOrientation;
+        private List<TextReplace> textReplace;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WordInput"/> class.
@@ -21,11 +22,11 @@ namespace DynamicPDF.Api
         /// <param name="size">The page size of the output PDF.</param>
         /// <param name="orientation">The page orientation of the output PDF.</param>
         /// <param name="margins">The page margins of the output PDF.</param>
-        public WordInput(WordResource resource,  api.PageSize size = api.PageSize.Letter, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) : base(resource)
+        public WordInput(WordResource resource, api.PageSize size = api.PageSize.Letter, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) : base(resource)
         {
             PageSize = size;
             PageOrientation = orientation;
-          
+
             if (margins != null)
             {
                 TopMargin = margins;
@@ -59,7 +60,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the page width.
         /// </summary>
-        public float PageWidth { get; set; } 
+        public float PageWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the page height.
@@ -67,9 +68,18 @@ namespace DynamicPDF.Api
         public float PageHeight { get; set; }
 
         /// <summary>
-        ///  Gets or sets the TextReplace object.
+        ///  Gets or sets the TextReplace object List.
         /// </summary>
-        public TextReplace TextReplace { get; set; }
+        public List<TextReplace> TextReplace 
+        {
+            get
+            {
+                if(this.textReplace==null)
+                    this.textReplace =new List<TextReplace>();
+                return this.textReplace;
+            }
+            set => textReplace = value; 
+        }
 
 
         [JsonProperty("type")]
@@ -96,7 +106,7 @@ namespace DynamicPDF.Api
                 else
                 {
                     PageHeight = (float)smaller;
-                    PageWidth = (float)larger; 
+                    PageWidth = (float)larger;
                 }
             }
             get
@@ -141,6 +151,6 @@ namespace DynamicPDF.Api
                     PageWidth = larger;
                 }
             }
-        } 
+        }
     }
 }
