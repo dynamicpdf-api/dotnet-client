@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using System;
 using System.IO;
 
 namespace DynamicPDF.Api
@@ -14,33 +15,51 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
         /// <param name="filePath">The Word file path.</param>
-        /// <param name="resourceName">The name of the resource.</param>
+        /// <param name="resourceName">The The Resource name with file extension.</param>
         public WordResource(string filePath, string resourceName = null) : base(filePath, resourceName)
         {
-            if (string.IsNullOrWhiteSpace(ResourceName) == true || Path.HasExtension(ResourceName.Trim()) == false)
-                throw new EndpointException("Invalid filePath or resourceName.");
+            if (string.IsNullOrWhiteSpace(resourceName) == false && Path.HasExtension(resourceName.Trim()) == true)
+            {
+                SetMimeType();
+            }
+            else if (string.IsNullOrWhiteSpace(this.ResourceName) == true || Path.HasExtension(this.ResourceName.Trim()) == false)
+            {
+                this.ResourceName = Guid.NewGuid().ToString() + FileExtension;
+            }
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
         /// <param name="value">The byte array of the Word file.</param>
-        /// <param name="resourceName">The name of the resource.</param>
+        /// <param name="resourceName">The The Resource name with file extension.</param>
         public WordResource(byte[] value, string resourceName) : base(value, resourceName)
         {
-            if (string.IsNullOrWhiteSpace(ResourceName) == true || Path.HasExtension(ResourceName.Trim()) == false)
-                throw new EndpointException("Invalid filePath or resourceName.");
+            if (string.IsNullOrWhiteSpace(resourceName) == false && Path.HasExtension(resourceName.Trim()) == true)
+            {
+                SetMimeType();
+            }
+            else if (string.IsNullOrWhiteSpace(this.ResourceName) == true || Path.HasExtension(this.ResourceName.Trim()) == false)
+            {
+                this.ResourceName = Guid.NewGuid().ToString() + FileExtension;
+            }
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
         /// <param name="data">The stream of the Word file.</param>
-        /// <param name="resourceName">The name of the resource.</param>
+        /// <param name="resourceName">The The Resource name with file extension.</param>
         public WordResource(Stream data, string resourceName) : base(data, resourceName)
         {
-            if (string.IsNullOrWhiteSpace(ResourceName) == true || Path.HasExtension(ResourceName.Trim()) == false)
-                throw new EndpointException("Invalid filePath or resourceName.");
+            if (string.IsNullOrWhiteSpace(resourceName) == false && Path.HasExtension(resourceName.Trim()) == true)
+            {
+                SetMimeType();
+            }
+            else if (string.IsNullOrWhiteSpace(this.ResourceName) == true || Path.HasExtension(this.ResourceName.Trim()) == false)
+            {
+                this.ResourceName = Guid.NewGuid().ToString() + FileExtension;
+            }
         }
 
         [JsonProperty("type")]
@@ -82,6 +101,12 @@ namespace DynamicPDF.Api
                     throw new EndpointException("Unsupported file type or invalid file extension.");
                 }
             }
+            
+        }
+
+        private void SetMimeType()
+        {
+            _ = FileExtension;
         }
     }
 }

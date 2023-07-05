@@ -545,12 +545,7 @@ namespace DynamicPDF.Api
                         request.AddFile("Resource", resource.Data, res.LayoutDataResourceName, resource.MimeType);
                     }
                     else
-                    {
-                        if (resource.MimeType != null)
-                            request.AddFile("Resource", resource.Data, resource.ResourceName, resource.MimeType);
-                        else
-                            request.AddFile("Resource", resource.Data, resource.ResourceName);
-                    }
+                        request.AddFile("Resource", resource.Data, resource.ResourceName, resource.MimeType);
                 }
                 PdfResponse response = null;
                 //IRestResponse restResponse = restClient.ExecuteAsyncPost()
