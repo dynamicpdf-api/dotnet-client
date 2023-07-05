@@ -18,13 +18,13 @@ namespace DynamicPDF.Api
         /// <param name="resourceName">The The Resource name with file extension.</param>
         public WordResource(string filePath, string resourceName = null) : base(filePath, resourceName)
         {
-            if (string.IsNullOrWhiteSpace(resourceName) == false && Path.HasExtension(resourceName.Trim()) == true)
+            if (string.IsNullOrWhiteSpace(resourceName) == false)
             {
                 SetMimeType();
             }
-            else if (string.IsNullOrWhiteSpace(this.ResourceName) == true || Path.HasExtension(this.ResourceName.Trim()) == false)
+            else if (resourceName != null)
             {
-                this.ResourceName = Guid.NewGuid().ToString() + FileExtension;
+                throw new EndpointException("Unsupported file type or invalid file extension.");
             }
         }
 
@@ -35,13 +35,13 @@ namespace DynamicPDF.Api
         /// <param name="resourceName">The The Resource name with file extension.</param>
         public WordResource(byte[] value, string resourceName) : base(value, resourceName)
         {
-            if (string.IsNullOrWhiteSpace(resourceName) == false && Path.HasExtension(resourceName.Trim()) == true)
+            if (string.IsNullOrWhiteSpace(resourceName) == false)
             {
                 SetMimeType();
             }
-            else if (string.IsNullOrWhiteSpace(this.ResourceName) == true || Path.HasExtension(this.ResourceName.Trim()) == false)
+            else if (resourceName != null)
             {
-                this.ResourceName = Guid.NewGuid().ToString() + FileExtension;
+                throw new EndpointException("Unsupported file type or invalid file extension.");
             }
         }
 
@@ -52,13 +52,13 @@ namespace DynamicPDF.Api
         /// <param name="resourceName">The The Resource name with file extension.</param>
         public WordResource(Stream data, string resourceName) : base(data, resourceName)
         {
-            if (string.IsNullOrWhiteSpace(resourceName) == false && Path.HasExtension(resourceName.Trim()) == true)
+            if (string.IsNullOrWhiteSpace(resourceName) == false)
             {
                 SetMimeType();
             }
-            else if (string.IsNullOrWhiteSpace(this.ResourceName) == true || Path.HasExtension(this.ResourceName.Trim()) == false)
+            else if (resourceName != null)
             {
-                this.ResourceName = Guid.NewGuid().ToString() + FileExtension;
+                throw new EndpointException("Unsupported file type or invalid file extension.");
             }
         }
 
@@ -74,12 +74,22 @@ namespace DynamicPDF.Api
             get
             {
                 string inputFileExtension = "";
-                if (string.IsNullOrWhiteSpace(FilePath) == false && Path.HasExtension(FilePath.Trim()) == true)
-                    inputFileExtension = Path.GetExtension(FilePath.Trim()).ToLower();
-                else if (string.IsNullOrWhiteSpace(ResourceName) == false && Path.HasExtension(ResourceName.Trim()) == true)
-                    inputFileExtension = Path.GetExtension(ResourceName).ToLower();
+                if (string.IsNullOrWhiteSpace(ResourceName) == false)
+                {
+                    if (Path.HasExtension(ResourceName.Trim()) == true)
+                        inputFileExtension = Path.GetExtension(ResourceName).ToLower();
+                    else
+                        throw new EndpointException("Invalid resource name.");
+                }
+                else if (string.IsNullOrWhiteSpace(FilePath) == false)
+                {
+                    if (Path.HasExtension(FilePath.Trim()) == true)
+                        inputFileExtension = Path.GetExtension(FilePath).ToLower();
+                    else
+                        throw new EndpointException("Invalid file path specified.");
+                }
                 else
-                    throw new EndpointException("Invalid filePath or resourceName.");
+                    throw new EndpointException("Invalid file path or resource name.");
 
                 if (inputFileExtension == ".doc")
                 {
