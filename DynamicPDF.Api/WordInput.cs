@@ -3,6 +3,7 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using api = DynamicPDF.Api;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace DynamicPDF.Api
 {
@@ -36,6 +37,21 @@ namespace DynamicPDF.Api
             }
         }
 
+        [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
+        internal override InputType Type { get { return InputType.Word; } }
+
+        [JsonProperty("textReplace", NullValueHandling = NullValueHandling.Ignore)]
+        internal List<TextReplace> GetTextReplace
+        {
+            get
+            {
+                if ((textReplace != null && textReplace.Count > 0))
+                    return textReplace;
+                else
+                    return null;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the top margin.
@@ -70,21 +86,18 @@ namespace DynamicPDF.Api
         /// <summary>
         ///  Gets or sets the TextReplace object List.
         /// </summary>
-        public List<TextReplace> TextReplace 
+
+        [JsonIgnore]
+        public List<TextReplace> TextReplace
         {
             get
             {
-                if(this.textReplace==null)
-                    this.textReplace =new List<TextReplace>();
+                if (this.textReplace == null)
+                    this.textReplace = new List<TextReplace>();
                 return this.textReplace;
             }
-            set => textReplace = value; 
+            set => textReplace = value;
         }
-
-
-        [JsonProperty("type")]
-        [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
-        internal override InputType Type { get { return InputType.Word; } }
 
         /// <summary>
         /// Gets or sets the page size.
