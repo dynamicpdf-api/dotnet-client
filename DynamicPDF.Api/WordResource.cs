@@ -15,7 +15,7 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
         /// <param name="filePath">The Word file path.</param>
-        /// <param name="resourceName">The The Resource name with file extension.</param>
+        /// <param name="resourceName">The The resource name with file extension.</param>
         public WordResource(string filePath, string resourceName = null) : base(filePath, resourceName)
         {
             if (string.IsNullOrWhiteSpace(resourceName) == false)
@@ -32,7 +32,7 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
         /// <param name="value">The byte array of the Word file.</param>
-        /// <param name="resourceName">The The Resource name with file extension.</param>
+        /// <param name="resourceName">The The resource name with file extension.</param>
         public WordResource(byte[] value, string resourceName) : base(value, resourceName)
         {
             if (string.IsNullOrWhiteSpace(resourceName) == false)
@@ -49,7 +49,7 @@ namespace DynamicPDF.Api
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
         /// <param name="data">The stream of the Word file.</param>
-        /// <param name="resourceName">The The Resource name with file extension.</param>
+        /// <param name="resourceName">The The resource name with file extension.</param>
         public WordResource(Stream data, string resourceName) : base(data, resourceName)
         {
             if (string.IsNullOrWhiteSpace(resourceName) == false)
@@ -59,6 +59,22 @@ namespace DynamicPDF.Api
             else if (resourceName != null)
             {
                 throw new EndpointException("Unsupported file type or invalid file extension.");
+            }
+        }
+
+        /// <summary>
+        /// Sets the resource name.
+        /// </summary>
+        /// <remarks>The resource name should be specified with a file extension.</remarks>
+        public override string ResourceName
+        {
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value) == true || Path.HasExtension(value) == false)
+                    throw new EndpointException("Invalid resource name.");
+
+                base.ResourceName = value;
+                SetMimeType();
             }
         }
 
@@ -118,5 +134,7 @@ namespace DynamicPDF.Api
         {
             _ = FileExtension;
         }
+
+      
     }
 }
