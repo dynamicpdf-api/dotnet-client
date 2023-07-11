@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DynamicPDF.Api
 {
@@ -70,6 +71,7 @@ namespace DynamicPDF.Api
         internal string Name { get; set; }
 
         internal FontResource Resource { get { return resource; } }
+
 
         /// <summary>
         /// Gets or sets a boolean indicating whether to embed the font.
@@ -333,6 +335,59 @@ namespace DynamicPDF.Api
         {
             FontResource resource = new FontResource(stream, resourceName);
             return new Font(resource, resource.ResourceName);
+        }
+
+        internal static string GetGoogleFontText(string name, int weight, bool italic)
+        {
+            StringBuilder fontText = new StringBuilder(name);
+            fontText.Append(":");
+            fontText.Append(weight);
+            if (italic)
+                fontText.Append("italic");
+            return fontText.ToString();
+        }
+
+       /// <summary>
+       /// Gets the font from the google.
+       /// </summary>
+       /// <param name="fontName">The name of the google font.</param>
+       /// <returns>The font object.</returns>
+        public static Font Google(string fontName)
+        {
+            Font font = new Font();
+            font.Name = Font.GetGoogleFontText(fontName, 400, false);
+            return font;
+        }
+
+        /// <summary>
+        /// Gets the font from the google.
+        /// </summary>
+        /// <param name="fontName">The name of the google font.</param>
+        /// <param name="weight">The weight of the font.</param>
+        /// <param name="italic">The italic property of the font.</param>
+        /// <returns>The font object.</returns>
+        public static Font Google(string fontName, int weight = 400, bool italic = false)
+        {            
+            Font font = new Font();
+            font.Name = Font.GetGoogleFontText(fontName, weight, italic);
+            return font;
+        }
+
+        /// <summary>
+        /// Gets the font from the google.
+        /// </summary>
+        /// <param name="fontName">The name of the google font.</param>
+        /// <param name="bold">If true font weight will be taken as 700 otherwise 400.</param>
+        /// <param name="italic">The italic property of the font.</param>
+        /// <returns>The font object.</returns>
+        public static Font Google(string fontName, bool bold = false, bool italic = false)
+        {
+            Font font = new Font();
+            if(bold)
+                font.Name = Font.GetGoogleFontText(fontName, 700, italic);
+            else
+                font.Name = Font.GetGoogleFontText(fontName, 400, italic);
+            return font;
         }
 
         /// <summary>

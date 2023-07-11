@@ -260,6 +260,17 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
+        /// Returns an <see cref="WordInput"/> object containing the input pdf.
+        /// </summary>
+        /// <param name="resource">The resource of type <see cref="WordResource"/>.</param>
+        public WordInput AddWord(WordResource resource, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        {
+            WordInput input = new WordInput(resource, size, orientation, margins);
+            this.Inputs.Add(input);
+            return input;
+        }
+
+        /// <summary>
         /// Returns a <see cref="DlexInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="dlexResource">The dlex resource of type <see cref="DlexResource"/>.</param>
@@ -388,17 +399,18 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets the instructions json based on the inputs passed.
         /// </summary>
+        /// <param name="indented">The boolean value specifying whether the json string is indented or not.</param>
         /// <returns>The json string.</returns>
-        public string GetInstructionsJson()
+        public string GetInstructionsJson(bool indented = false)
         {
-            foreach (Input input in instructions.Inputs)
+            foreach (Input input in instructions.Inputs) 
             {
                 if (input.Type == InputType.Page)
                 {
                     PageInput pageInput = (PageInput)input;
                     foreach (Element element in pageInput.Elements)
                     {
-                        if (element.TextFont != null)
+                        if (element.TextFont != null && element.TextFont.ResourceName != null)
                         {
                             instructions.Fonts.Add(element.TextFont);
                         }
@@ -411,7 +423,7 @@ namespace DynamicPDF.Api
                     {
                         foreach (Element element in input.Template.Elements)
                         {
-                            if (element.TextFont != null)
+                            if (element.TextFont != null && element.TextFont.ResourceName != null)
                             {
                                 instructions.Fonts.Add(element.TextFont);
                             }
@@ -421,11 +433,25 @@ namespace DynamicPDF.Api
                 }
             }
 
-            String jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
+            String jsonText;
+            if (indented)
             {
-                ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                NullValueHandling = NullValueHandling.Ignore
-            });
+                jsonText = JsonConvert.SerializeObject(this.instructions, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters = new[] { new FloatJsonConverter() }
+                });
+            }
+            else
+            {
+                jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters = new[] { new FloatJsonConverter() }
+                });
+            }
             return jsonText;
         }
 
@@ -466,7 +492,7 @@ namespace DynamicPDF.Api
                             {
                                 finalResources.Add(element.Resource);
                             }
-                            if (element.TextFont != null)
+                            if (element.TextFont != null && element.TextFont.ResourceName != null)
                             {
                                 instructions.Fonts.Add(element.TextFont);
                             }
@@ -487,7 +513,7 @@ namespace DynamicPDF.Api
                                 {
                                     finalResources.Add(element.Resource);
                                 }
-                                if (element.TextFont != null)
+                                if (element.TextFont != null && element.TextFont.ResourceName != null)
                                 {
                                     instructions.Fonts.Add(element.TextFont);
                                 }
@@ -505,7 +531,8 @@ namespace DynamicPDF.Api
                 String jsonText = JsonConvert.SerializeObject(this.instructions, new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                    NullValueHandling = NullValueHandling.Ignore
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters = new[] { new FloatJsonConverter() }
                 });
                 request.AddFile("Instructions", Encoding.UTF8.GetBytes(jsonText), "Instructions.json", "application/json");
                 if (instructions.Inputs == null)
@@ -531,11 +558,20 @@ namespace DynamicPDF.Api
                 }
                 else
                 {
+                    if(restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        throw new EndpointException("Invalid api key specified.");
+                    }
                     response = new PdfResponse();
-                    string output = restResponse.Content;
+                    string errorMessage = string.Empty;
+                    string errorId = string.Empty;
+                    var errorJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(restResponse.Content);
+                    errorJson.TryGetValue("message", out errorMessage);
+                    errorJson.TryGetValue("id", out errorId);
+                    if(errorId != string.Empty)
+                        response.ErrorId = new Guid(errorId);
                     response.ErrorJson = restResponse.Content;
-                    response.ErrorId = response.ErrorId;
-                    response.ErrorMessage = restResponse.ErrorMessage;
+                    response.ErrorMessage = errorMessage;
                     response.IsSuccessful = false;
                     response.StatusCode = restResponse.StatusCode;
                 }

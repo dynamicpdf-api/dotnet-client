@@ -23,6 +23,19 @@ namespace DynamicPDF.Api.Elements
         /// However if any inline code set has invalid characters it will be shifted to an appropriate code set.</remarks>
         public Code128BarcodeElement(string value, ElementPlacement placement, float height, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { Height = height; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Code128BarcodeElement"/> class.
+        /// </summary>
+        /// <param name="value">The value of the barcode.</param>
+        /// <param name="height">The height of the barcode.</param>
+        /// <param name="placement">The placement of the barcode on the page.</param>
+        /// <param name="xOffset">The X coordinate of the barcode.</param>
+        /// <param name="yOffset">The Y coordinate of the barcode.</param>        
+        /// <remarks>Code sets can be specified along with data, in order to do this <see cref="ProcessTilde"/> property needs to be set to <b>true</b>.
+        /// Example value: "~BHello ~AWORLD 1~C2345", where ~A, ~B and ~C representing code sets A, B and C respectively.
+        /// However if any inline code set has invalid characters it will be shifted to an appropriate code set.</remarks>
+        public Code128BarcodeElement(string value, float height, ElementPlacement placement = ElementPlacement.TopLeft, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { Height = height; }
+
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
         internal override ElementType Type { get; } = ElementType.Code128Barcode;

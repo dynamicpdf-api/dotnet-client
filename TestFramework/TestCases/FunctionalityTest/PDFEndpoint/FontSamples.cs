@@ -92,5 +92,45 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             }
             Assert.IsTrue(pass);
         }
+        [TestMethod]
+        public void PageInput_GoogleFont_Pdfoutput()
+        {
+            Name = "GoogleFontSample";
+            Pdf pdf = new Pdf();
+            pdf.Author = Author;
+            pdf.Title = Title;
+
+            Font font = Font.Google("Roboto");
+            font.Embed = true;
+            font.Subset = true;
+
+            PageInput pageInput = new PageInput();
+
+            TextElement element = new TextElement("Hello World", ElementPlacement.TopLeft);
+            element.Font = font;
+            pageInput.Elements.Add(element);
+
+            pdf.Inputs.Add(pageInput);
+
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
+
+#if BASELINEREQUIRED
+                // Uncomment the line below to recreate the Input PNG Images
+                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
+
+                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
+#else
+                pass = response.IsSuccessful;
+#endif
+
+            }
+            Assert.IsTrue(pass);
+        }
     }
 }

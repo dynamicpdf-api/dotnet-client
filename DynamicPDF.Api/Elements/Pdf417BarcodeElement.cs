@@ -26,11 +26,31 @@ namespace DynamicPDF.Api.Elements
         /// Initializes a new instance of the <see cref="Pdf417BarcodeElement"/> class.
         /// </summary>
         /// <param name="value">String to be encoded.</param>
+        /// <param name="columns">Columns of the PDF417 barcode.</param>
+        /// <param name="placement">The placement of the barcode on the page.</param>
+        /// <param name="xOffset">The X coordinate of the PDF417 barcode.</param>
+        /// <param name="yOffset">The Y coordinate of the PDF417 barcode.</param>
+        public Pdf417BarcodeElement(string value, int columns, ElementPlacement placement = ElementPlacement.TopLeft, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { Columns = columns; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Pdf417BarcodeElement"/> class.
+        /// </summary>
+        /// <param name="value">String to be encoded.</param>
         /// <param name="placement">The placement of the barcode on the page.</param>
         /// <param name="columns">Columns of the PDF417 barcode.</param>
         /// <param name="xOffset">The X coordinate of the PDF417 barcode.</param>
         /// <param name="yOffset">The Y coordinate of the PDF417 barcode.</param>
         public Pdf417BarcodeElement(byte[] value, ElementPlacement placement, int columns, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { Columns = columns; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Pdf417BarcodeElement"/> class.
+        /// </summary>
+        /// <param name="value">String to be encoded.</param>
+        /// <param name="columns">Columns of the PDF417 barcode.</param>
+        /// <param name="placement">The placement of the barcode on the page.</param>
+        /// <param name="xOffset">The X coordinate of the PDF417 barcode.</param>
+        /// <param name="yOffset">The Y coordinate of the PDF417 barcode.</param>
+        public Pdf417BarcodeElement(byte[] value, int columns, ElementPlacement placement = ElementPlacement.TopLeft, float xOffset = 0, float yOffset = 0) : base(value, placement, xOffset, yOffset) { Columns = columns; }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter), converterParameters: typeof(CamelCaseNamingStrategy))]
