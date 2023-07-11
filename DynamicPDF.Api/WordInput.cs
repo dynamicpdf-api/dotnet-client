@@ -84,7 +84,7 @@ namespace DynamicPDF.Api
         public float PageHeight { get; set; }
 
         /// <summary>
-        ///  Gets or sets the TextReplace object List.
+        ///  Gets or sets the <see cref="TextReplace"/> object List.
         /// </summary>
 
         [JsonIgnore]

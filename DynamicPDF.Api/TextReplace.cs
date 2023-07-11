@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace DynamicPDF.Api
+﻿namespace DynamicPDF.Api
 {
+    /// <summary>
+    /// Represents the find and replace values and its options.
+    /// </summary>
     public class TextReplace
     {
-
-
-
         /// <summary>
-        /// Represents the find and replace values and its options.
+        /// Creates new instance of text replace.
         /// </summary>
         /// <param name="text">Text to find.</param>
         /// <param name="replaceText">Text to replace.</param>
@@ -24,17 +19,17 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
-        /// Gets or sets the Find Text value. This string will be replaced with <see cref="ReplaceText"/> during conversion.
+        /// Gets or sets the find text value. This string will be replaced with <see cref="ReplaceText"/> during conversion.
         /// </summary>
         public string Text { get; set; }
 
         /// <summary>
-        /// Gets or sets ReplaceText value.This string will replace the <see cref="Text"/> during conversion.
+        /// Gets or sets replace text value. This string will replace the <see cref="Text"/> during conversion.
         /// </summary>
         public string ReplaceText { get; set; }
 
         /// <summary>
-        /// If True, the search operation will be case sensitive.
+        /// If true, the search operation will be case sensitive.
         /// </summary>
         public bool MatchCase { get; set; } = false;
     }

@@ -7,15 +7,15 @@ using System.IO;
 namespace DynamicPDF.Api
 {
     /// <summary>
-    /// Represents a Word resource.
+    /// Represents a word resource.
     /// </summary>
     public class WordResource : Resource
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
-        /// <param name="filePath">The Word file path.</param>
-        /// <param name="resourceName">The The resource name with file extension.</param>
+        /// <param name="filePath">The word file path.</param>
+        /// <param name="resourceName">The resource name with file extension.</param>
         public WordResource(string filePath, string resourceName = null) : base(filePath, resourceName)
         {
             if (string.IsNullOrWhiteSpace(resourceName) == false)
@@ -31,8 +31,8 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
-        /// <param name="value">The byte array of the Word file.</param>
-        /// <param name="resourceName">The The resource name with file extension.</param>
+        /// <param name="value">The byte array of the word file.</param>
+        /// <param name="resourceName">The resource name with file extension.</param>
         public WordResource(byte[] value, string resourceName) : base(value, resourceName)
         {
             if (string.IsNullOrWhiteSpace(resourceName) == false)
@@ -48,8 +48,8 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Initializes a new instance of the <see cref="WordResource"/> class.
         /// </summary>
-        /// <param name="data">The stream of the Word file.</param>
-        /// <param name="resourceName">The The resource name with file extension.</param>
+        /// <param name="data">The stream of the word file.</param>
+        /// <param name="resourceName">The resource name with file extension.</param>
         public WordResource(Stream data, string resourceName) : base(data, resourceName)
         {
             if (string.IsNullOrWhiteSpace(resourceName) == false)

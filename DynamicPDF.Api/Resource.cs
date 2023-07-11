@@ -16,8 +16,6 @@ namespace DynamicPDF.Api
 
         internal Resource(string filePath, string resourceName)
         {
-             
-
             if (File.Exists(filePath))
             {
                 Data = Resource.GetFileData(filePath);
@@ -26,17 +24,15 @@ namespace DynamicPDF.Api
             else
                 throw new EndpointException("File does not exist.");
 
-            ResourceName = resourceName;
+            if (resourceName != null)
+                ResourceName = resourceName;
 
             if (resourceName == null)
                 ResourceName = Guid.NewGuid().ToString() + FileExtension;
-           
         }
 
         internal Resource(byte[] value, string resourceName)
         {
-            
-
             if (value.Length > 0)
                 Data = value;
             else
@@ -46,13 +42,10 @@ namespace DynamicPDF.Api
 
             if (resourceName == null)
                 ResourceName = Guid.NewGuid().ToString() + FileExtension;
-              
         }
 
         internal Resource(Stream steam, string resourceName)
         {
-            
-
             if (steam != null)
                 Data = Resource.GetSteamData(steam);
             else
@@ -62,7 +55,6 @@ namespace DynamicPDF.Api
 
             if (resourceName == null)
                 ResourceName = Guid.NewGuid().ToString() + FileExtension;
-               
         }
 
         internal string FilePath { get; set; }
@@ -82,7 +74,7 @@ namespace DynamicPDF.Api
         /// Gets or sets the resource name.
         /// </summary>
         /// <remarks>For word resources, the resource name should be specified with a file extension.</remarks>
-        public virtual string ResourceName { get;  set; }
+        public virtual string ResourceName { get; set; }
 
         internal static byte[] GetSteamData(Stream stream)
         {
