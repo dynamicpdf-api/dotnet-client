@@ -1,0 +1,22 @@
+﻿{
+  "sales": [
+    {
+      "name": "Alice Mutton",
+      "quantity": 23,
+      "price": 25,
+      "DataName": "Hello"
+    },
+    {
+      "name": "Vegie-spread",
+      "quantity": 24,
+      "price": 244,
+      "DataName": "Hi"
+    },
+    {
+      "name": "Zaanse koeken",
+      "quantity": 24,
+      "price": 244,
+      "DataName": "DynamicPdf"
+    }
+  ]
+}

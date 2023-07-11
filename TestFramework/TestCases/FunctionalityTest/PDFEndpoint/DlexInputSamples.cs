@@ -123,5 +123,38 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             }
             Assert.IsTrue(pass);
         }
+
+        [TestMethod]
+        public void ImageURI_Pdfoutput()
+        {
+            Name = "ImageURI_Pdfoutput";
+
+            Pdf pdf = new Pdf();
+            pdf.Author = Author;
+            pdf.Title = Title;
+
+            DlexResource dlex = new DlexResource(base.GetResourcePath("dynamic-image.dlex"));
+            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("ImageData.json"));
+            DlexInput input = pdf.AddDlex(dlex, layoutData);
+           
+            PdfResponse response = pdf.Process();
+            bool pass = false;
+
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
+
+#if BASELINEREQUIRED
+                // Uncomment the line below to recreate the Input PNG Images
+                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
+
+                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
+#else
+                pass = response.IsSuccessful;
+#endif
+
+            }
+            Assert.IsTrue(pass);
+        }
     }
 }
