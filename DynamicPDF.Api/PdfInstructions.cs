@@ -61,6 +61,9 @@ namespace DynamicPDF.Api
         internal string Creator { get; set; }
 
         [JsonProperty]
+        internal string Producer { get; set; }
+
+        [JsonProperty]
         internal string Keywords { get; set; }
 
         [JsonProperty]
