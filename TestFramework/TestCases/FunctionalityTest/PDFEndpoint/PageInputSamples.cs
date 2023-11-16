@@ -22,6 +22,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Pdf pdf = new Pdf();
             pdf.Author = Author;
             pdf.Title = Title;
+            pdf.Subject = "topLevel document metadata";
+            pdf.Creator = "John Creator";
+            pdf.Producer = "ceTe Software";
+            pdf.Keywords = "dynamicpdf api example pdf dotnet instructions";
 
             PageInput pageInput = new PageInput();
             TextElement element = new TextElement("Hello World", ElementPlacement.TopCenter);
