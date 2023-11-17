@@ -134,6 +134,21 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
+        /// Gets or sets the producer.
+        /// </summary>
+        public string Producer
+        {
+            get
+            {
+                return this.instructions.Producer;
+            }
+            set
+            {
+                this.instructions.Producer = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the keywords.
         /// </summary>
         public string Keywords
