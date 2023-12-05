@@ -149,6 +149,21 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
+        /// Gets or sets the tag property.
+        /// </summary>
+        public bool Tag
+        {
+            get
+            {
+                return this.instructions.Tag;
+            }
+            set
+            {
+                this.instructions.Tag = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the keywords.
         /// </summary>
         public string Keywords
