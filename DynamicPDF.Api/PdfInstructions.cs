@@ -52,6 +52,9 @@ namespace DynamicPDF.Api
         internal string Author { get; set; }
 
         [JsonProperty]
+        internal bool Tag { get; set; }
+
+        [JsonProperty]
         internal string Title { get; set; }
 
         [JsonProperty]

@@ -74,5 +74,67 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
             Assert.IsTrue(pass);
         }
 
+        [TestMethod]
+        public void DlexLayoutWithResource()
+        {
+            Name = "DlexResource";
+            
+            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"));
+            DlexResource dlexResource = new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"), "SimpleReportWithCoverPage.dlex");
+            DlexLayout dlexEndpoint = new DlexLayout(dlexResource, layoutData);
+            dlexEndpoint.AddAdditionalResource(base.GetResourcePath("Northwind Logo.gif"), "Northwind Logo.gif");
+
+            PdfResponse response = dlexEndpoint.Process();
+            bool pass = false;
+
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
+
+#if BASELINEREQUIRED
+                // Uncomment the line below to recreate the Input PNG Images
+                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
+
+                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
+#else
+                pass = response.IsSuccessful;
+#endif
+
+            }
+            Assert.IsTrue(pass);
+        }
+
+
+        [TestMethod]
+        public void DlexLayoutWithResourceData()
+        {
+            Name = "DlexResourceData";
+
+            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"));
+            DlexResource dlexResource = new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"), "SimpleReportWithCoverPage.dlex");
+            DlexLayout dlexEndpoint = new DlexLayout(dlexResource, layoutData);
+            byte[] resourceData = File.ReadAllBytes(base.GetResourcePath("Northwind Logo.gif"));
+            dlexEndpoint.AddAdditionalResource(resourceData, AdditionalResourceType.Image, "Northwind Logo.gif");
+
+            PdfResponse response = dlexEndpoint.Process();
+            bool pass = false;
+
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
+
+#if BASELINEREQUIRED
+                // Uncomment the line below to recreate the Input PNG Images
+                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
+
+                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
+#else
+                pass = response.IsSuccessful;
+#endif
+
+            }
+            Assert.IsTrue(pass);
+        }
+
     }
 }
