@@ -348,6 +348,18 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
+        /// Gets the font from the global storage.
+        /// </summary>
+        /// <param name="fontName">The name of the font to get from the global storage.</param>
+        /// <returns>The font object.</returns>
+        public static Font Global(string fontName)
+        {
+            Font font = new Font();
+            font.Name =  fontName;
+            return font;
+        }
+
+        /// <summary>
         /// Gets the font from the google.
         /// </summary>
         /// <param name="fontName">The name of the google font.</param>
