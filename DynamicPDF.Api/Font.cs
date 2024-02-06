@@ -347,15 +347,15 @@ namespace DynamicPDF.Api
             return fontText.ToString();
         }
 
-       /// <summary>
-       /// Gets the font from the google.
-       /// </summary>
-       /// <param name="fontName">The name of the google font.</param>
-       /// <returns>The font object.</returns>
+        /// <summary>
+        /// Gets the font from the google.
+        /// </summary>
+        /// <param name="fontName">The name of the google font.</param>
+        /// <returns>The font object.</returns>
         public static Font Google(string fontName)
         {
             Font font = new Font();
-            font.Name = Font.GetGoogleFontText(fontName, 400, false);
+            font.Name = fontName;
             return font;
         }
 
