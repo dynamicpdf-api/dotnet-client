@@ -1,0 +1,20 @@
+<document xmlns="https://www.dynamicpdf.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.dynamicpdf.com https://www.dynamicpdf.com/schemas/DLEX20.xsd" version="2.0" author="" keywords="" subject="" title="" id="Document1">
+  <report id="Report1" dataName="" pageSize="letter" pageOrientation="portrait" leftMargin="50" topMargin="50" rightMargin="50" bottomMargin="50">
+    <template id="Template1"/>
+    <header id="Header1" height="50">
+      <recordArea id="RecordArea1" x="200" y="24" width="100" height="14" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" rightToLeft="false" splittable="false">
+        <text>#Text#</text>
+      </recordArea>
+    </header>
+    <detail id="Detail1" autoSplit="false" height="100">
+      <formattedRecordArea id="FormattedRecordArea1" x="76" y="23" width="202" height="14" expandable="false" splittable="false" vAlign="top">
+        <initialStyle>
+          <font face="Helvetica Neue LT Std"/>
+        </initialStyle>
+        <text>&lt;p&gt;Regular &lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;Italic &lt;b&gt;BoldItalic&lt;/b&gt;&lt;/i&gt;&lt;/p&gt;</text>
+      </formattedRecordArea>
+      <label id="Label1" x="292" y="22" width="100" height="14" font="HelveticaNeueLTStd-Bd" underline="false" text="Test"/>
+    </detail>
+    <footer id="Footer1" height="50"/>
+  </report>
+</document>
