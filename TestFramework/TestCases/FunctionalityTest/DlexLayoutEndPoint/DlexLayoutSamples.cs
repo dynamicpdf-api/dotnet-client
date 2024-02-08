@@ -136,5 +136,34 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
             Assert.IsTrue(pass);
         }
 
+        [TestMethod]
+        public void DlexLayoutWithGlobalFont()
+        {
+            Name = "DlexGlobalFont";
+
+            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("test.json"));
+            DlexResource dlexResource = new DlexResource(base.GetResourcePath("Test.dlex"), "SimpleReportWithCoverPage.dlex");
+            DlexLayout dlexEndpoint = new DlexLayout(dlexResource, layoutData);
+           
+            PdfResponse response = dlexEndpoint.Process();
+            bool pass = false;
+
+            if (response.IsSuccessful)
+            {
+                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
+
+#if BASELINEREQUIRED
+                // Uncomment the line below to recreate the Input PNG Images
+                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
+
+                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
+#else
+                pass = response.IsSuccessful;
+#endif
+
+            }
+            Assert.IsTrue(pass);
+        }
+
     }
 }
