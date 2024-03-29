@@ -301,6 +301,17 @@ namespace DynamicPDF.Api
         }
 
         /// <summary>
+        /// Returns an <see cref="ExcelInput"/> object containing the input pdf.
+        /// </summary>
+        /// <param name="resource">The resource of type <see cref="ExcelResource"/>.</param>
+        public ExcelInput AddExcel(ExcelResource resource, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        {
+            ExcelInput input = new ExcelInput(resource, size, orientation, margins);
+            this.Inputs.Add(input);
+            return input;
+        }
+
+        /// <summary>
         /// Returns a <see cref="DlexInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="dlexResource">The dlex resource of type <see cref="DlexResource"/>.</param>
