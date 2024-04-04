@@ -73,7 +73,7 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the resource name.
         /// </summary>
-        /// <remarks>For word resources, the resource name should be specified with a file extension.</remarks>
+        /// <remarks>For word or excel resources, the resource name should be specified with a file extension.</remarks>
         public virtual string ResourceName { get; set; }
 
         internal static byte[] GetSteamData(Stream stream)

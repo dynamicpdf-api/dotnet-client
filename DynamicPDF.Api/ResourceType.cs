@@ -38,6 +38,11 @@
         /// <summary>
         /// Word resource.
         /// </summary>
-        Word
+        Word,
+
+        /// <summary>
+        /// Excel resource.
+        /// </summary>
+        Excel
     }
 }
