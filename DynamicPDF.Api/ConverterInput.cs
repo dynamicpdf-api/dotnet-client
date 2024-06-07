@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using api = DynamicPDF.Api;
 
 namespace DynamicPDF.Api
@@ -11,10 +12,10 @@ namespace DynamicPDF.Api
         private api.PageSize pageSize;
         private api.PageOrientation pageOrientation;
 
-        internal ConverterInput(Resource resource, PageSize pageSize, PageOrientation pageOrientation, float? margins) : base(resource)
+        internal ConverterInput(Resource resource, PageSize? pageSize, PageOrientation? pageOrientation, float? margins) : base(resource)
         {
-            PageSize = pageSize;
-            PageOrientation = pageOrientation;
+            if (pageSize.HasValue) PageSize = pageSize.Value;
+            if (pageOrientation.HasValue) PageOrientation = pageOrientation.Value;
 
             if (margins != null)
             {
@@ -48,12 +49,12 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the page width.
         /// </summary>
-        public float PageWidth { get; set; }
+        public float? PageWidth { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the page height.
         /// </summary>
-        public float PageHeight { get; set; }
+        public float? PageHeight { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the page size.
@@ -67,16 +68,16 @@ namespace DynamicPDF.Api
                 double smaller;
                 double larger;
                 UnitConverter.GetPaperSize(value, out smaller, out larger);
-                if (PageOrientation == PageOrientation.Portrait)
-                {
-                    PageHeight = (float)larger;
-                    PageWidth = (float)smaller;
-                }
-                else
+                if (PageOrientation == PageOrientation.Landscape)
                 {
                     PageHeight = (float)smaller;
                     PageWidth = (float)larger;
                 }
+                else
+                {
+                    PageHeight = (float)larger;
+                    PageWidth = (float)smaller;
+                }                
             }
             get
             {
@@ -97,27 +98,30 @@ namespace DynamicPDF.Api
             set
             {
                 pageOrientation = value;
-                float smaller;
-                float larger;
-                if (PageWidth > PageHeight)
+                if (PageWidth.HasValue && PageHeight.HasValue)
                 {
-                    smaller = PageHeight;
-                    larger = PageWidth;
-                }
-                else
-                {
-                    smaller = PageWidth;
-                    larger = PageHeight;
-                }
-                if (PageOrientation == PageOrientation.Portrait)
-                {
-                    PageHeight = larger;
-                    PageWidth = smaller;
-                }
-                else
-                {
-                    PageHeight = smaller;
-                    PageWidth = larger;
+                    float smaller;
+                    float larger;
+                    if (PageWidth > PageHeight)
+                    {
+                        smaller = PageHeight.Value;
+                        larger = PageWidth.Value;
+                    }
+                    else
+                    {
+                        smaller = PageWidth.Value;
+                        larger = PageHeight.Value;
+                    }
+                    if (PageOrientation == PageOrientation.Landscape)
+                    {
+                        PageHeight = smaller;
+                        PageWidth = larger;
+                    }
+                    else
+                    {
+                        PageHeight = larger;
+                        PageWidth = smaller;
+                    }
                 }
             }
         }

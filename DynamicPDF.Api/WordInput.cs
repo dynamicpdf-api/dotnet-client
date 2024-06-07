@@ -21,7 +21,7 @@ namespace DynamicPDF.Api
         /// <param name="size">The page size of the output PDF.</param>
         /// <param name="orientation">The page orientation of the output PDF.</param>
         /// <param name="margins">The page margins of the output PDF.</param>
-        public WordInput(WordResource resource, api.PageSize size = api.PageSize.Letter, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null) : base(resource, size, orientation, margins)
+        public WordInput(WordResource resource, api.PageSize? size = null, api.PageOrientation? orientation = null, float? margins = null) : base(resource, size, orientation, margins)
         { }
 
         [JsonProperty("type")]

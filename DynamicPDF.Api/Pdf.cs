@@ -273,7 +273,7 @@ namespace DynamicPDF.Api
         /// Returns an <see cref="HtmlInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="resource">The resource of type <see cref="HtmlResource"/>.</param>
-        public HtmlInput AddHtml(HtmlResource resource, string basepath = null, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        public HtmlInput AddHtml(HtmlResource resource, string basepath = null, DynamicPDF.Api.PageSize? size = null, DynamicPDF.Api.PageOrientation? orientation = null, float? margins = null)
         {
             HtmlInput input = new HtmlInput(resource, basepath, size, orientation, margins);
             this.Inputs.Add(input);
@@ -284,7 +284,7 @@ namespace DynamicPDF.Api
         /// Returns an <see cref="HtmlInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="html">The HTML input string.</param>
-        public HtmlInput AddHtml(string html, string basepath = null, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        public HtmlInput AddHtml(string html, string basepath = null, DynamicPDF.Api.PageSize? size = null, DynamicPDF.Api.PageOrientation? orientation = null, float? margins = null)
         {
             return AddHtml(new HtmlResource(html), basepath, size, orientation, margins);
         }
@@ -293,7 +293,7 @@ namespace DynamicPDF.Api
         /// Returns an <see cref="WordInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="resource">The resource of type <see cref="WordResource"/>.</param>
-        public WordInput AddWord(WordResource resource, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        public WordInput AddWord(WordResource resource, DynamicPDF.Api.PageSize? size = null, DynamicPDF.Api.PageOrientation? orientation = null, float? margins = null)
         {
             WordInput input = new WordInput(resource, size, orientation, margins);
             this.Inputs.Add(input);
@@ -304,7 +304,7 @@ namespace DynamicPDF.Api
         /// Returns an <see cref="ExcelInput"/> object containing the input pdf.
         /// </summary>
         /// <param name="resource">The resource of type <see cref="ExcelResource"/>.</param>
-        public ExcelInput AddExcel(ExcelResource resource, DynamicPDF.Api.PageSize size = DynamicPDF.Api.PageSize.A4, DynamicPDF.Api.PageOrientation orientation = DynamicPDF.Api.PageOrientation.Portrait, float? margins = null)
+        public ExcelInput AddExcel(ExcelResource resource, DynamicPDF.Api.PageSize? size = null, DynamicPDF.Api.PageOrientation? orientation = null, float? margins = null)
         {
             ExcelInput input = new ExcelInput(resource, size, orientation, margins);
             this.Inputs.Add(input);
