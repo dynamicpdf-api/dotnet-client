@@ -15,8 +15,6 @@ namespace DynamicPDF.Api
         private List<Element> elements;
         private api.PageSize pageSize;
         private api.PageOrientation pageOrientation;
-        private const float DefaultPageHeight = 792.0f;
-        private const float DefaultPagewidth = 612.0f;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PageInput"/> class.
@@ -24,10 +22,13 @@ namespace DynamicPDF.Api
         /// <param name="size">The size of the page.</param>
         /// <param name="orientation">The orientation of the page.</param>
         /// <param name="margins">The margins of the page.</param>
-        public PageInput(api.PageSize size = PageSize.Letter, api.PageOrientation orientation = api.PageOrientation.Portrait, float? margins = null)
+        public PageInput(api.PageSize? size = null, api.PageOrientation? orientation = null, float? margins = null)
         {
-            PageSize = size;
-            PageOrientation = orientation;
+            if (size.HasValue)
+                PageSize = size.Value;
+
+            if (orientation.HasValue)
+                PageOrientation = orientation.Value;
 
             if (margins != null)
             {
@@ -52,20 +53,12 @@ namespace DynamicPDF.Api
         /// <summary>
         /// Gets or sets the width of the page.
         /// </summary>
-        [JsonIgnore]
         public float? PageWidth { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the height of the page.
         /// </summary>
-        [JsonIgnore]
         public float? PageHeight { get; set; } = null;
-
-        [JsonProperty("PageWidth")]
-        internal float Width { get { return PageWidth ?? DefaultPagewidth; } }
-
-        [JsonProperty("PageHeight")]
-        internal float Height { get { return PageHeight ?? DefaultPageHeight; } }
 
         /// <summary>
         /// Gets or sets the top margin.
@@ -99,15 +92,15 @@ namespace DynamicPDF.Api
                 double smaller;
                 double larger;
                 UnitConverter.GetPaperSize(value, out smaller, out larger);
-                if (PageOrientation == PageOrientation.Portrait)
-                {
-                    PageHeight = (float)larger;
-                    PageWidth = (float)smaller;
-                }
-                else
+                if (PageOrientation == PageOrientation.Landscape)
                 {
                     PageHeight = (float)smaller;
                     PageWidth = (float)larger;
+                }
+                else
+                {
+                    PageHeight = (float)larger;
+                    PageWidth = (float)smaller;
                 }
             }
             get
@@ -131,27 +124,30 @@ namespace DynamicPDF.Api
                 pageOrientation = value;
                 float smaller;
                 float largerWidth;
-                if (Width > Height)
-                {
-                    smaller = Height;
-                    largerWidth = Width;
-                }
-                else
-                {
-                    smaller = Width;
-                    largerWidth = Height;
-                }
-                if (PageOrientation == PageOrientation.Portrait)
-                {
-                    PageHeight = largerWidth;
-                    PageWidth = smaller;
-                }
-                else
-                {
-                    PageHeight = smaller;
-                    PageWidth = largerWidth;
-                }
 
+                if (PageWidth.HasValue && PageHeight.HasValue)
+                {
+                    if (PageWidth > PageHeight)
+                    {
+                        smaller = PageHeight.Value;
+                        largerWidth = PageWidth.Value;
+                    }
+                    else
+                    {
+                        smaller = PageWidth.Value;
+                        largerWidth = PageHeight.Value;
+                    }
+                    if (PageOrientation == PageOrientation.Landscape)
+                    {
+                        PageHeight = smaller;
+                        PageWidth = largerWidth;
+                    }
+                    else
+                    {
+                        PageHeight = largerWidth;
+                        PageWidth = smaller;
+                    }
+                }
             }
         }
 
