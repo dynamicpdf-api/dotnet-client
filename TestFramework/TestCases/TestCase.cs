@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using DynamicPDF.Api;
+using DynamicPDF.Api.Imaging;
 
 
 namespace DynamicPDFApiTestForNET.TestCases
@@ -44,6 +45,10 @@ namespace DynamicPDFApiTestForNET.TestCases
                 case InputSampleType.PdfXmp:
                     PdfXmp.DefaultApiKey = "ApiKey";
                     PdfXmp.DefaultBaseUrl = "https://api.dynamicpdf.com";
+                    break;
+				case InputSampleType.Imaging:
+                    PdfImage.DefaultApiKey = "ApiKey";
+                    PdfImage.DefaultBaseUrl = "https://api.dynamicpdf.com";
                     break;
                 default:
                     Pdf.DefaultApiKey = "ApiKey";
@@ -179,6 +184,9 @@ namespace DynamicPDFApiTestForNET.TestCases
                 case InputSampleType.Excel:
                     filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfEndpoint\\ExcelInputSamples", Name));
                     break;
+                case InputSampleType.Imaging:
+                    filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\ImageEndpoint", Name));
+                    break;
             }
             if (!Directory.Exists(filePath))
             {
@@ -219,6 +227,7 @@ namespace DynamicPDFApiTestForNET.TestCases
         PdfInfo,
         Html,
         Word,
-        Excel
+        Excel,
+        Imaging
     }
 }

@@ -20,14 +20,6 @@ namespace DynamicPDF.Api
         internal Outline(PdfInput input)
         {
             FromInputID = input.Id;
-            if (input.MergeOptions == null)
-            {
-                input.MergeOptions = new MergeOptions() { Outlines = false };
-            }
-            else
-            {
-                input.MergeOptions.Outlines = false;
-            }
         }
 
         /// <summary>
