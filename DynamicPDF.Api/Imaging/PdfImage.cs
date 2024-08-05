@@ -221,15 +221,10 @@ namespace DynamicPDF.Api.Imaging
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     string jsonString = restResponse.Content;
-                    PdfImageResponse rasterizerResponse = JsonConvert.DeserializeObject<PdfImageResponse>(jsonString);
+                    response = JsonConvert.DeserializeObject<PdfImageResponse>(jsonString);
 
-                    string imageType = rasterizerResponse.ContentType;
+                    string imageType = response.ContentType;
                     response.ImageFormat = imageType.Substring(imageType.IndexOf('/') + 1);
-
-                    foreach (var image in rasterizerResponse.Images)
-                    {
-                        response.Images.Add(image);
-                    }
                     response.IsSuccessful = true;
                     response.StatusCode = restResponse.StatusCode;
                 }
