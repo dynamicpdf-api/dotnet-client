@@ -1,0 +1,1 @@
+{"templates":[{"id":"Temp1","elements":[{"type":"code93Barcode","height":60,"showText":false,"color":"#FF0000","xDimension":2,"value":"CODE 93","placement":"topCenter","xOffset":100,"yOffset":100}]}],"author":"ceTe Software","tag":false,"title":"First Rest API","inputs":[{"type":"page","elements":[],"templateId":"Temp1","id":"96f78cb5-1de7-4a6d-ba78-1d7f4fccedb3"}]}

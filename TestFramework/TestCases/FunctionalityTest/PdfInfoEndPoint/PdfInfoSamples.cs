@@ -19,15 +19,14 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfInfoEndPoint
         public void AllFormFields_JsonOutput()
         {
             Name = "AllFormFields";
-            PdfResource resource = new PdfResource(base.GetResourcePath("AllFormFields.pdf"));
+            PdfResource resource = new PdfResource(base.GetResourcePath("AllFormFields.pdf"), "AllFormFields.pdf");
 
             PdfInfo pdfInfo = new PdfInfo(resource);
             PdfInfoResponse response = pdfInfo.Process();
             bool pass = false;
             if (response.IsSuccessful)
             {
-                File.WriteAllText(base.GetOutputFilePath("Output.json", InputSampleType), response.JsonContent);
-
+                File.WriteAllText(base.GetOutputFilePath("AllFormFields_JsonOutput.json", InputSampleType), response.JsonContent);
 #if BASELINEREQUIRED
                 // Uncomment the line below to recreate the Input PNG Images
                 base.CreateInputPngsFromOutputPdf(72, InputSampleType);

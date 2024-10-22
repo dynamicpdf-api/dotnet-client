@@ -19,7 +19,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         [TestMethod]
         public void Inputs_DifferentInputs_PdfOutput()
         {
-            Name = "DifferentInputs";
+            Name = "MultipleInputs";
 
             Pdf pdf = new Pdf();
             pdf.Author = Author;
@@ -40,6 +40,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             pdf.Resources.Add(img);
             string jsonString = File.ReadAllText(base.GetResourcePath("SimpleReportData.json"));
             DlexInput dlexInput = new DlexInput("TFWResources/SimpleReportWithCoverPage.dlex", jsonString);
+            dlexInput.LayoutDataResourceName = "SimpleReportData.json";
             pdf.Inputs.Add(dlexInput);
 
             ImageInput imageInput = new ImageInput("TFWResources/Northwind Logo.gif");
@@ -55,16 +56,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }

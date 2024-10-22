@@ -19,17 +19,25 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 return InputSampleType.Imaging;
             }
         }
+        public PdfImage getPdfImage(string inputFile, BmpColorFormat colorFormat = null)
+        {
+            PdfImage pdfImage = new PdfImage(new PdfResource(inputFile));
+            BmpImageFormat bmpImageFormat = new BmpImageFormat();
+            pdfImage.ImageFormat = bmpImageFormat;
+
+            if(colorFormat!=null)
+                bmpImageFormat.ColorFormat = colorFormat;
+
+            return pdfImage;
+        }
 
         [TestMethod]
         public void TestBmpImageFormat()
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
-
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
+            
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
 
@@ -39,7 +47,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"BmpImageFormat{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -49,10 +56,8 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentA.pdf"));
             pdfImage.PageCount = 2;
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -73,15 +78,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Point;
             fixedImageSize.Width = 500;
             fixedImageSize.Height = 500;
             pdfImage.ImageSize = fixedImageSize;
-
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -92,7 +94,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"BmpImageFormat_Fixed_Point_Size_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -102,15 +103,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Inch;
             fixedImageSize.Width = 5;
             fixedImageSize.Height = 5;
             pdfImage.ImageSize = fixedImageSize;
-
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -131,15 +129,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Millimeter;
             fixedImageSize.Width = 200;
             fixedImageSize.Height = 200;
             pdfImage.ImageSize = fixedImageSize;
-
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -160,15 +155,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Point;
             maxImageSize.MaxWidth = 500;
             maxImageSize.MaxHeight = 500;
             pdfImage.ImageSize = maxImageSize;
-
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -189,15 +181,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Inch;
             maxImageSize.MaxWidth = 7;
             maxImageSize.MaxHeight = 7;
             pdfImage.ImageSize = maxImageSize;
-
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -218,15 +207,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Millimeter;
             maxImageSize.MaxWidth = 400;
             maxImageSize.MaxHeight = 400;
             pdfImage.ImageSize = maxImageSize;
-
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -247,12 +233,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             DpiImageSize dpiImageSize = new DpiImageSize();
             dpiImageSize.HorizontalDpi = 155;
             dpiImageSize.VerticalDpi = 155;
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
             pdfImage.ImageSize = dpiImageSize;
 
             PdfImageResponse response = pdfImage.Process();
@@ -274,15 +258,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             PercentageImageSize percentageImageSize = new PercentageImageSize();
             percentageImageSize.VerticalPercentage = 50;
             percentageImageSize.HorizontalPercentage = 50;
             pdfImage.ImageSize = percentageImageSize;
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            pdfImage.ImageFormat = bmpImageFormat;
             
-
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
 
@@ -292,7 +273,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"BmpImageFormat_Percentage_ImageSize_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -302,14 +282,11 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
             BmpMonochromeColorFormat bmpMonochromeColorFormat = new BmpMonochromeColorFormat();
             bmpMonochromeColorFormat.DitheringAlgorithm = DitheringAlgorithm.FloydSteinberg;
             bmpMonochromeColorFormat.DitheringPercent = 50;
-            bmpImageFormat.ColorFormat = bmpMonochromeColorFormat;
-            pdfImage.ImageFormat = bmpImageFormat;
 
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), bmpMonochromeColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -330,16 +307,11 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
             BmpMonochromeColorFormat bmpMonochromeColorFormat = new BmpMonochromeColorFormat();
             bmpMonochromeColorFormat.DitheringAlgorithm = DitheringAlgorithm.Bayer;
             bmpMonochromeColorFormat.DitheringPercent = 50;
 
-            bmpImageFormat.ColorFormat = bmpMonochromeColorFormat;
-
-            pdfImage.ImageFormat = bmpImageFormat;
-
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), bmpMonochromeColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -360,10 +332,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            bmpImageFormat.ColorFormat = new BmpColorFormat(ColorFormatType.Rgb);
-            pdfImage.ImageFormat = bmpImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new BmpColorFormat(ColorFormatType.Rgb));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -384,10 +353,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            bmpImageFormat.ColorFormat = new BmpColorFormat(ColorFormatType.RgbA);
-            pdfImage.ImageFormat = bmpImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new BmpColorFormat(ColorFormatType.RgbA));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -408,10 +374,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            bmpImageFormat.ColorFormat = new BmpColorFormat(ColorFormatType.Grayscale);
-            pdfImage.ImageFormat = bmpImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new BmpColorFormat(ColorFormatType.Grayscale));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -422,7 +385,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"BmpImageFormat_Grayscale_ColorFormat_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -432,10 +394,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            bmpImageFormat.ColorFormat = new BmpColorFormat(ColorFormatType.Monochrome);
-            pdfImage.ImageFormat = bmpImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new BmpColorFormat(ColorFormatType.Monochrome));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -446,7 +405,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"BmpImageFormat_Monochrome_ColorFormat_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -456,10 +414,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            bmpImageFormat.ColorFormat = new BmpColorFormat(ColorFormatType.Indexed);
-            pdfImage.ImageFormat = bmpImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new BmpColorFormat(ColorFormatType.Indexed));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -480,12 +435,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "BmpImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("Gray.pdf")));
             BmpMonochromeColorFormat bmpMonochromeColorFormat = new BmpMonochromeColorFormat();
             bmpMonochromeColorFormat.BlackThreshold = 200;
-            BmpImageFormat bmpImageFormat = new BmpImageFormat();
-            bmpImageFormat.ColorFormat = bmpMonochromeColorFormat;
-            pdfImage.ImageFormat = bmpImageFormat;
+
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("Gray.pdf"), bmpMonochromeColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;

@@ -1,0 +1,1 @@
+{"templates":[{"id":"Temp1","elements":[{"type":"text","font":"timesRoman","color":"Green","text":"Hello World","fontSize":20,"placement":"topCenter","xOffset":0,"yOffset":0}]}],"author":"ceTe Software","tag":false,"title":"First Rest API","inputs":[{"type":"pdf","templateId":"Temp1","resourceName":"DocumentA100.pdf","id":"0055d930-4b6f-4ea2-bc34-f1ecd3c38c70"}]}

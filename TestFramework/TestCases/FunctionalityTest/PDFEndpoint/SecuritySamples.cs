@@ -14,24 +14,35 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
                 return InputSampleType.Security;
             }
         }
-        [TestMethod]
-        public void PdfInputFilePathAes256Security_PdfOutput()
+        public Pdf pdfObj(object security, object input)
         {
-            Name = "PdfInputFilePathAes256Security";
             Pdf pdf = new Pdf();
             pdf.Author = Author;
             pdf.Title = Title;
 
-            PdfResource resource = new PdfResource(base.GetResourcePath("XmpAndOtherSample.pdf"));
+            pdf.Security = (Security)security;
+            if(input is PdfInput)
+                pdf.Inputs.Add((PdfInput)input);
+            else
+                pdf.Inputs.Add(new PageInput());
+
+            return pdf;
+        }
+        [TestMethod]
+        public void PdfInputFilePathAes256Security_PdfOutput()
+        {
+            Name = "PdfInputFilePathAes256Security";
+
+            PdfResource resource = new PdfResource(base.GetResourcePath("XmpAndOtherSample.pdf"), "XmpAndOtherSample.pdf");
             PdfInput input = new PdfInput(resource);
-            pdf.Inputs.Add(input);
 
             Aes256Security security = new Aes256Security("user", "owner");
             security.AllowFormFilling = false;
             security.AllowUpdateAnnotsAndFields = false;
             security.AllowEdit = false;
             security.DocumentComponents = EncryptDocumentComponents.AllExceptMetadata;
-            pdf.Security = security;
+
+            Pdf pdf = pdfObj(security, input);
 
             PdfResponse response = pdf.Process();
 
@@ -39,17 +50,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
@@ -58,9 +59,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         public void PageInput_Aes128Security_PdfOutput()
         {
             Name = "PageInputAes128Security";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
 
             Aes128Security security = new Aes128Security("", "");
             security.OwnerPassword = "owner";
@@ -68,10 +66,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             security.AllowDocumentAssembly = false;
             security.AllowEdit = false;
             security.DocumentComponents = EncryptDocumentComponents.All;
-            pdf.Security = security;
 
             PageInput input = new PageInput();
-            pdf.Inputs.Add(input);
+
+            Pdf pdf = pdfObj(security, input);
 
             PdfResponse response = pdf.Process();
 
@@ -79,17 +77,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
@@ -98,36 +86,23 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         public void PdfInputUsingCloudRoot_RC4128Security_PdfOutput()
         {
             Name = "PdfInputCloudRootRC4128Security";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
-
+            
             RC4128Security security = new RC4128Security("user", "owner");
             security.AllowHighResolutionPrinting = true;
             security.AllowPrint = true;
             security.EncryptMetadata = true;
-            pdf.Security = security;
 
             PdfInput input = new PdfInput("TFWResources/XmpAndOtherSample.pdf");
-            pdf.Inputs.Add(input);
-            
+
+            Pdf pdf = pdfObj(security, input);
+
             PdfResponse response = pdf.Process();
 
             bool pass = false;
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }

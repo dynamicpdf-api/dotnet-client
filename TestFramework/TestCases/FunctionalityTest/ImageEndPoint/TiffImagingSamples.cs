@@ -19,16 +19,26 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 return InputSampleType.Imaging;
             }
         }
+        public PdfImage getPdfImage(string inputFile, TiffColorFormat colorFormat = null, bool multiPageTiff = false)
+        {
+            PdfImage pdfImage = new PdfImage(new PdfResource(inputFile));
+            TiffImageFormat tiffImageFormat = new TiffImageFormat();
+            pdfImage.ImageFormat = tiffImageFormat;
 
+            if (colorFormat != null) 
+                tiffImageFormat.ColorFormat = colorFormat;
+
+            if (multiPageTiff)
+                tiffImageFormat.MultiPage = true;
+
+            return pdfImage;
+        }
         [TestMethod]
         public void TestTiffImageFormat()
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -39,7 +49,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"TiffImageFormat_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -49,10 +58,8 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentA.pdf"));
             pdfImage.PageCount = 2;
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -73,15 +80,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Point;
             fixedImageSize.Width = 500;
             fixedImageSize.Height = 500;
             pdfImage.ImageSize = fixedImageSize;
-
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -102,15 +106,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Inch;
             fixedImageSize.Width = 5;
             fixedImageSize.Height = 5;
             pdfImage.ImageSize = fixedImageSize;
-
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -131,15 +132,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Millimeter;
             fixedImageSize.Width = 200;
             fixedImageSize.Height = 200;
             pdfImage.ImageSize = fixedImageSize;
-
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -160,15 +158,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Point;
             maxImageSize.MaxWidth = 500;
             maxImageSize.MaxHeight = 500;
             pdfImage.ImageSize = maxImageSize;
-
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -179,7 +174,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"TiffImageFormat_Max_Point_Size_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -189,15 +183,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Inch;
             maxImageSize.MaxWidth = 7;
             maxImageSize.MaxHeight = 7;
             pdfImage.ImageSize = maxImageSize;
-
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -218,15 +209,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Millimeter;
             maxImageSize.MaxWidth = 400;
             maxImageSize.MaxHeight = 400;
             pdfImage.ImageSize = maxImageSize;
-
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -247,12 +235,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             DpiImageSize dpiImageSize = new DpiImageSize();
             dpiImageSize.HorizontalDpi = 155;
             dpiImageSize.VerticalDpi = 155;
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
             pdfImage.ImageSize = dpiImageSize;
 
             PdfImageResponse response = pdfImage.Process();
@@ -274,12 +260,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             PercentageImageSize percentageImageSize = new PercentageImageSize();
             percentageImageSize.VerticalPercentage = 50;
             percentageImageSize.HorizontalPercentage = 50;
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            pdfImage.ImageFormat = tiffImageFormat;
             pdfImage.ImageSize = percentageImageSize;
 
             PdfImageResponse response = pdfImage.Process();
@@ -301,14 +285,11 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
             TiffMonochromeColorFormat tiffMonochromeColorFormat = new TiffMonochromeColorFormat();
             tiffMonochromeColorFormat.DitheringAlgorithm = DitheringAlgorithm.FloydSteinberg;
             tiffMonochromeColorFormat.DitheringPercent = 50;
-            tiffImageFormat.ColorFormat = tiffMonochromeColorFormat;
-            pdfImage.ImageFormat = tiffImageFormat;
 
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), tiffMonochromeColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -329,14 +310,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
             TiffIndexedColorFormat tiffIndexedColorFormat = new TiffIndexedColorFormat();
             tiffIndexedColorFormat.DitheringAlgorithm = DitheringAlgorithm.FloydSteinberg;
             tiffIndexedColorFormat.DitheringPercent = 50;
-            tiffImageFormat.ColorFormat = tiffIndexedColorFormat;
-            pdfImage.ImageFormat = tiffImageFormat;
 
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), tiffIndexedColorFormat);
+            
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
 
@@ -356,16 +335,11 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
             TiffMonochromeColorFormat tiffMonochromeColorFormat = new TiffMonochromeColorFormat();
             tiffMonochromeColorFormat.DitheringAlgorithm = DitheringAlgorithm.Bayer;
             tiffMonochromeColorFormat.DitheringPercent = 50;
 
-            tiffImageFormat.ColorFormat = tiffMonochromeColorFormat;
-
-            pdfImage.ImageFormat = tiffImageFormat;
-
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), tiffMonochromeColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -386,16 +360,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
             TiffIndexedColorFormat tiffIndexedColorFormat = new TiffIndexedColorFormat();
             tiffIndexedColorFormat.DitheringAlgorithm = DitheringAlgorithm.Bayer;
             tiffIndexedColorFormat.DitheringPercent = 50;
 
-            tiffImageFormat.ColorFormat = tiffIndexedColorFormat;
-            pdfImage.ImageFormat = tiffImageFormat;
-
-
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), tiffIndexedColorFormat);
+            
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
 
@@ -415,13 +385,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
             TiffIndexedColorFormat tiffIndexedColorFormat = new TiffIndexedColorFormat();
             tiffIndexedColorFormat.QuantizationAlgorithm = QuantizationAlgorithm.Octree;
-            tiffImageFormat.ColorFormat = tiffIndexedColorFormat;
-            pdfImage.ImageFormat = tiffImageFormat;
 
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), tiffIndexedColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -442,13 +409,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
             TiffIndexedColorFormat tiffIndexedColorFormat = new TiffIndexedColorFormat();
             tiffIndexedColorFormat.QuantizationAlgorithm = QuantizationAlgorithm.WU;
-            tiffImageFormat.ColorFormat = tiffIndexedColorFormat;
-            pdfImage.ImageFormat = tiffImageFormat;
 
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), tiffIndexedColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -469,13 +433,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
             TiffIndexedColorFormat tiffIndexedColorFormat = new TiffIndexedColorFormat();
             tiffIndexedColorFormat.QuantizationAlgorithm = QuantizationAlgorithm.WebSafe;
-            tiffImageFormat.ColorFormat = tiffIndexedColorFormat;
-            pdfImage.ImageFormat = tiffImageFormat;
 
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), tiffIndexedColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -496,13 +457,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
             TiffIndexedColorFormat tiffIndexedColorFormat = new TiffIndexedColorFormat();
             tiffIndexedColorFormat.QuantizationAlgorithm = QuantizationAlgorithm.Werner;
-            tiffImageFormat.ColorFormat = tiffIndexedColorFormat;
-            pdfImage.ImageFormat = tiffImageFormat;
 
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), tiffIndexedColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -523,10 +481,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            tiffImageFormat.ColorFormat = new TiffColorFormat(ColorFormatType.Rgb);
-            pdfImage.ImageFormat = tiffImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new TiffColorFormat(ColorFormatType.Rgb));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -547,10 +502,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            tiffImageFormat.ColorFormat = new TiffColorFormat(ColorFormatType.RgbA);
-            pdfImage.ImageFormat = tiffImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new TiffColorFormat(ColorFormatType.RgbA));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -571,10 +523,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            tiffImageFormat.ColorFormat = new TiffColorFormat(ColorFormatType.Grayscale);
-            pdfImage.ImageFormat = tiffImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new TiffColorFormat(ColorFormatType.Grayscale));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -595,10 +544,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            tiffImageFormat.ColorFormat = new TiffColorFormat(ColorFormatType.Monochrome);
-            pdfImage.ImageFormat = tiffImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new TiffColorFormat(ColorFormatType.Monochrome));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -619,10 +565,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            tiffImageFormat.ColorFormat = new TiffColorFormat(ColorFormatType.Indexed);
-            pdfImage.ImageFormat = tiffImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), new TiffColorFormat(ColorFormatType.Indexed));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -643,12 +586,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("Gray.pdf")));
             TiffMonochromeColorFormat tiffMonochromeColorFormat = new TiffMonochromeColorFormat();
             tiffMonochromeColorFormat.BlackThreshold = 200;
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            tiffImageFormat.ColorFormat = tiffMonochromeColorFormat;
-            pdfImage.ImageFormat = tiffImageFormat;
+
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("Gray.pdf"), tiffMonochromeColorFormat);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -669,11 +610,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "TiffImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-
-            TiffImageFormat tiffImageFormat = new TiffImageFormat();
-            tiffImageFormat.MultiPage = true;
-            pdfImage.ImageFormat = tiffImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentA.pdf"), null, true);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;

@@ -1,7 +1,11 @@
 ﻿using DynamicPDF.Api;
 using DynamicPDF.Api.Elements;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System;
 using System.IO;
+using System.Text;
 
 namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 {
@@ -16,22 +20,22 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
                 return InputSampleType.Line;
             }
         }
-
+       
         [TestMethod]
         public void PageInput_Pdfoutput()
         {
-            Name = "PageInput";
+            Name = "LineElement";
             Pdf pdf = new Pdf();
             pdf.Author = Author;
             pdf.Title = Title;
-
+            
             PageInput input = new PageInput();
             pdf.Inputs.Add(input);
 
             LineElement element = new LineElement(ElementPlacement.TopLeft, 200, 200);
             element.Color = new RgbColor(0, 0, 1);
-            element.XOffset = 50;
-            element.YOffset = 50;
+            element.XOffset = 100;
+            element.YOffset = 100;
             element.LineStyle = LineStyle.DashLarge;
             element.Width = 4;
             input.Elements.Add(element);
@@ -42,17 +46,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }

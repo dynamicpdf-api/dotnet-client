@@ -1,7 +1,9 @@
 ﻿using DynamicPDF.Api;
 using DynamicPDF.Api.Elements;
+using Microsoft.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Reflection.Metadata;
 
 namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 {
@@ -15,12 +17,8 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
                 return InputSampleType.ColorPattern;
             }
         }
-
-        [TestMethod]
-        public void PdfPageInput_NamedColorSample_PdfOutput()
+        public Pdf pdfObj(Color color)
         {
-            Name = "NamedColor";
-
             Pdf pdf = new Pdf();
             pdf.Author = Author;
             pdf.Title = Title;
@@ -28,29 +26,26 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             PageInput input = new PageInput();
             pdf.Inputs.Add(input);
 
-            Template template = new Template("Temp1");
             TextElement textElement = new TextElement("Hello World", ElementPlacement.TopCenter);
-            textElement.Color = RgbColor.Red;
-            template.Elements.Add(textElement);
-            input.Template = template;
+            textElement.Color = color;
+            input.Elements.Add(textElement);
+
+            return pdf;
+        }
+
+        [TestMethod]
+        public void PdfPageInput_NamedColorSample_PdfOutput()
+        {
+            Name = "NamedColor";
+
+            Pdf pdf = pdfObj(RgbColor.Red);
 
             PdfResponse response = pdf.Process();
-
             bool pass = false;
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
@@ -59,34 +54,15 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         public void PdfPageInput_RGBColorSample_PdfOutput()
         {
             Name = "RGBColor";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
 
-            PageInput input = new PageInput();
-            pdf.Inputs.Add(input);
-
-            TextElement textElement = new TextElement("Hello World", ElementPlacement.TopCenter);
-            textElement.Color = new RgbColor(0, 1, 0);
-            input.Elements.Add(textElement);
+            Pdf pdf = pdfObj(new RgbColor(0, 1, 0));
 
             PdfResponse response = pdf.Process();
-
             bool pass = false;
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
@@ -95,71 +71,32 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         public void PdfPageInput_CMYKColorSample_PdfOutput()
         {
             Name = "CMYKColor";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
 
-            PageInput input = new PageInput();
-            pdf.Inputs.Add(input);
-
-            TextElement textElement = new TextElement("Hello World", ElementPlacement.TopCenter);
-            textElement.Color = new CmykColor(0, 1, 0, 0);
-            input.Elements.Add(textElement);
+            Pdf pdf = pdfObj(new CmykColor(0, 1, 0, 0));
 
             PdfResponse response = pdf.Process();
-
             bool pass = false;
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
-
         }
 
         [TestMethod]
         public void PdfPageInput_GrayScaleColorSample_PdfOutput()
         {
             Name = "GrayScale";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
 
-            PageInput input = new PageInput();
-            pdf.Inputs.Add(input);
-
-            TextElement textElement = new TextElement("Hello World", ElementPlacement.TopCenter);
-            textElement.Color = new Grayscale(0.8f);
-            input.Elements.Add(textElement);
+            Pdf pdf = pdfObj(new Grayscale(0.8f));
 
             PdfResponse response = pdf.Process();
-
             bool pass = false;
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }

@@ -1,0 +1,1 @@
+{"author":"ceTe Software","tag":false,"title":"First Rest API","security":{"type":"aes256","documentComponents":"allExceptMetadata","allowEdit":false,"allowUpdateAnnotsAndFields":false,"ownerPassword":"owner","userPassword":"user","allowFormFilling":false},"inputs":[{"type":"pdf","resourceName":"XmpAndOtherSample.pdf","id":"5847e313-65a4-4173-b327-95da7ddd0cb0"}]}

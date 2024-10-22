@@ -20,26 +20,22 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
         public void DlexLayout()
         {
             Name = "Simple";
-            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"));
-
+            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"), "SimpleReportData.json");
             DlexLayout dlexEndpoint = new DlexLayout("TFWResources/SimpleReportWithCoverPage.dlex", layoutData);
-           
+            
             PdfResponse response = dlexEndpoint.Process();
             bool pass = false;
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
+                File.WriteAllBytes(base.GetOutputFilePath("DlexLayout.pdf", InputSampleType), (byte[])response.Content);
 #if BASELINEREQUIRED
                 // Uncomment the line below to recreate the Input PNG Images
                 base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
                 pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
 #else
                 pass = response.IsSuccessful;
 #endif
-
             }
             Assert.IsTrue(pass);
         }
@@ -48,10 +44,8 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
         public void InvoiceData_Pdfoutput()
         {
             Name = "InvoiceData";
-
             var invoiceLinqData = InvoiceData.Order11077;
-
-            LayoutDataResource layoutDataResource = new LayoutDataResource(invoiceLinqData);
+            LayoutDataResource layoutDataResource = new LayoutDataResource(invoiceLinqData, "InvoiceOrderId.json");
             DlexLayout dlexEndpoint = new DlexLayout("TFWResources/InvoiceOrderId.dlex", layoutDataResource);
 
             PdfResponse response = dlexEndpoint.Process();
@@ -59,12 +53,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
+                File.WriteAllBytes(base.GetOutputFilePath("InvoiceData_Pdfoutput.pdf", InputSampleType), (byte[])response.Content);
 #if BASELINEREQUIRED
                 // Uncomment the line below to recreate the Input PNG Images
                 base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
                 pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
 #else
                 pass = response.IsSuccessful;
@@ -78,7 +70,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
         public void DlexLayoutWithResource()
         {
             Name = "DlexResource";
-            
             LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"));
             DlexResource dlexResource = new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"), "SimpleReportWithCoverPage.dlex");
             DlexLayout dlexEndpoint = new DlexLayout(dlexResource, layoutData);
@@ -89,21 +80,17 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
+                File.WriteAllBytes(base.GetOutputFilePath("DlexLayoutWithResource.pdf", InputSampleType), (byte[])response.Content);
 #if BASELINEREQUIRED
                 // Uncomment the line below to recreate the Input PNG Images
                 base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
                 pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
 #else
                 pass = response.IsSuccessful;
 #endif
-
             }
             Assert.IsTrue(pass);
         }
-
 
         [TestMethod]
         public void DlexLayoutWithResourceData()
@@ -121,17 +108,14 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
+                File.WriteAllBytes(base.GetOutputFilePath("DlexResourceData.pdf", InputSampleType), (byte[])response.Content);
 #if BASELINEREQUIRED
                 // Uncomment the line below to recreate the Input PNG Images
                 base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
                 pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
 #else
                 pass = response.IsSuccessful;
 #endif
-
             }
             Assert.IsTrue(pass);
         }
@@ -140,7 +124,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
         public void DlexLayoutWithGlobalFont()
         {
             Name = "DlexGlobalFont";
-
             LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("test.json"));
             DlexResource dlexResource = new DlexResource(base.GetResourcePath("Test.dlex"), "SimpleReportWithCoverPage.dlex");
             DlexLayout dlexEndpoint = new DlexLayout(dlexResource, layoutData);
@@ -150,20 +133,16 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.DlexLayoutEndPoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
+                File.WriteAllBytes(base.GetOutputFilePath("DlexLayoutWithGlobalFont.pdf", InputSampleType), (byte[])response.Content);
 #if BASELINEREQUIRED
                 // Uncomment the line below to recreate the Input PNG Images
                 base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
                 pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
 #else
                 pass = response.IsSuccessful;
 #endif
-
             }
             Assert.IsTrue(pass);
         }
-
     }
 }

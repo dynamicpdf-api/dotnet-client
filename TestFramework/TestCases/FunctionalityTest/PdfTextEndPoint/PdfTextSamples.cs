@@ -24,19 +24,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfTextEndPoint
             PdfText text = new PdfText(resource);
             PdfTextResponse response = text.Process();
             bool pass = false;
+           
             if (response.IsSuccessful)
             {
-                File.WriteAllText(base.GetOutputFilePath("Output.json", InputSampleType), response.JsonContent);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response);
             }
             Assert.IsTrue(pass);
         }
@@ -54,17 +45,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfTextEndPoint
             bool pass = false;
             if (response.IsSuccessful)
             {
-                File.WriteAllText(base.GetOutputFilePath("Output.json", InputSampleType), response.JsonContent);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response);
             }
             Assert.IsTrue(pass);
         }
@@ -82,17 +63,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfTextEndPoint
             bool pass = false;
             if (response.IsSuccessful)
             {
-                File.WriteAllText(base.GetOutputFilePath("Output.json", InputSampleType), response.JsonContent);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response);
             }
             Assert.IsTrue(pass);
         } 

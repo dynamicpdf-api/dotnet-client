@@ -1,0 +1,1 @@
+{"templates":[{"id":"Temp1","elements":[{"type":"qrCode","fnc1":"gs1","version":20,"valueType":"string","color":"Orange","value":"Hello World","placement":"topCenter","xOffset":50,"yOffset":50}]}],"author":"ceTe Software","tag":false,"title":"First Rest API","inputs":[{"type":"pdf","templateId":"Temp1","resourceName":"Emptypages.pdf","id":"0bce5c76-7f63-4460-ac2d-5dcfd2221f85"}]}

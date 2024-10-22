@@ -23,7 +23,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             pdf.Author = Author;
             pdf.Title = Title;
 
-            PdfResource resource = new PdfResource(base.GetResourcePath("fw9AcroForm_14.pdf"));
+            PdfResource resource = new PdfResource(base.GetResourcePath("fw9AcroForm_14.pdf"), "fw9AcroForm_14.pdf");
             PdfInput input = new PdfInput(resource);
             pdf.Inputs.Add(input);
 
@@ -52,17 +52,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }          

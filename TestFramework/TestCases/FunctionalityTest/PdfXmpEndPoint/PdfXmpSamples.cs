@@ -28,17 +28,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfXmpEndPoint
             bool pass = false;
             if (response.IsSuccessful)
             {
-                File.WriteAllText(base.GetOutputFilePath("Output.xml", InputSampleType), response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response);
             }
             Assert.IsTrue(pass);
         }

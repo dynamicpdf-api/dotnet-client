@@ -19,7 +19,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         [TestMethod]
         public void PdfPageInput_Page_Pdfoutput()
         {
-            Name = "PageElement";
+            Name = "ImageElement";
             Pdf pdf = new Pdf();
             pdf.Author = Author;
             pdf.Title = Title;
@@ -27,7 +27,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             PageInput input = new PageInput();
             pdf.Inputs.Add(input);
 
-            ImageResource resource1 = new ImageResource(base.GetResourcePath("Northwind Logo.gif"));
+            ImageResource resource1 = new ImageResource(base.GetResourcePath("Northwind Logo.gif"), "Northwind Logo.gif");
             ImageElement element = new ImageElement(resource1, ElementPlacement.TopCenter);
             element.XOffset = 50;
             element.YOffset = 50;
@@ -41,17 +41,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }        

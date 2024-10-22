@@ -19,36 +19,29 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.ImageInfoEndPoint
         public void MultipleFormats_JsonOutput()
         {
             Name = "MultipleFormat";
-
             string[] images = {  "Northwind Logo.gif", "fw9_18.tif", "DPDFLogo.png", "DocumentA.jpeg" };
             bool pass = false;
+
             for (int i = 0; i < images.Length; i++)
             {
                 ImageResource resource = new ImageResource(base.GetResourcePath(images[i]));
-
                 ImageInfo pdfEndPoint = new ImageInfo(resource);
                 ImageResponse response = pdfEndPoint.Process();
 
-                
+                string outputFileName = base.GetOutputFilePath("MultipleFormat_JsonOutput_" + i + ".json", InputSampleType);
+                string baselineFileName = base.GetBaselineFilePath("MultipleFormat_JsonBaseline_" + i + ".json", InputSampleType);
 
                 if (response.IsSuccessful)
                 {
-                    File.WriteAllText(base.GetOutputFilePath("Output"+i+".json", InputSampleType), response.JsonContent);
+                    File.WriteAllText(outputFileName, response.JsonContent);
 
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
+                    if (createBaseline)
+                        CreateBaselineFromOutput(outputFileName, baselineFileName);
 
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                    pass = response.IsSuccessful;
-#endif
-
+                    pass = base.compareOutputWithBaseline(outputFileName, baselineFileName);
                 }
             }
             Assert.IsTrue(pass);
         }
-
-        
     }
 }

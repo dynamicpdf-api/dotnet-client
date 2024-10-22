@@ -24,7 +24,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             pdf.Author = Author;
             pdf.Title = Title;
 
-            ImageResource resource = new ImageResource(base.GetResourcePath("DPDFLogo.png"));
+            ImageResource resource = new ImageResource(base.GetResourcePath("DPDFLogo.png"), "DPDFLogo.png");
             ImageInput input = new ImageInput(resource);
             input.ScaleX = 4;
             input.ScaleY = 4;
@@ -39,17 +39,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
@@ -62,7 +52,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             pdf.Author = Author;
             pdf.Title = Title;
 
-            ImageResource resource = new ImageResource(base.GetResourcePath("fw9_18.tif"));
+            ImageResource resource = new ImageResource(base.GetResourcePath("fw9_18.tif"), "fw9_18.tif");
             ImageInput input = new ImageInput(resource);
             input.RightMargin = 50;
             input.BottomMargin = 50;
@@ -76,17 +66,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }

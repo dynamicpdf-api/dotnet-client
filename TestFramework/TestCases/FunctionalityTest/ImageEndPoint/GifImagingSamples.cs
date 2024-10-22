@@ -19,26 +19,34 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 return InputSampleType.Imaging;
             }
         }
+        public PdfImage getPdfImage(string inputFile, DitheringAlgorithm ditheringAlgorithm = DitheringAlgorithm.None)
+        {
+            PdfImage pdfImage = new PdfImage(new PdfResource(inputFile));
+            GifImageFormat gifImageFormat = new GifImageFormat();
+            pdfImage.ImageFormat = gifImageFormat;
+
+            if (ditheringAlgorithm!=DitheringAlgorithm.None)
+                gifImageFormat.DitheringAlgorithm = ditheringAlgorithm;
+
+            return pdfImage;
+        }
 
         [TestMethod]
         public void TestGifImageFormat()
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
-
+            
             if (response.IsSuccessful)
             {
                 for (int i = 0; i < response.Images.Count; i++)
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -48,10 +56,8 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentA.pdf"));
             pdfImage.PageCount = 2;
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -62,7 +68,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_WithPageCount_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -72,15 +77,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Point;
             fixedImageSize.Width = 500;
             fixedImageSize.Height = 500;
             pdfImage.ImageSize = fixedImageSize;
-
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -91,7 +93,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Fixed_Point_Size_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -101,15 +102,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Inch;
             fixedImageSize.Width = 5;
             fixedImageSize.Height = 5;
             pdfImage.ImageSize = fixedImageSize;
-
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -120,7 +118,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Fixed_Inch_Size_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -130,15 +127,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Millimeter;
             fixedImageSize.Width = 200;
             fixedImageSize.Height = 200;
             pdfImage.ImageSize = fixedImageSize;
-
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -149,7 +143,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Fixed_Millimeter_Size_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -159,15 +152,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Point;
             maxImageSize.MaxWidth = 500;
             maxImageSize.MaxHeight = 500;
             pdfImage.ImageSize = maxImageSize;
-
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -178,7 +168,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Max_Point_Size_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -188,15 +177,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Inch;
             maxImageSize.MaxWidth = 7;
             maxImageSize.MaxHeight = 7;
             pdfImage.ImageSize = maxImageSize;
-
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -207,7 +193,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Max_Inch_Size_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -217,15 +202,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Millimeter;
             maxImageSize.MaxWidth = 400;
             maxImageSize.MaxHeight = 400;
             pdfImage.ImageSize = maxImageSize;
-
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -236,7 +218,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Max_Millimeter_Size_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -246,12 +227,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             DpiImageSize dpiImageSize = new DpiImageSize();
             dpiImageSize.HorizontalDpi = 155;
             dpiImageSize.VerticalDpi = 155;
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
             pdfImage.ImageSize = dpiImageSize;
 
             PdfImageResponse response = pdfImage.Process();
@@ -263,7 +242,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Dpi_ImageSize_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -273,12 +251,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             PercentageImageSize percentageImageSize = new PercentageImageSize();
             percentageImageSize.VerticalPercentage = 50;
             percentageImageSize.HorizontalPercentage = 50;
-            GifImageFormat GifImageFormat = new GifImageFormat();
-            pdfImage.ImageFormat = GifImageFormat;
             pdfImage.ImageSize = percentageImageSize;
 
             PdfImageResponse response = pdfImage.Process();
@@ -290,7 +266,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Percentage_ImageSize_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -300,21 +275,16 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "GifImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            GifImageFormat gifImageFormat = new GifImageFormat();
-            gifImageFormat.DitheringAlgorithm = DitheringAlgorithm.FloydSteinberg;
-            pdfImage.ImageFormat = gifImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), DitheringAlgorithm.FloydSteinberg);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
-
             if (response.IsSuccessful)
             {
                 for (int i = 0; i < response.Images.Count; i++)
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Floyd_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);
@@ -323,22 +293,17 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         public void TestGifImageFormat_Bayer()
         {
             Name = "GifImageFormat";
-
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            GifImageFormat gifImageFormat = new GifImageFormat();
-            gifImageFormat.DitheringAlgorithm = DitheringAlgorithm.Bayer;
-            pdfImage.ImageFormat = gifImageFormat;
+            
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), DitheringAlgorithm.Bayer);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
-
             if (response.IsSuccessful)
             {
                 for (int i = 0; i < response.Images.Count; i++)
                 {
                     File.WriteAllBytes(base.GetOutputFilePath($"GifImageFormat_Bayer_{i}.{response.ImageFormat}", InputSampleType), Convert.FromBase64String(response.Images[i].Data));
                 }
-
                 pass = response.IsSuccessful;
             }
             Assert.IsTrue(pass);

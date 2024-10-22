@@ -16,20 +16,25 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
                 return InputSampleType.Outline;
             }
         }
-
-        [TestMethod]
-        public void PdfInputUsingFilePath_Outline_GotoAction_Pdfoutput()
+        public Pdf pdfObj()
         {
-            Name = "OutlineGoToAction";
             Pdf pdf = new Pdf();
             pdf.Author = Author;
             pdf.Title = Title;
 
-            PdfResource resource = new PdfResource(base.GetResourcePath("EmptyPages.pdf"));
+            return pdf;
+        }
+        [TestMethod]
+        public void PdfInputUsingFilePath_Outline_GotoAction_Pdfoutput()
+        {
+            Name = "OutlineGoToAction";
+            Pdf pdf = pdfObj();
+
+            PdfResource resource = new PdfResource(base.GetResourcePath("EmptyPages.pdf"), "EmptyPages.pdf");
             PdfInput input = new PdfInput(resource);
             pdf.Inputs.Add(input);
 
-            PdfResource resource1 = new PdfResource(base.GetResourcePath("SinglePage.pdf"));
+            PdfResource resource1 = new PdfResource(base.GetResourcePath("SinglePage.pdf"), "SinglePage.pdf");
             PdfInput input1 = new PdfInput(resource1);
             pdf.Inputs.Add(input1);
 
@@ -50,17 +55,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
@@ -69,11 +64,9 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         public void PdfInputUsingFilePath_Outline_urlaction_Pdfoutput()
         {
             Name = "OutlineUrlAction";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
+            Pdf pdf = pdfObj();
 
-            PdfResource resource = new PdfResource(base.GetResourcePath("EmptyPages.pdf"));
+            PdfResource resource = new PdfResource(base.GetResourcePath("EmptyPages.pdf"), "EmptyPages.pdf");
             PdfInput input = new PdfInput(resource);
 
             pdf.Inputs.Add(input);
@@ -92,17 +85,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
 
@@ -111,10 +94,8 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         [TestMethod]
         public void AddOutlinesForNewPdf()
         {
-            Name = "TextElement";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
+            Name = "OutlinesForNewPdf";
+            Pdf pdf = pdfObj();
 
             PageInput pageInput = pdf.AddPage();
             TextElement element = new TextElement("Hello World 1", ElementPlacement.TopCenter);
@@ -141,17 +122,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
@@ -159,16 +130,14 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         [TestMethod]
         public void AddOutlinesForExsistingPdf()
         {
-            Name = "MergePdfs";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
+            Name = "OutlinesForExsistingPdf";
+            Pdf pdf = pdfObj();
 
-            PdfResource resource1 = new PdfResource(base.GetResourcePath("DocumentA100.pdf"));
+            PdfResource resource1 = new PdfResource(base.GetResourcePath("DocumentA100.pdf"), "DocumentA100.pdf");
             PdfInput input1 = pdf.AddPdf(resource1);
             input1.Id = "document2";
 
-            PdfResource resource2 = new PdfResource(base.GetResourcePath("InvoiceTemplate.pdf"));
+            PdfResource resource2 = new PdfResource(base.GetResourcePath("InvoiceTemplate.pdf"), "InvoiceTemplate.pdf");
             PdfInput input2 = pdf.AddPdf(resource2);
             input2.Id = "invoice";
 
@@ -185,17 +154,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
@@ -204,16 +163,14 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         public void MergeExsistingOutlinesWithRootoutline()
         {
             Name = "ImportOutlines";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
+            Pdf pdf = pdfObj();
 
-            PdfResource resource = new PdfResource(base.GetResourcePath("AllPageElements.pdf"));
+            PdfResource resource = new PdfResource(base.GetResourcePath("AllPageElements.pdf"), "AllPageElements.pdf");
             PdfInput input = pdf.AddPdf(resource);
             input.Id = "AllPageElements";
             pdf.Inputs.Add(input);
 
-            PdfResource resource1 = new PdfResource(base.GetResourcePath("PdfOutlineInput.pdf"));
+            PdfResource resource1 = new PdfResource(base.GetResourcePath("PdfOutlineInput.pdf"), "PdfOutlineInput.pdf");
             PdfInput input1 = pdf.AddPdf(resource1);
             input1.Id = "outlineDoc1";
             pdf.Inputs.Add(input1);
@@ -230,17 +187,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }

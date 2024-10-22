@@ -15,36 +15,79 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
                 return InputSampleType.Dlex;
             }
         }
+        public Pdf pdfObj(DlexResource dlex, LayoutDataResource layoutData, Template template)
+        {
+            Pdf pdf = new Pdf();
+            string apiKey = pdf.BaseUrl;
+            pdf.Author = Author;
+            pdf.Title = Title;
+
+            DlexInput input = pdf.AddDlex(dlex, layoutData);
+            if (template != null)
+            {
+                input.Template = template;
+                pdf.Inputs.Add(input);
+            }
+
+            return pdf;
+        }
 
         [TestMethod]
         public void SimpleDlex_Pdfoutput()
         {
             Name = "SimpleDlex_Pdfoutput";
-            
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
 
-            DlexResource dlex = new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"));
-            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"));
-            DlexInput input = pdf.AddDlex(dlex, layoutData);
+            Pdf pdf = pdfObj(new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"), "SimpleReportWithCoverPage.dlex"), new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"), "SimpleReportData.json"), null);
+
             pdf.AddAdditionalResource(base.GetResourcePath("Northwind Logo.gif"));
+
             PdfResponse response = pdf.Process();
             bool pass = false;
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
+                pass = base.getVerify(InputSampleType, response, pdf);
+            }
+            Assert.IsTrue(pass);
+        }
 
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
+        [TestMethod]
+        public void Template_Pdfoutput()
+        {
+            Name = "Template_Pdfoutput";
 
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
+            Template template = new Template("temp1");
+            TextElement textElement = new TextElement("HelloWorld", ElementPlacement.TopRight);
+            textElement.YOffset = -40;
+            template.Elements.Add(textElement);
 
+            Pdf pdf = pdfObj(new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"), "SimpleReportWithCoverPage.dlex"), new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"), "SimpleReportData.json"), template);
+
+            pdf.AddAdditionalResource(base.GetResourcePath("Northwind Logo.gif"));
+
+            PdfResponse response = pdf.Process();
+            bool pass = false;
+
+            if (response.IsSuccessful)
+            {
+                pass = base.getVerify(InputSampleType, response, pdf);
+            }
+            Assert.IsTrue(pass);
+        }
+
+        [TestMethod]
+        public void ImageURI_Pdfoutput()
+        {
+            Name = "ImageURI_Pdfoutput";
+
+            Pdf pdf = pdfObj(new DlexResource(base.GetResourcePath("dynamic-image.dlex"), "dynamic-image.dlex"), new LayoutDataResource(base.GetResourcePath("ImageData.json"), "ImageData.json"), null);
+
+            PdfResponse response = pdf.Process();
+            bool pass = false;
+
+            if (response.IsSuccessful)
+            {
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
@@ -55,12 +98,14 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Name = "SimpleDlex_CloudData";
 
             Pdf pdf = new Pdf();
+            string apiKey = pdf.BaseUrl;
             pdf.Author = Author;
             pdf.Title = Title;
 
             string jsonString = File.ReadAllText(base.GetResourcePath("SimpleReportData.json"));
 
             DlexInput input = new DlexInput("TFWResources/SimpleReportWithCoverPage.dlex", jsonString);
+            input.LayoutDataResourceName = "SimpleReportData.json";
             pdf.Inputs.Add(input);
 
             PdfResponse response = pdf.Process();
@@ -68,93 +113,11 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             if (response.IsSuccessful)
             {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
         }
 
-        [TestMethod]
-        public void Template_Pdfoutput()
-        {
-            Name = "Template_Pdfoutput";
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
-
-            DlexResource dlex = new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"));
-            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"));
-            DlexInput input = new DlexInput(dlex, layoutData);
-            pdf.AddAdditionalResource(base.GetResourcePath("Northwind Logo.gif"));
-            Template template = new Template("temp1");
-            TextElement textElement = new TextElement("HelloWorld", ElementPlacement.TopRight);
-            textElement.YOffset = -40;
-            template.Elements.Add(textElement);
-            input.Template = template;
-
-            pdf.Inputs.Add(input);
-
-            PdfResponse response = pdf.Process();
-
-            bool pass = false;
-
-            if (response.IsSuccessful)
-            {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
-            }
-            Assert.IsTrue(pass);
-        }
-
-        [TestMethod]
-        public void ImageURI_Pdfoutput()
-        {
-            Name = "ImageURI_Pdfoutput";
-
-            Pdf pdf = new Pdf();
-            pdf.Author = Author;
-            pdf.Title = Title;
-
-            DlexResource dlex = new DlexResource(base.GetResourcePath("dynamic-image.dlex"));
-            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("ImageData.json"));
-            DlexInput input = pdf.AddDlex(dlex, layoutData);
-           
-            PdfResponse response = pdf.Process();
-            bool pass = false;
-
-            if (response.IsSuccessful)
-            {
-                File.WriteAllBytes(base.GetOutputFilePath("Output.pdf", InputSampleType), (byte[])response.Content);
-
-#if BASELINEREQUIRED
-                // Uncomment the line below to recreate the Input PNG Images
-                base.CreateInputPngsFromOutputPdf(72, InputSampleType);
-
-                pass = base.CompareOutputPdfToInputPngs(72, InputSampleType);
-#else
-                pass = response.IsSuccessful;
-#endif
-
-            }
-            Assert.IsTrue(pass);
-        }
+        
     }
 }

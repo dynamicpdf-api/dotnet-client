@@ -1,5 +1,6 @@
 ﻿using DynamicPDF.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 {
@@ -20,7 +21,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             Name = "WordToPdf";
             Pdf pdf = new Pdf();
 
-            WordResource wordResource = new WordResource(base.GetResourcePath("Doc1.docx"));
+            WordResource wordResource = new WordResource(base.GetResourcePath("Doc1.docx"), "Doc1.docx");
             WordInput word = new WordInput(wordResource);
 
             word.PageWidth = 300;
@@ -38,9 +39,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             bool pass = false;
             if (response.IsSuccessful)
             {
-                System.IO.File.WriteAllBytes(base.GetOutputFilePath("Doc1.pdf", InputSampleType), (byte[])response.Content);
-
-                pass = response.IsSuccessful;
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
 
@@ -48,10 +47,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         [TestMethod]
         public void WordFileTextReplace_pdfoutput()
         {
-            Name = "WordToPdf";
+            Name = "WordToPdfTextReplace";
             Pdf pdf = new Pdf();
 
-            WordResource wordResource = new WordResource(base.GetResourcePath("Doc1.docx"));
+            WordResource wordResource = new WordResource(base.GetResourcePath("Doc1.docx"), "Doc1.docx");
             WordInput word = new WordInput(wordResource);
 
             word.PageWidth = 300;
@@ -69,9 +68,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             bool pass = false;
             if (response.IsSuccessful)
             {
-                System.IO.File.WriteAllBytes(base.GetOutputFilePath("Doc1TextReplace.pdf", InputSampleType), (byte[])response.Content);
-
-                pass = response.IsSuccessful;
+                pass = base.getVerify(InputSampleType, response, pdf);
             }
             Assert.IsTrue(pass);
 

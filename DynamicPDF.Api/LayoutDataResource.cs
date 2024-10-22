@@ -24,7 +24,7 @@ namespace DynamicPDF.Api
             });
 
             Data = Encoding.UTF8.GetBytes(jsonText);
-            if (LayoutDataResourceName == null)
+            if (layoutDataResourceName == null)
                 LayoutDataResourceName = Guid.NewGuid().ToString() + ".json";
             else
                 LayoutDataResourceName = layoutDataResourceName;
@@ -46,7 +46,7 @@ namespace DynamicPDF.Api
             {
                 Data = Encoding.UTF8.GetBytes(layoutData);
             }
-            if (LayoutDataResourceName == null)
+            if (layoutDataResourceName == null)
                 LayoutDataResourceName = Guid.NewGuid().ToString() + ".json";
             else
                 LayoutDataResourceName = layoutDataResourceName;

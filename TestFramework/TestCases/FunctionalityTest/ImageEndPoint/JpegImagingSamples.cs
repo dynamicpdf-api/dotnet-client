@@ -19,15 +19,23 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
                 return InputSampleType.Imaging;
             }
         }
+        public PdfImage getPdfImage(string inputFile, int quality = 100)
+        {
+            PdfImage pdfImage = new PdfImage(new PdfResource(inputFile));
+            JpegImageFormat jpegImageFormat = new JpegImageFormat();
+            pdfImage.ImageFormat = jpegImageFormat;
+
+            jpegImageFormat.Quality = quality;
+
+            return pdfImage;
+        }
 
         [TestMethod]
         public void TestJpegImageFormat()
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -48,10 +56,8 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentA.pdf"));
             pdfImage.PageCount = 2;
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -72,15 +78,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Point;
             fixedImageSize.Width = 500;
             fixedImageSize.Height = 500;
             pdfImage.ImageSize = fixedImageSize;
-
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -101,15 +104,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Inch;
             fixedImageSize.Width = 5;
             fixedImageSize.Height = 5;
             pdfImage.ImageSize = fixedImageSize;
-
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -130,15 +130,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             FixedImageSize fixedImageSize = new FixedImageSize();
             fixedImageSize.Unit = ImageSizeUnit.Millimeter;
             fixedImageSize.Width = 200;
             fixedImageSize.Height = 200;
             pdfImage.ImageSize = fixedImageSize;
-
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -159,15 +156,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Point;
             maxImageSize.MaxWidth = 500;
             maxImageSize.MaxHeight = 500;
             pdfImage.ImageSize = maxImageSize;
-
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -188,15 +182,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Inch;
             maxImageSize.MaxWidth = 7;
             maxImageSize.MaxHeight = 7;
             pdfImage.ImageSize = maxImageSize;
-
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -217,15 +208,12 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             MaxImageSize maxImageSize = new MaxImageSize();
             maxImageSize.Unit = ImageSizeUnit.Millimeter;
             maxImageSize.MaxWidth = 400;
             maxImageSize.MaxHeight = 400;
             pdfImage.ImageSize = maxImageSize;
-
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
@@ -246,12 +234,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             DpiImageSize dpiImageSize = new DpiImageSize();
             dpiImageSize.HorizontalDpi = 155;
             dpiImageSize.VerticalDpi = 155;
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
             pdfImage.ImageSize = dpiImageSize;
 
             PdfImageResponse response = pdfImage.Process();
@@ -273,12 +259,10 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"));
             PercentageImageSize percentageImageSize = new PercentageImageSize();
             percentageImageSize.VerticalPercentage = 50;
             percentageImageSize.HorizontalPercentage = 50;
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            pdfImage.ImageFormat = jpegImageFormat;
             pdfImage.ImageSize = percentageImageSize;
 
             PdfImageResponse response = pdfImage.Process();
@@ -300,10 +284,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfImageEndPoint
         {
             Name = "JpegImageFormat";
 
-            PdfImage pdfImage = new PdfImage(new PdfResource(base.GetResourcePath("DocumentA.pdf")));
-            JpegImageFormat jpegImageFormat = new JpegImageFormat();
-            jpegImageFormat.Quality = 10;
-            pdfImage.ImageFormat = jpegImageFormat;
+            PdfImage pdfImage = getPdfImage(base.GetResourcePath("DocumentSinglePage.pdf"), 10);
 
             PdfImageResponse response = pdfImage.Process();
             bool pass = false;
