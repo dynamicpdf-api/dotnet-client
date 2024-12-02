@@ -1,1 +1,13 @@
-{"author":"ceTe Software","tag":false,"title":"First Rest API","inputs":[{"type":"dlex","layoutDataResourceName":"ImageData.json","resourceName":"dynamic-image.dlex","id":"ecce3abf-a981-4f43-b431-472f69ad0dbb"}]}
+{
+  "author": "ceTe Software",
+  "tag": false,
+  "title": "First Rest API",
+  "inputs": [
+    {
+      "type": "dlex",
+      "layoutDataResourceName": "ImageData.json",
+      "resourceName": "dynamic-image.dlex",
+      "id": "821a12a5-fe83-4243-b780-c139984dda29"
+    }
+  ]
+}

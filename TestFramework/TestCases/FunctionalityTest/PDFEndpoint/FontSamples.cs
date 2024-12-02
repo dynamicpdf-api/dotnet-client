@@ -118,6 +118,5 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             }
             Assert.IsTrue(pass);
         }
-        
     }
 }

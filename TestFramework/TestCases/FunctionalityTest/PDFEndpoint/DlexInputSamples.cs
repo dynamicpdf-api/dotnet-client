@@ -56,16 +56,27 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         {
             Name = "Template_Pdfoutput";
 
-            Template template = new Template("temp1");
-            TextElement textElement = new TextElement("HelloWorld", ElementPlacement.TopRight);
-            textElement.YOffset = -40;
-            template.Elements.Add(textElement);
+            Pdf pdf = new Pdf();
+            pdf.Author = Author;
+            pdf.Title = Title;
 
-            Pdf pdf = pdfObj(new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"), "SimpleReportWithCoverPage.dlex"), new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"), "SimpleReportData.json"), template);
+            DlexResource dlex = new DlexResource(base.GetResourcePath("SimpleReportWithCoverPage.dlex"), "SimpleReportWithCoverPage.dlex");
+            LayoutDataResource layoutData = new LayoutDataResource(base.GetResourcePath("SimpleReportData.json"), "SimpleReportData.json");
+            DlexInput input = new DlexInput(dlex, layoutData);
 
             pdf.AddAdditionalResource(base.GetResourcePath("Northwind Logo.gif"));
 
+            Template template = new Template("temp1");
+            TextElement textElement = new TextElement("HelloWorld", ElementPlacement.TopRight);
+            textElement.YOffset = -40;
+
+            template.Elements.Add(textElement);
+            input.Template = template;
+
+            pdf.Inputs.Add(input);
+
             PdfResponse response = pdf.Process();
+
             bool pass = false;
 
             if (response.IsSuccessful)
@@ -117,7 +128,5 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             }
             Assert.IsTrue(pass);
         }
-
-        
     }
 }

@@ -1,4 +1,7 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 
 namespace DynamicPDF.Api
@@ -69,11 +72,20 @@ namespace DynamicPDF.Api
                 }
                 else
                 {
+                    if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        throw new EndpointException("Invalid api key specified.");
+                    }
                     response = new PdfTextResponse();
-                    string output = restResponse.Content;
+                    string errorMessage = string.Empty;
+                    string errorId = string.Empty;
+                    var errorJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(restResponse.Content);
+                    errorJson.TryGetValue("message", out errorMessage);
+                    errorJson.TryGetValue("id", out errorId);
+                    if (errorId != string.Empty)
+                        response.ErrorId = new Guid(errorId);
                     response.ErrorJson = restResponse.Content;
-                    response.ErrorId = response.ErrorId;
-                    response.ErrorMessage = restResponse.ErrorMessage;
+                    response.ErrorMessage = errorMessage;
                     response.IsSuccessful = false;
                     response.StatusCode = restResponse.StatusCode;
                 }

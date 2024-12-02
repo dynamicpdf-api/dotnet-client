@@ -14,7 +14,7 @@
       <recordBox id="RecordBox5" x="203" y="22" width="100" height="14" align="right" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" rightToLeft="false" splittable="false" dataName="quantity"/>
       <recordBox id="RecordBox6" x="307" y="23" width="100" height="14" align="right" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" rightToLeft="false" splittable="false" dataName="price" dataFormat="$###.#0"/>
       <recordBox id="RecordBox7" x="410" y="23" width="100" height="14" align="right" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" rightToLeft="false" splittable="false" dataName="quantity * price" dataFormat="$###.#0"/>
-      <image id="Image2" x="36" y="39" width="100" height="30" path="https://via.placeholder.com/120x120&amp;amp;text=#DataName#" dynamicPath="true"/>
+      <image id="Image2" x="36" y="39" width="100" height="30" path="https://dummyimage.com/120x120/fff/aaa?text=#DataName#" dynamicPath="true"/>
     </detail>
     <footer id="Footer1" height="16">
       <recordBox id="RecordBox8" x="410" y="1" width="100" height="14" align="right" underline="false" autoLeading="true" cleanParagraphBreaks="true" expandable="false" rightToLeft="false" splittable="false" dataName="sum(quantity * price)" dataFormat="$###.#0"/>
