@@ -8,6 +8,10 @@ namespace DynamicPDF.Api
     /// </summary>
     public class PdfTextResponse : JsonResponse
     {
+        JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented
+        };
         /// <summary>
         /// Initializes a new instance of the <see cref="PdfTextResponse"/> class.
         /// </summary>
@@ -19,7 +23,7 @@ namespace DynamicPDF.Api
         /// <param name="jsonContent">The json content</param>
         public PdfTextResponse(string jsonContent) : base(jsonContent)
         {
-            Content = JsonConvert.DeserializeObject<List<PdfContent>>(base.JsonContent);
+            Content = JsonConvert.DeserializeObject<List<PdfContent>>(base.JsonContent, settings);
         }
 
         /// <summary>

@@ -19,11 +19,13 @@ namespace DynamicPDF.Api
         /// <param name="resource">The image resource of type <see cref="PdfResource"/>.</param>
         /// <param name="startPage">The start page.</param>
         /// <param name="pageCount">The page count.</param>
-        public PdfText(PdfResource resource, int startPage = 1, int pageCount = 0)
+        /// <param name="textOrder">The text extraction order.</param>
+        public PdfText(PdfResource resource, int startPage = 1, int pageCount = 0, TextOrder textOrder = TextOrder.Stream)
         {
             this.resource = resource;
             StartPage = startPage;
             PageCount = pageCount;
+            TextOrder = textOrder;
         }
 
         internal override string EndpointName { get; } = "pdf-text";
@@ -37,6 +39,11 @@ namespace DynamicPDF.Api
         /// Gets or sets the page count.
         /// </summary>
         public int PageCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text extraction order.
+        /// </summary>
+        public TextOrder TextOrder { get; set; }
 
         /// <summary>
         /// Process the pdf resource to get pdf's text.
@@ -63,6 +70,7 @@ namespace DynamicPDF.Api
                 request.AddParameter("", resource.Data, "application/pdf", ParameterType.RequestBody);
                 request.AddQueryParameter("StartPage", StartPage.ToString());
                 request.AddQueryParameter("PageCount", PageCount.ToString());
+                request.AddQueryParameter("TextOrder", TextOrder.ToString());
                 IRestResponse restResponse = restClient.Post(request);
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {

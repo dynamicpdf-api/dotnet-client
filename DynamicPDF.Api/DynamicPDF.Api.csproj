@@ -7,7 +7,7 @@
     <Company>ceTe Software</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>A DynamicPDF API to create and manipulate PDF documents and reports.</Description>
-    <Copyright>© 2024 ceTe Software</Copyright>
+    <Copyright>© 2025 ceTe Software</Copyright>
     <PackageProjectUrl>https://github.com/dynamicpdf-api/dotnet-client</PackageProjectUrl>
     <AssemblyVersion>1.2.0.45360</AssemblyVersion>
     <FileVersion>1.2.0.45360</FileVersion>

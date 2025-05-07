@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Drawing;
@@ -140,7 +141,13 @@ namespace DynamicPDFApiTestForNET.TestCases
                     break;
 
                 case PdfTextResponse pdfTextResponse:
-                    File.WriteAllText(outputJsonFile, pdfTextResponse.JsonContent);
+                    if (Name == "Visible" || Name == "Stream" || Name == "VisibleExtraSpace")
+                    {
+                        List<PdfContent> Content = ((PdfTextResponse)response).Content;
+                        File.WriteAllText(outputJsonFile, Content[0].Text);
+                    }
+                    else
+                        File.WriteAllText(outputJsonFile, pdfTextResponse.JsonContent);
                     break;
 
                 case PdfInfoResponse pdfInfoResponse:

@@ -1,5 +1,7 @@
 ﻿using DynamicPDF.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 
 namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfTextEndPoint
@@ -66,7 +68,54 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PdfTextEndPoint
                 pass = base.getVerify(InputSampleType, response);
             }
             Assert.IsTrue(pass);
-        } 
+        }
 
+        [TestMethod]
+        public void TextExtractionWithStream()
+        {
+            Name = "Stream";
+            PdfResource resource = new PdfResource(base.GetResourcePath("HARDWARE_SPEC_2025-04-23a.pdf"));
+
+            PdfText text = new PdfText(resource, 2, 1);
+            text.TextOrder = TextOrder.Stream;
+            PdfTextResponse response = text.Process();
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                pass = base.getVerify(InputSampleType, response);
+            }
+        }
+
+        [TestMethod]
+        public void TextExtractionWithVisible()
+        {
+            Name = "Visible";
+            PdfResource resource = new PdfResource(base.GetResourcePath("HARDWARE_SPEC_2025-04-23a.pdf"));
+
+            PdfText text = new PdfText(resource, 2, 1);
+            text.TextOrder = TextOrder.Visible;
+            PdfTextResponse response = text.Process();
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                pass = base.getVerify(InputSampleType, response);
+            }
+        }
+
+        [TestMethod]
+        public void TextExtractionWithVisibleExtraSpace()
+        {
+            Name = "VisibleExtraSpace";
+            PdfResource resource = new PdfResource(base.GetResourcePath("HARDWARE_SPEC_2025-04-23a.pdf"));
+
+            PdfText text = new PdfText(resource, 2, 1);
+            text.TextOrder = TextOrder.VisibleExtraSpace;
+            PdfTextResponse response = text.Process();
+            bool pass = false;
+            if (response.IsSuccessful)
+            {
+                pass = base.getVerify(InputSampleType, response);
+            }
+        }
     }
 }
