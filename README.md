@@ -2,7 +2,9 @@
 
 # C# .NET Client Library (`dotnet-client`)
 
-The C# .NET Client library (`dotnet-client`) uses the DynamicPDF API .NET client library to create, merge, split, form fill, stamp, obtain metadata, convert, and secure/encrypt PDF documents. The website for this project is available at [https://dpdf.io](https://dpdf.io/).
+The C# .NET Client library (`dotnet-client`) is the official .NET client library for calling the DynamicPDF Cloud API. Use it to generate, convert, merge, and inspect PDF documents in your .NET applications via high-level objects rather than working directly with raw HTTP.
+
+The library uses the DynamicPDF API .NET client library to create, merge, split, form fill, stamp, obtain metadata, convert, and secure/encrypt PDF documents. The website for this project is available at [https://dpdf.io](https://dpdf.io/).
 
 The DynamicPDF API consists of the following endpoints.
 
