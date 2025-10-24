@@ -118,5 +118,34 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             }
             Assert.IsTrue(pass);
         }
+
+        [TestMethod]
+        public void PageInput_FontFromSystem_Pdfoutput()
+        {
+            Name = "FontFromSystemSample";
+
+            Pdf pdf = new Pdf();
+            pdf.Author = Author;
+            pdf.Title = Title;
+
+            PageInput pageInput = new PageInput();
+            TextElement element = new TextElement("Monotype Corsiva", ElementPlacement.TopCenter);
+            Font font = Font.FromSystem("Monotype Corsiva");
+          
+            element.Font = font;
+            pageInput.Elements.Add(element);
+
+            pdf.Inputs.Add(pageInput);
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+
+            if (response.IsSuccessful)
+            {
+                pass = base.getVerify(InputSampleType, response, pdf);
+            }
+
+            Assert.IsTrue(pass);
+        }
     }
 }

@@ -36,8 +36,14 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             pageInput.Elements.Add(textElement);
             pdf.Inputs.Add(pageInput);
 
-            ImageResource img = new ImageResource(base.GetResourcePath("Northwind Logo.gif"), "northwind logo.gif");
-            pdf.Resources.Add(img);
+            PageInput pageInput1 = new PageInput();
+            ImageResource img = new ImageResource(base.GetResourcePath("DocumentA.jpeg"), "DocumentA.jpeg");
+            ImageElement element = new ImageElement(img, ElementPlacement.TopCenter);
+            element.XOffset = 50;
+            element.YOffset = 50;
+            pageInput1.Elements.Add(element);
+            pdf.Inputs.Add(pageInput1);
+
             string jsonString = File.ReadAllText(base.GetResourcePath("SimpleReportData.json"));
             DlexInput dlexInput = new DlexInput("TFWResources/SimpleReportWithCoverPage.dlex", jsonString);
             dlexInput.LayoutDataResourceName = "SimpleReportData.json";

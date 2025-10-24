@@ -54,6 +54,10 @@ namespace DynamicPDFApiTestForNET.TestCases
                     PdfImage.DefaultApiKey = "ApiKey";
                     PdfImage.DefaultBaseUrl = "https://api.dynamicpdf.com";
                     break;
+                case InputSampleType.PdfSecurityInfo:
+                    PdfInfo.DefaultApiKey = "ApiKey";
+                    PdfInfo.DefaultBaseUrl = "https://api.dynamicpdf.com";
+                    break;
                 default:
                     Pdf.DefaultApiKey = "ApiKey";
                     Pdf.DefaultBaseUrl = "https://api.dynamicpdf.com";
@@ -153,7 +157,9 @@ namespace DynamicPDFApiTestForNET.TestCases
                 case PdfInfoResponse pdfInfoResponse:
                     File.WriteAllText(outputXmlFile, pdfInfoResponse.JsonContent);
                     break;
-
+                case PdfSecurityInfoResponse pdfSecurityInfoResponse:
+                    File.WriteAllText(outputJsonFile, pdfSecurityInfoResponse.JsonContent);
+                    break;
                 case XmlResponse xmlResponse:
                     File.WriteAllText(outputXmlFile, xmlResponse.Content);
                     baselineJsonFile = baselineXmlFile;
@@ -307,6 +313,9 @@ namespace DynamicPDFApiTestForNET.TestCases
                 case InputSampleType.Imaging:
                     filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\ImageEndpoint", Name));
                     break;
+                case InputSampleType.PdfSecurityInfo:
+                    filePath = Path.Combine(rootPath, Path.Combine("FunctionalityTest\\PdfSecurityInfoEndpoint", Name));
+                    break;
             }
             if (!Directory.Exists(filePath))
             {
@@ -348,6 +357,7 @@ namespace DynamicPDFApiTestForNET.TestCases
         Html,
         Word,
         Excel,
-        Imaging
+        Imaging,
+        PdfSecurityInfo
     }
 }
