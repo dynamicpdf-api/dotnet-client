@@ -22,14 +22,14 @@ namespace DynamicPDF.Api
             {
                 switch(EncryptionTypeString)
                 {
-                    case "Rc440":
+                    case "rc4-40":
                         return EncryptionType.RC440;
-                    case "Rc4128":
+                    case "rc4-128":
                         return EncryptionType.RC4128;
-                    case "Aes128":
-                        return EncryptionType.Aes128;
-                    case "Aes256":
-                        return EncryptionType.Aes256;
+                    case "aes-128-cbc":
+                        return EncryptionType.Aes128Cbc;
+                    case "aes-256-cbc":
+                        return EncryptionType.Aes256Cbc;
                     default:
                         return EncryptionType.None;
                 }

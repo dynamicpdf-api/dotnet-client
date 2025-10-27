@@ -12,6 +12,7 @@ namespace DynamicPDF.Api
     /// with Adobe Acrobat Reader version 5 or higher. By default UseCryptFilter property is false. RC4 128 bit PDF security with crypt filter 
     /// is compatible with PDF version 1.5 or higher and can be read with Adobe Acrobat Reader version 6 and higher. 
     /// Older readers will not be able to read document encrypted with this security.
+    /// </remarks>
     public class RC4128Security : Security
     {
         /// <summary>

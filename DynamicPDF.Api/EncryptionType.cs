@@ -17,14 +17,14 @@
         RC4128,
 
         /// <summary>
-        /// AES 128 bit security.
+        /// AES 128 bit security with CBC cipher mode.
         /// </summary>
-        Aes128,
+        Aes128Cbc,
 
         /// <summary>
-        /// AES 256 bit security.
+        /// AES 256 bit security with CBC cipher mode.
         /// </summary>
-        Aes256,
+        Aes256Cbc,
 
         /// <summary>
         /// No security.

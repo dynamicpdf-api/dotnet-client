@@ -7,7 +7,7 @@ namespace DynamicPDF.Api
     /// </summary>
     public class EndpointException : Exception
     {
-        // <summary>
+        /// <summary>
         /// Initializes a new instance of the <see cref="EndpointException"/> class.
         /// </summary>
         public EndpointException(string message) : base(message) { }
