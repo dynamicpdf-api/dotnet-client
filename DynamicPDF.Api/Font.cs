@@ -61,7 +61,7 @@ namespace DynamicPDF.Api
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
                     string linuxDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                    string[] linuxPaths = { "/usr/share/fonts/truetype/dejavu", "/usr/local/share/fonts", Path.Combine(linuxDir, ".fonts"), Path.Combine(linuxDir, ".local/share/fonts") };
+                    string[] linuxPaths = { "/usr/share/fonts", "/usr/local/share/fonts", Path.Combine(linuxDir, ".fonts"), Path.Combine(linuxDir, ".local/share/fonts") };
                     foreach (var path in linuxPaths)
                     {
                         if (Directory.Exists(path))
