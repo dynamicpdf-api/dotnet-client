@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.InteropServices;
 
 namespace DynamicPDF.Api
 {
@@ -37,14 +38,44 @@ namespace DynamicPDF.Api
 
             try
             {
-                string windDir = Environment.GetEnvironmentVariable("WINDIR");
-                if (windDir != null && windDir.Length > 0)
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    pathToFontsResourceDirectory = System.IO.Path.Combine(windDir, "Fonts");
+                    string winDir = Environment.GetEnvironmentVariable("WINDIR");
+                    string winPaths = Path.Combine(winDir, "Fonts");
+                    if (Directory.Exists(winPaths))
+                        pathToFontsResourceDirectory = winPaths;
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    string macDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                    string[] macPaths = { "/System/Library/Fonts/", "/Library/Fonts", Path.Combine(macDir, "Library", "Fonts") };
+                    foreach (var path in macPaths)
+                    {
+                        if (Directory.Exists(path))
+                        {
+                            pathToFontsResourceDirectory = path;
+                            break;
+                        }
+                    }
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    string linuxDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                    string[] linuxPaths = { "/usr/share/fonts/truetype/dejavu", "/usr/local/share/fonts", Path.Combine(linuxDir, ".fonts"), Path.Combine(linuxDir, ".local/share/fonts") };
+                    foreach (var path in linuxPaths)
+                    {
+                        if (Directory.Exists(path))
+                        {
+                            pathToFontsResourceDirectory = path;
+                            break;
+                        }
+                    }
                 }
             }
-            catch (Exception)
-            { }
+            catch
+            {
+                pathToFontsResourceDirectory = null;
+            }
         }
 
         internal Font() { }

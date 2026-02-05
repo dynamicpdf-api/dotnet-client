@@ -41,7 +41,9 @@ namespace DynamicPDF.Api.Elements
         /// <summary>
         /// Gets or sets the value of the barcode.
         /// </summary>
-        public string Value
+        
+        [JsonProperty("Value")]
+        internal string Value
         {
             get
             {

@@ -45,6 +45,29 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
         }
 
         [TestMethod]
+        public void PageInput_PageDimensions_Pdfoutput()
+        {
+            Name = "PageDimensions";
+            Pdf pdf = new Pdf();
+            pdf.Author = Author;
+            pdf.Title = Title;
+
+            PageInput pageInput = pdf.AddPage(PageSize.Postcard, PageOrientation.Landscape, 25f);
+            TextElement element = new TextElement("Hello World", ElementPlacement.TopCenter);
+            pageInput.Elements.Add(element);
+
+            PdfResponse response = pdf.Process();
+
+            bool pass = false;
+
+            if (response.IsSuccessful)
+            {
+                pass = base.getVerify(InputSampleType, response, pdf);
+            }
+            Assert.IsTrue(pass);
+        }
+
+        [TestMethod]
         public void PageInput_TextElementAddedToPageAndTemplate_Pdfoutput()
         {
             Name = "TextElementAddedToPageAndTemplate";

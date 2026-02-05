@@ -53,7 +53,6 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
             element.AztecErrorCorrection = 30;
             element.ProcessTilde = true;
             element.ReaderInitializationSymbol = true;
-            element.Value = "test123";
             element.XOffset = -100;
             element.YOffset = -100;
             

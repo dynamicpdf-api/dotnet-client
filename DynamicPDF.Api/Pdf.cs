@@ -370,13 +370,15 @@ namespace DynamicPDF.Api
             this.Inputs.Add(input);
             return input;
         }
-
         /// <summary>
         /// Returns a <see cref="PageInput"/> object containing the input pdf.
         /// </summary>
-        public PageInput AddPage()
+        /// <param name="size">The size of the page.</param>
+        /// <param name="orientation">The orientation of the page.</param>
+        /// <param name="margins">The margins of the page.</param>
+        public PageInput AddPage(DynamicPDF.Api.PageSize? size = null, DynamicPDF.Api.PageOrientation? orientation = null, float? margins = null)
         {
-            PageInput input = new PageInput();
+            PageInput input = new PageInput(size, orientation, margins);
             this.Inputs.Add(input);
             return input;
         }

@@ -130,7 +130,7 @@ namespace DynamicPDFApiTestForNET.TestCases.FunctionalityTest.PDFEndpoint
 
             PageInput pageInput = new PageInput();
             TextElement element = new TextElement("Monotype Corsiva", ElementPlacement.TopCenter);
-            Font font = Font.FromSystem("Monotype Corsiva");
+            Font font = Font.FromSystem("Monotype Corsiva", "Monotype Corsiva");
           
             element.Font = font;
             pageInput.Elements.Add(element);
